@@ -7,6 +7,8 @@ const baseURL = 'https://payment-api-sandbox.starlingbank.com';
 const privateKeyPath = 'starling-api-private.key';
 const apiKeyUid = 'a005c2a3-d87a-40d7-bf8c-82575c0a570c';
 const paymentBusinessUid = '53f74c7d-c666-422e-a871-b2a03623addd';
+const paymentBusinessUidNotFound = '53f74c7d-c666-422e-a871-b2a03623accc';
+const paymentBusinessUidNotAuthorised = '4389532d-8b5d-44ad-9f69-d2124cb9a603';
 const accountUid = '09dbbfac-50b1-47f3-ac7b-a37d828bd25b';
 const sortCode = '040059';
 
@@ -55,20 +57,26 @@ const getAccount = () => {
     return makeRequest({ url, method, authorization, date, digest });
 };
 
-const putAddress = () => {
-    const addressUid = v4();
+const getAccountError = () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
-    const method = 'put';
-    const data = {
-        accountName: 'My Account Name',
-        sortCode
-    };
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}`;
+    const method = 'get';
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
-    return makeRequest({ url, method, data, authorization, date, digest });
+    return makeRequest({ url, method, authorization, date, digest });
+};
+
+const getAccountNotAuthorised = () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}`;
+    const method = 'get';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    return makeRequest({ url, method, authorization, date, digest });
 };
 
 getAccount()
-    .then(() => putAddress());
+    .then(() => getAccountError()
+        .then(() => getAccountNotAuthorised()));
