@@ -127,23 +127,23 @@ const getPaymentBusinessNotFound= () => {
 
 /*************** Payment business accounts ****************/
 
+/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid */
 
-
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: valid */
 const putAccountValid = async () => {
+    const accountUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid2}`;
-    const method = 'get';
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
+    const method = 'put';
     const action = '/*** putAccount - VALID ***/';
     const data = {
-          description: "For good things",
+          description: "MJ's test account (one of many)",
           accountHolder: "AGENCY"
     }
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data); /** + data **/
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
     // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data }); /** Does data go here? **/
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
     // . . . and save the bit I want
     returnedAccountUid1 = response.data.paymentAccountUid;;
@@ -151,33 +151,119 @@ const putAccountValid = async () => {
 
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not authorised */
 
+const putAccountPBNotAuthorised = async () => {
+    const accountUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}`;
+    const method = 'put';
+    const action = '/*** putAccount - PB NOT AUTHORISED ***/';
+    const data = {
+          description: "MJ's test account (one of many)",
+          accountHolder: "AGENCY"
+    }
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not found */
 
+const putAccountPBNotFound = async () => {
+    const accountUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}`;
+    const method = 'put';
+    const action = '/*** putAccount - PB NOT FOUND ***/';
+    const data = {
+          description: "MJ's test account (one of many)",
+          accountHolder: "AGENCY"
+    }
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}:  accountUid not a UID */
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}:  Invalid request data */
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
 
+/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Account UID not a UID */
 
+const putAccountInvalidUID = async () => {
+    const accountUid = 'xxx';
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
+    const method = 'put';
+    const action = '/*** putAccount - ACCOUNT UID INVALID ***/';
+    const data = {
+          description: "MJ's test account (one of many)",
+          accountHolder: "AGENCY"
+    }
 
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
-/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid} */
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
 
+/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Invalid request data 1 (accountHolder invalid) */
 
+const putAccountInvalidRequestData1 = async () => {
+    const accountUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
+    const method = 'put';
+    const action = '/*** putAccount - REQUEST DATA INVALID 1 ***/';
+    const data = {
+          description: "MJ's test account (one of many)",
+          accountHolder: "FRED"
+    }
 
-/* GET payment business accounts /api/v1/{paymentBusinessUid}/account */
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Invalid request data 2 (description missing) */
+
+const putAccountInvalidRequestData2= async () => {
+    const accountUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
+    const method = 'put';
+    const action = '/*** putAccount - REQUEST DATA INVALID 2 ***/';
+    const data = {
+          accountHolder: "FRED"
+    }
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid */
+
+/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not authorised */
+
+/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not found */
+
+/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid not authorised  */
+
+/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid not found */
+
+/* GET payment business accounts /api/v1/{paymentBusinessUid}/account - Valid */
 const getAccount = () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid1}`;
     const method = 'get';
     const action = '/*** getAccount - VALID ***/';
-
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
+
+
+
+/* PUT payment business address - Valid */
 const putAddress = () => {
     const addressUid = v4(); // I think this makes a new addressUid??
     const date = (new Date()).toISOString();
@@ -202,9 +288,22 @@ const putAddress = () => {
 getPaymentBusinessValid()
     .then(() => {
         // Checking I've saved the values I expected to save
+        console.log("Returned paymentBusinessUid: " + returnedPaymentBusinessUid)
     })
     .then(() => getPaymentBusinessNotAuthorised())
     .then(() => getPaymentBusinessNotFound());
+
+/* Payment accounts */
+putAccountValid()
+    .then(() => {
+        // Checking I've saved the values I expected to save
+        console.log("Returned accountUid: " + returnedAccountUid1)
+    })
+    .then(() => putAccountPBNotAuthorised())
+    .then(() => putAccountPBNotFound())
+    .then(() => putAccountInvalidUID())
+    .then(() => putAccountInvalidRequestData1())
+    .then(() => putAccountInvalidRequestData1());
 
 
 
