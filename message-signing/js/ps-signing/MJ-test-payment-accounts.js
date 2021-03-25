@@ -18,9 +18,15 @@ const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263';
 const sortCode = '040059';
 
 // Some of the things we'll get back at run time
-let returnedPaymentBusinessUid = "";
-let returnedAccountUid = "";
-let returnedAddressUid =  "";
+let returnedPaymentBusinessUid = "xxxx";
+let returnedPaymentBusinessSuccess = "yyyy";
+let returnedAccount1Uid = "xxxx";
+let returnedAccount1Status = "yyyy";
+let returnedAccount2Uid = "xxxx";
+let returnedAddress1Uid =  "xxxx";
+let returnedAddress2Uid =  "xxxx";
+let returnedAddress3Uid =  "xxxx";
+let returnedAddress4Uid =  "xxxx";
 
 const calculateAuthorisationAndDigest = (date, method, url, data = '') => {
     const digest = data === ''
@@ -58,7 +64,8 @@ const makeRequest = ({ action, url, method, authorization, date, digest, data = 
         console.log("\n" + action)
         console.log(url)
         console.log("SUCCESS")
-        console.log(response.status)
+        console.log("HTTP status: " + response.status)
+        console.log("Response data:")
         console.log(response.data)
         // Return response to caller
         return response
@@ -67,20 +74,29 @@ const makeRequest = ({ action, url, method, authorization, date, digest, data = 
         console.log("\n" + action)
         console.log(url)
         console.log("ERROR")
-        console.error(err.response.status)
+        console.error("HTTP status: " + err.response.status)
+        console.error("Response data:")
         console.error(err.response.data)
     });
 
+/*
+/* Test methods */
+
 /* GET payment business details /api/v1/{paymentBusinessUid}: Valid */
-const getPaymentBusinessValid = () => {
+const getPaymentBusinessValid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}`;
     const method = 'get';
-    const action = '/*** getPaymentBusiness - valid ***/';
+    const action = '/*** getPaymentBusiness - VALID ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
-    return makeRequest({ action, url, method, authorization, date, digest });
+    // Do the call, but in this case, grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+
+    // . . . and save the bit I want. In this case, I already know this so it should be the same.
+    returnedPaymentBusinessUid = response.data.paymentBusinessUid;
+    returnedPaymentBusinessSuccess = response.data.success;
 };
 
 /* GET payment business details /api/v1/{paymentBusinessUid}: Not authorised */
@@ -88,7 +104,7 @@ const getPaymentBusinessNotAuthorised = () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotAuthorised}`;
     const method = 'get';
-    const action = '/*** getPaymentBusiness - not athorised ***/';
+    const action = '/*** getPaymentBusiness - NOT AUTHORISED ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -100,7 +116,7 @@ const getPaymentBusinessNotFound= () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotFound}`;
     const method = 'get';
-    const action = '/*** getPaymentBusiness - not found ***/';
+    const action = '/*** getPaymentBusiness - NOT FOUND ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -108,22 +124,24 @@ const getPaymentBusinessNotFound= () => {
 };
 
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: valid */
-const putAccountValid = () => {
+const putAccountValid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
     const method = 'get';
-    const action = '/*** Valid getAccount ***/';
+    const action = '/*** putAccount VALID ***/';
     const data = {
           description: "For good things",
           accountHolder: "AGENCY"
     }
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data); /** + data **/
 
-    // Do the call, but in this case, grab the response . . .
-    const response = await makeRequest({ action, url, method, data, authorization, date, digest }); /** Does data go here? **/
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data }); /** Does data go here? **/
+
     // . . . and save the bit I want
-    returnedPaymentBusinessUid = response.data.paymentBusinessUid;
+    returnedAccount1Uid = response.data.paymentAccountUid;
+    returnedAccount1Status = response.data.success;
 };
 
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not authorised */
@@ -131,8 +149,7 @@ const putAccountValid = () => {
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not found */
 
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}:  Not a UID*/
-
+/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}:  accountUid not a UID */
 
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}:  Invalid request data */
 
@@ -149,7 +166,7 @@ const getAccount = () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
     const method = 'get';
-    const action = '/*** Valid getAccount ***/';
+    const action = '/*** getAccount VALID ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -172,11 +189,24 @@ const putAddress = () => {
     return makeRequest({ action, url, method, data, authorization, date, digest });
 };
 
+/* Now run the test methods */
+
+getAccount()
+    .then(() => putAddress());
+
+
 getPaymentBusinessValid()
-    .then(() => console.log("Returned paymentBusinessUid: " + returnedPaymentBusinessUid));
+    .then(() => {
+        console.log("Returned paymentBusinessUid: " + returnedPaymentBusinessUid)
+        console.log("Returned success: " + returnedPaymentBusinessSuccess)
+    });
 
 getPaymentBusinessNotAuthorised();
-/*getPaymentBusinessNotFound();
+
+getPaymentBusinessNotFound();
+
+
+/*
 putAccountValid();
 
 getAccount();
