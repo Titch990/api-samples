@@ -8,20 +8,24 @@ const privateKeyPath = 'starling-api-private.key';
 const apiKeyUid = 'a005c2a3-d87a-40d7-bf8c-82575c0a570c';
 const paymentBusinessUid = '53f74c7d-c666-422e-a871-b2a03623addd';
 const paymentBusinessUidNotFound = '53f74c7d-c666-422e-a871-b2a03623accc';
-const paymentBusinessUidNotAuthorised = '3e2be5bc-21b8-49fe-b272-9b2eade079e9';
-const accountUid = '09dbbfac-50b1-47f3-ac7b-a37d828bd25b';
+const paymentBusinessUidNotAuthorised = '3e2be5bc-21b8-49fe-b272-9b2eade079e9'; // Exists but not mine
+const accountUid1 = '09dbbfac-50b1-47f3-ac7b-a37d828bd25b';   // Created in MP
+const accountUid2 = 'a005c2a3-50b1-47f3-c666-9b2eade079e9';   // I made this up!
 const accountUidNotFound = '09dbbfac-50b1-47f3-ac7b-a37d828bdccc';
-const accountUidNotAuthorised = '148d1a4d-cf8d-4923-9be0-c8fe29a5dea9';
-const addressUid = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc';
+const accountUidNotAuthorised = '148d1a4d-cf8d-4923-9be0-c8fe29a5dea9'; // Exists but not mine
+const addressUid1 = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc'; // Created by running some code like this
+const addressUid2 = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd'; // Made up
+const addressUid3 = 'e2ea3b6f-b6a9-4c4b-8732-d3ca5c4e6ffc'; // Made up
 const addressUidNotFound = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd';
-const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263';
+const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263'; // Exists but not mine
 const sortCode = '040059';
 
 // Some of the things we'll get back at run time
 let returnedPaymentBusinessUid = "xxxx";
 let returnedPaymentBusinessSuccess = "yyyy";
-let returnedAccount1Uid = "xxxx";
-let returnedAccount1Status = "yyyy";
+let returnedAccountUid1 = "xxxx";
+let returnedAccountUid2 = "xxxx";
+let returnedAccountStatus = "yyyy";
 let returnedAccount2Uid = "xxxx";
 let returnedAddress1Uid =  "xxxx";
 let returnedAddress2Uid =  "xxxx";
@@ -65,8 +69,7 @@ const makeRequest = ({ action, url, method, authorization, date, digest, data = 
         console.log(url)
         console.log("SUCCESS")
         console.log("HTTP status: " + response.status)
-        console.log("Response data:")
-        console.log(response.data)
+        console.log("Response data:\n", response.data)
         // Return response to caller
         return response
     })
@@ -75,12 +78,12 @@ const makeRequest = ({ action, url, method, authorization, date, digest, data = 
         console.log(url)
         console.log("ERROR")
         console.error("HTTP status: " + err.response.status)
-        console.error("Response data:")
-        console.error(err.response.data)
+        console.error("Response data:\n", err.response.data)
     });
 
-/*
-/* Test methods */
+/*************** Test methods ****************/
+
+/*************** Payment businesses ****************/
 
 /* GET payment business details /api/v1/{paymentBusinessUid}: Valid */
 const getPaymentBusinessValid = async () => {
@@ -96,7 +99,6 @@ const getPaymentBusinessValid = async () => {
 
     // . . . and save the bit I want. In this case, I already know this so it should be the same.
     returnedPaymentBusinessUid = response.data.paymentBusinessUid;
-    returnedPaymentBusinessSuccess = response.data.success;
 };
 
 /* GET payment business details /api/v1/{paymentBusinessUid}: Not authorised */
@@ -123,12 +125,16 @@ const getPaymentBusinessNotFound= () => {
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
+/*************** Payment business accounts ****************/
+
+
+
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: valid */
 const putAccountValid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid2}`;
     const method = 'get';
-    const action = '/*** putAccount VALID ***/';
+    const action = '/*** putAccount - VALID ***/';
     const data = {
           description: "For good things",
           accountHolder: "AGENCY"
@@ -140,8 +146,7 @@ const putAccountValid = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data }); /** Does data go here? **/
 
     // . . . and save the bit I want
-    returnedAccount1Uid = response.data.paymentAccountUid;
-    returnedAccount1Status = response.data.success;
+    returnedAccountUid1 = response.data.paymentAccountUid;;
 };
 
 /* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not authorised */
@@ -164,9 +169,9 @@ const putAccountValid = async () => {
 
 const getAccount = () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid1}`;
     const method = 'get';
-    const action = '/*** getAccount VALID ***/';
+    const action = '/*** getAccount - VALID ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -174,15 +179,15 @@ const getAccount = () => {
 };
 
 const putAddress = () => {
-    const addressUid = v4();
+    const addressUid = v4(); // I think this makes a new addressUid??
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid1}/address/${addressUid}`;
     const method = 'put';
     const data = {
         accountName: 'My Account Name',
         sortCode
     };
-    const action = '/*** Valid putAddress ***/';
+    const action = '/*** putAddress - VALID ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
@@ -191,33 +196,26 @@ const putAddress = () => {
 
 /* Now run the test methods */
 
-getAccount()
-    .then(() => putAddress());
 
+/* Payment businesses */
 
 getPaymentBusinessValid()
     .then(() => {
-        console.log("Returned paymentBusinessUid: " + returnedPaymentBusinessUid)
-        console.log("Returned success: " + returnedPaymentBusinessSuccess)
-    });
-
-getPaymentBusinessNotAuthorised();
-
-getPaymentBusinessNotFound();
+        // Checking I've saved the values I expected to save
+    })
+    .then(() => getPaymentBusinessNotAuthorised())
+    .then(() => getPaymentBusinessNotFound());
 
 
-/*
-putAccountValid();
-
-getAccount();
-putAddress();*/
 
 
 
 /*
-getPaymentBusinessValid()
-    .then
 getAccount()
     .then(() => getAccountError()
         .then(() => getAccountNotAuthorised()));
+
+
 */
+        getAccount()
+            .then(() => putAddress());
