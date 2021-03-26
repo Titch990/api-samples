@@ -382,65 +382,6 @@ const getAccountInvalid = () => {
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
-
-
-
-
-
-/* *************** (B.10) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid ***********/
-
-/* *************** (B.11) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: PB, acc exist, not authorised ***********/
-
-/* *************** (B.12) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: PB exists, acc not found ***********/
-
-/* *************** (B.13) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid invalid ***********/
-
-
-
-
-/* *************** (17) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid not found ***********/
-
-/* *************** (18) GET PB accounts /api/v1/{paymentBusinessUid}/account - Valid */
-
-const getAccount = () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
-    const method = 'get';
-    const action = '/*** getAccount - VALID ***/';
-
-    // Get the signature
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Make the call - use this format if you don't need to do anything with the response here
-    return makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* **************** (19) GET PB accounts /api/v1/{paymentBusinessUid}/account - PB Unauthorisesd ***********/
-
-/* **************** (20) GET PB accounts /api/v1/{paymentBusinessUid}/account - PB invalid ***********/
-
-
-
-
-/* PUT PB address - Valid */
-const putAddress = () => {
-    const addressUid = v4(); // I think this makes a new addressUid??
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
-    const method = 'put';
-    const data = {
-        accountName: 'My Account Name',
-        sortCode
-    };
-    const action = '/*** putAddress - VALID ***/';
-
-    // Get the signature
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
-
-    // Make the call - use this format if you don't need to do anything with the response here
-    return makeRequest({ action, url, method, data, authorization, date, digest });
-};
-
 /*************************************** Run the test methods ****************************************/
 
 /************************************* Payment business tests  A *************************************/
@@ -456,7 +397,7 @@ getPaymentBusinessValid()                               /***** TEST A.1 ******/
 
 /************************************* Payment business account tests B *************************************/
 
-putAccountValid()                                     /***** TEST B.1 ******/ /**** PUT tests ****/
+putAccountValid()                                     /***** TEST B.1 ******/      /**** PUT tests ****/
     .then(() => {
         // Checking I've saved the values I expected to save
         console.log("Returned accountUid: " + returnedAccountUid1)
@@ -469,12 +410,12 @@ putAccountValid()                                     /***** TEST B.1 ******/ /*
     .then(() => putAccountInvalidUID())               /***** TEST B.7 ******/
     .then(() => putAccountInvalidRequestData1())      /***** TEST B.8 ******/
     .then(() => putAccountInvalidRequestData2())      /***** TEST B.9 ******/
-    .then(() => getAccountValid())                    /***** TEST B.10 *****/  /**** GET tests ****/
-    .then(() => getAccountNotAuthorised())                    /***** TEST B.11 *****/
-    .then(() => getAccountNotFound())                    /***** TEST B.12 *****/
-    .then(() => getAccountInvalid());                   /***** TEST B.13 *****/
+    .then(() => getAccountValid())                    /***** TEST B.10 *****/      /**** GET tests ****/
+    .then(() => getAccountNotAuthorised())             /***** TEST B.11 *****/
+    .then(() => getAccountNotFound())                  /***** TEST B.12 *****/
+    .then(() => getAccountInvalid());                  /***** TEST B.13 *****/
 
-/************************************* Payment buisness address GET tests C *************************************/
+/************************************* Payment business address tests C *************************************/
 
 
 
