@@ -6,18 +6,18 @@ const { v4 } = require('uuid');
 const baseURL = 'https://payment-api-sandbox.starlingbank.com';
 const privateKeyPath = 'starling-api-private.key';
 const apiKeyUid = 'a005c2a3-d87a-40d7-bf8c-82575c0a570c';
-const paymentBusinessUid = '53f74c7d-c666-422e-a871-b2a03623addd';
-const paymentBusinessUidNotFound = '53f74c7d-c666-422e-a871-b2a03623accc';
+const paymentBusinessUid = '53f74c7d-c666-422e-a871-b2a03623addd';              // From MP
+const paymentBusinessUidNotFound = '53f74c7d-c666-422e-a871-b2a03623accc';      // Made up
 const paymentBusinessUidNotAuthorised = '3e2be5bc-21b8-49fe-b272-9b2eade079e9'; // Exists but not mine
-const accountUid1 = '09dbbfac-50b1-47f3-ac7b-a37d828bd25b';   // Created in MP
-const accountUid2 = 'a005c2a3-50b1-47f3-c666-9b2eade079e9';   // I made this up!
-const accountUidNotFound = '09dbbfac-50b1-47f3-ac7b-a37d828bdccc';
-const accountUidNotAuthorised = '148d1a4d-cf8d-4923-9be0-c8fe29a5dea9'; // Exists but not mine
-const addressUid1 = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc'; // Created by running some code like this
-const addressUid2 = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd'; // Made up
-const addressUid3 = 'e2ea3b6f-b6a9-4c4b-8732-d3ca5c4e6ffc'; // Made up
-const addressUidNotFound = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd';
-const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263'; // Exists but not mine
+const paymentBusinessUidInvalid = 'abcdefghijk';                                // Not a valid UID
+const accountUid = '09dbbfac-50b1-47f3-ac7b-a37d828bd25b';                      // Created in MP
+const accountUidNotFound = '09dbbfac-50b1-47f3-ac7b-a37d828bdccc';              // Made up
+const accountUidNotAuthorised = '148d1a4d-cf8d-4923-9be0-c8fe29a5dea9';         // Exists but not mine
+const accountUidInvalid = 'abcdefghijk';                                        // Not a valid UID
+const addressUid = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc';                      // Created by running some code like this
+const addressUidNotFound = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd';              // Made up
+const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263';         // Exists but not mine
+const accressUidInvalid = 'abcdefghijk';                                        // Not a valid UID
 const sortCode = '040059';
 
 // Some of the things we'll get back at run time
@@ -97,14 +97,14 @@ const getPaymentBusinessValid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}`;
     const method = 'get';
-    const action = '/*** getPaymentBusiness - VALID ***/';
+    const action = '/*** (1) PB valid ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
-    // Do the call, but in this case, grab the response . . .
+    // Make the call, and grab the response (note the "async" needed in the declaration above, because of the "await" here)
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want. In this case, I already know this so it should be the same.
+    // Now I can save the bit I want. In this case, I already know this so it should be the same.
     returnedPaymentBusinessUid = response.data.paymentBusinessUid;
 };
 
@@ -114,7 +114,7 @@ const getPaymentBusinessNotAuthorised = () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotAuthorised}`;
     const method = 'get';
-    const action = '/*** getPaymentBusiness - NOT AUTHORISED ***/';
+    const action = '/*** (2) PB not auth ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -127,7 +127,20 @@ const getPaymentBusinessNotFound= () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotFound}`;
     const method = 'get';
-    const action = '/*** getPaymentBusiness - NOT FOUND ***/';
+    const action = '/*** (3) PB not found ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    return makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* ********************* (4) GET payment business details /api/v1/{paymentBusinessUid}:Invalid *******************/
+
+const getPaymentBusinessInvalid= () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidInvalid}`;
+    const method = 'get';
+    const action = '/*** (4) PB invalid ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -250,9 +263,15 @@ const putAccountInvalidRequestData2= async () => {
     const data = {
           accountHolder: "FRED"
     }
+
+    // Get the Signature
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
-    // Do the call, and grab the response . . .
+
+    // Make the call, and grab the response (note the "async" needed in the declaration above, because of the "await" here)
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // Now you can do something with the response, like save it, if you want to
+
 };
 
 /* *************** (13) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid ***********/
@@ -269,10 +288,14 @@ const putAccountInvalidRequestData2= async () => {
 
 const getAccount = () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid1}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
     const method = 'get';
     const action = '/*** getAccount - VALID ***/';
+
+    // Get the signature
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Make the call - use this format if you don't need to do anything with the response here
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
@@ -287,7 +310,7 @@ const getAccount = () => {
 const putAddress = () => {
     const addressUid = v4(); // I think this makes a new addressUid??
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid1}/address/${addressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
     const method = 'put';
     const data = {
         accountName: 'My Account Name',
@@ -295,8 +318,10 @@ const putAddress = () => {
     };
     const action = '/*** putAddress - VALID ***/';
 
+    // Get the signature
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
+    // Make the call - use this format if you don't need to do anything with the response here
     return makeRequest({ action, url, method, data, authorization, date, digest });
 };
 
@@ -310,7 +335,8 @@ getPaymentBusinessValid()
         console.log("Returned paymentBusinessUid: " + returnedPaymentBusinessUid)
     })
     .then(() => getPaymentBusinessNotAuthorised())
-    .then(() => getPaymentBusinessNotFound());
+    .then(() => getPaymentBusinessNotFound())
+    .then(() => getPaymentBusinessInvalid());
 
 /************************************* Payment account PUT tests *************************************/
 
