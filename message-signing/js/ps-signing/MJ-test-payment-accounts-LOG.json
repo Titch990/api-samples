@@ -1,4 +1,15 @@
 
+/*** (B.1) putAccount - PB valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/76201196-630f-4e61-b28a-68c4afe6ed1a
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  paymentAccountUid: '76201196-630f-4e61-b28a-68c4afe6ed1a',
+  success: true
+}
+Returned accountUid: 76201196-630f-4e61-b28a-68c4afe6ed1a
+
 /*** (A.1) getPB - PB valid ***/
 /api/v1/53f74c7d-c666-422e-a871-b2a03623addd
 SUCCESS
@@ -11,16 +22,12 @@ Response data:
 }
 Returned paymentBusinessUid: 53f74c7d-c666-422e-a871-b2a03623addd
 
-/*** (B.1) putAccount - PB valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/f4f6c21e-dea4-4ef3-8e59-1dd5181527ac
-SUCCESS
-HTTP status: 200
+/*** (B.2) putAccount - PB exists, not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/034709ae-1ed6-4f15-ad96-e9da80ac144a
+ERROR
+HTTP status: 403
 Response data:
- {
-  paymentAccountUid: 'f4f6c21e-dea4-4ef3-8e59-1dd5181527ac',
-  success: true
-}
-Returned accountUid: f4f6c21e-dea4-4ef3-8e59-1dd5181527ac
+ 
 
 /*** (A.2) getPB - PB not auth ***/
 /api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9
@@ -29,8 +36,8 @@ HTTP status: 403
 Response data:
  
 
-/*** (B.2) putAccount - PB exists, not auth ***/
-/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/c2b58cd0-187e-42ab-a57b-462c365ba931
+/*** (B.3) putAccount - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/780a7b26-fec8-4008-8e8b-5a9b2f89e3d5
 ERROR
 HTTP status: 403
 Response data:
@@ -38,20 +45,6 @@ Response data:
 
 /*** (A.3) getPB - PB not found ***/
 /api/v1/53f74c7d-c666-422e-a871-b2a03623accc
-ERROR
-HTTP status: 403
-Response data:
- 
-
-/*** (B.3) putAccount - PB not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/3ae27d78-1faf-404a-b534-02bf6e432d22
-ERROR
-HTTP status: 403
-Response data:
- 
-
-/*** (A.4) getPB - PB invalid ***/
-/api/v1/abcdefghijk
 ERROR
 HTTP status: 403
 Response data:
@@ -66,6 +59,13 @@ Response data:
   paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
   success: true
 }
+
+/*** (A.4) getPB - PB invalid ***/
+/api/v1/abcdefghijk
+ERROR
+HTTP status: 403
+Response data:
+ 
 
 /*** (B.5) putAccount - acc exists, , details different ***/
 /api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/f44ec61b-51b7-49eb-9149-4a2b1e3b34ea
@@ -93,7 +93,7 @@ Response data:
  
 
 /*** (B.8) putAccount - request.accountHolder invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/79bef618-a3d8-404c-bc61-f8e9a3e3d21a
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/917ff6a8-73aa-491e-a177-9e53e436b366
 ERROR
 HTTP status: 400
 Response data:
@@ -107,7 +107,7 @@ Response data:
 }
 
 /*** (B.9) putAccount - request.description missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/e9e4c0bd-e56c-489c-ae6b-e6f0dcf30779
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/f8eff808-bc86-4d32-b66c-fa9192744951
 ERROR
 HTTP status: 400
 Response data:
@@ -117,3 +117,41 @@ Response data:
   ],
   success: false
 }
+
+/*** (B.10) getAccount - Valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+  accountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+  accountHolder: 'AGENCY',
+  createdAt: '2020-11-26T11:21:56.187Z',
+  description: 'Account 1',
+  balance: {
+    currencyAndAmount: { currency: 'GBP', minorUnits: 0 },
+    balanceState: 'IN_CREDIT'
+  }
+}
+
+/*** (B.11) getAccount - PB, acc exist, not authorised ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (B.12) getAccount - PB exists, acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (B.13) getAccount - accountUid invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk
+ERROR
+HTTP status: 404
+Response data:
+ 
