@@ -32,6 +32,8 @@ let returnedAddress2Uid =  "xxxx";
 let returnedAddress3Uid =  "xxxx";
 let returnedAddress4Uid =  "xxxx";
 
+/************************************************ Do the signing *****************************************/
+
 const calculateAuthorisationAndDigest = (date, method, url, data = '') => {
     const digest = data === ''
         ? ''
@@ -50,6 +52,8 @@ const calculateAuthorisationAndDigest = (date, method, url, data = '') => {
         authorization: `Signature keyid="${apiKeyUid}",algorithm="rsa-sha512",headers="(request-target) Date Digest",signature="${signature}"`
     };
 };
+
+/************************************************ Make the call *****************************************/
 
 const makeRequest = ({ action, url, method, authorization, date, digest, data = '' }) => axios.request({
     baseURL,
@@ -81,11 +85,14 @@ const makeRequest = ({ action, url, method, authorization, date, digest, data = 
         console.error("Response data:\n", err.response.data)
     });
 
-/*************** Test methods ****************/
+/*******************************************************************************************************************/
+/*********************************************** Test methods ******************************************************/
+/*******************************************************************************************************************/
 
-/*************** Payment businesses ****************/
+/************************************************* Payment businesses **********************************************/
 
-/* GET payment business details /api/v1/{paymentBusinessUid}: Valid */
+/* ********************** (1) GET payment business details /api/v1/{paymentBusinessUid}: Valid ******************* */
+
 const getPaymentBusinessValid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}`;
@@ -101,7 +108,8 @@ const getPaymentBusinessValid = async () => {
     returnedPaymentBusinessUid = response.data.paymentBusinessUid;
 };
 
-/* GET payment business details /api/v1/{paymentBusinessUid}: Not authorised */
+/* ********************* (2) GET payment business details /api/v1/{paymentBusinessUid}: Not authorised *********** */
+
 const getPaymentBusinessNotAuthorised = () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotAuthorised}`;
@@ -113,7 +121,8 @@ const getPaymentBusinessNotAuthorised = () => {
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
-/* GET payment business details /api/v1/{paymentBusinessUid}: Not found */
+/* ********************* (3) GET payment business details /api/v1/{paymentBusinessUid}: Not found *******************/
+
 const getPaymentBusinessNotFound= () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotFound}`;
@@ -125,9 +134,9 @@ const getPaymentBusinessNotFound= () => {
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
-/*************** Payment business accounts ****************/
+/******************************************************* PB accounts **********************************************/
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid */
+/* ************** (4) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid *********************/
 
 const putAccountValid = async () => {
     const accountUid = v4();
@@ -149,7 +158,7 @@ const putAccountValid = async () => {
     returnedAccountUid1 = response.data.paymentAccountUid;;
 };
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not authorised */
+/* ********** (5) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not authorised *********/
 
 const putAccountPBNotAuthorised = async () => {
     const accountUid = v4();
@@ -166,7 +175,7 @@ const putAccountPBNotAuthorised = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not found */
+/* ********** (6) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not found ***********/
 
 const putAccountPBNotFound = async () => {
     const accountUid = v4();
@@ -185,7 +194,13 @@ const putAccountPBNotFound = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Account UID not a UID */
+/* ********** (7) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account exists ***********/
+
+/* ********** (8) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account exists, details different ***********/
+
+/* ********** (9) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account exists, not authorised ***********/
+
+/* ********* (10) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account not found ***********/
 
 const putAccountInvalidUID = async () => {
     const accountUid = 'xxx';
@@ -204,7 +219,7 @@ const putAccountInvalidUID = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Invalid request data 1 (accountHolder invalid) */
+/* *********** (11) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: request.accountHolder invalid ***********/
 
 const putAccountInvalidRequestData1 = async () => {
     const accountUid = v4();
@@ -224,7 +239,7 @@ const putAccountInvalidRequestData1 = async () => {
 
 };
 
-/* PUT (create) payment business account /api/v1/{paymentBusinessUid}/account/{accountUid}: Invalid request data 2 (description missing) */
+/* ************* (12) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: request.description missing ***********/
 
 const putAccountInvalidRequestData2= async () => {
     const accountUid = v4();
@@ -240,17 +255,18 @@ const putAccountInvalidRequestData2= async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid */
+/* *************** (13) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid ***********/
 
-/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not authorised */
+/* *************** (14) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not authorised ***********/
 
-/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Payment business not found */
+/* *************** (15) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not found ***********/
 
-/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid not authorised  */
+/* *************** (16) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid not authorised ***********/
 
-/* GET payment business account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid not found */
+/* *************** (17) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: accountUid not found ***********/
 
-/* GET payment business accounts /api/v1/{paymentBusinessUid}/account - Valid */
+/* *************** (18) GET PB accounts /api/v1/{paymentBusinessUid}/account - Valid */
+
 const getAccount = () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid1}`;
@@ -260,10 +276,14 @@ const getAccount = () => {
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
+/* **************** (19) GET PB accounts /api/v1/{paymentBusinessUid}/account - PB Unauthorisesd ***********/
+
+/* **************** (20) GET PB accounts /api/v1/{paymentBusinessUid}/account - PB invalid ***********/
 
 
 
-/* PUT payment business address - Valid */
+
+/* PUT PB address - Valid */
 const putAddress = () => {
     const addressUid = v4(); // I think this makes a new addressUid??
     const date = (new Date()).toISOString();
@@ -280,10 +300,9 @@ const putAddress = () => {
     return makeRequest({ action, url, method, data, authorization, date, digest });
 };
 
-/* Now run the test methods */
+/************************************ Run the test methods *************************************/
 
-
-/* Payment businesses */
+/************************************* Payment business tests *************************************/
 
 getPaymentBusinessValid()
     .then(() => {
@@ -293,7 +312,8 @@ getPaymentBusinessValid()
     .then(() => getPaymentBusinessNotAuthorised())
     .then(() => getPaymentBusinessNotFound());
 
-/* Payment accounts */
+/************************************* Payment account PUT tests *************************************/
+
 putAccountValid()
     .then(() => {
         // Checking I've saved the values I expected to save
@@ -305,7 +325,7 @@ putAccountValid()
     .then(() => putAccountInvalidRequestData1())
     .then(() => putAccountInvalidRequestData1());
 
-
+/************************************* Payment account GET tests *************************************/
 
 
 
