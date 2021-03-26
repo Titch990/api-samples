@@ -11,6 +11,7 @@ const paymentBusinessUidNotFound = '53f74c7d-c666-422e-a871-b2a03623accc';      
 const paymentBusinessUidNotAuthorised = '3e2be5bc-21b8-49fe-b272-9b2eade079e9'; // Exists but not mine
 const paymentBusinessUidInvalid = 'abcdefghijk';                                // Not a valid UID
 const accountUid = '09dbbfac-50b1-47f3-ac7b-a37d828bd25b';                      // Created in MP
+const accountUid2 = 'f44ec61b-51b7-49eb-9149-4a2b1e3b34ea';                     // Created in a previous run of this code
 const accountUidNotFound = '09dbbfac-50b1-47f3-ac7b-a37d828bdccc';              // Made up
 const accountUidNotAuthorised = '148d1a4d-cf8d-4923-9be0-c8fe29a5dea9';         // Exists but not mine
 const accountUidInvalid = 'abcdefghijk';                                        // Not a valid UID
@@ -91,13 +92,13 @@ const makeRequest = ({ action, url, method, authorization, date, digest, data = 
 
 /************************************************* Payment businesses **********************************************/
 
-/* ********************** (1) GET payment business details /api/v1/{paymentBusinessUid}: Valid ******************* */
+/* ********************** (A.1) GET payment business details /api/v1/{paymentBusinessUid}: Valid ******************* */
 
 const getPaymentBusinessValid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}`;
     const method = 'get';
-    const action = '/*** (1) PB valid ***/';
+    const action = '/*** (A.1) getPB - PB valid ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -108,39 +109,39 @@ const getPaymentBusinessValid = async () => {
     returnedPaymentBusinessUid = response.data.paymentBusinessUid;
 };
 
-/* ********************* (2) GET payment business details /api/v1/{paymentBusinessUid}: Not authorised *********** */
+/* ********************* (A.2) GET payment business details /api/v1/{paymentBusinessUid}: Not authorised *********** */
 
 const getPaymentBusinessNotAuthorised = () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotAuthorised}`;
     const method = 'get';
-    const action = '/*** (2) PB not auth ***/';
+    const action = '/*** (A.2) getPB - PB not auth ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
-/* ********************* (3) GET payment business details /api/v1/{paymentBusinessUid}: Not found *******************/
+/* ********************* (A.3) GET payment business details /api/v1/{paymentBusinessUid}: Not found *******************/
 
 const getPaymentBusinessNotFound= () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotFound}`;
     const method = 'get';
-    const action = '/*** (3) PB not found ***/';
+    const action = '/*** (A.3) getPB - PB not found ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
     return makeRequest({ action, url, method, authorization, date, digest });
 };
 
-/* ********************* (4) GET payment business details /api/v1/{paymentBusinessUid}:Invalid *******************/
+/* ********************* (A.4) GET payment business details /api/v1/{paymentBusinessUid}:Invalid *******************/
 
 const getPaymentBusinessInvalid= () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidInvalid}`;
     const method = 'get';
-    const action = '/*** (4) PB invalid ***/';
+    const action = '/*** (A.4) getPB - PB invalid ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -149,14 +150,14 @@ const getPaymentBusinessInvalid= () => {
 
 /******************************************************* PB accounts **********************************************/
 
-/* ************** (4) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid *********************/
+/* ************** (B.1) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid *********************/
 
 const putAccountValid = async () => {
-    const accountUid = v4();
+    const newAccountUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${newAccountUid}`;
     const method = 'put';
-    const action = '/*** putAccount - VALID ***/';
+    const action = '/*** (B.1) putAccount - PB valid ***/';
     const data = {
           description: "MJ's test account (one of many)",
           accountHolder: "AGENCY"
@@ -171,14 +172,14 @@ const putAccountValid = async () => {
     returnedAccountUid1 = response.data.paymentAccountUid;;
 };
 
-/* ********** (5) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not authorised *********/
+/* ********** (B.2) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not authorised *********/
 
 const putAccountPBNotAuthorised = async () => {
-    const accountUid = v4();
+    const newAccountUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${newAccountUid}`;
     const method = 'put';
-    const action = '/*** putAccount - PB NOT AUTHORISED ***/';
+    const action = '/*** (B.2) putAccount - PB exists, not auth ***/';
     const data = {
           description: "MJ's test account (one of many)",
           accountHolder: "AGENCY"
@@ -188,14 +189,14 @@ const putAccountPBNotAuthorised = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* ********** (6) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not found ***********/
+/* ********** (B.3) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB not found ***********/
 
 const putAccountPBNotFound = async () => {
-    const accountUid = v4();
+    const newAccountUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${newAccountUid}`;
     const method = 'put';
-    const action = '/*** putAccount - PB NOT FOUND ***/';
+    const action = '/*** (B.3) putAccount - PB not found ***/';
     const data = {
           description: "MJ's test account (one of many)",
           accountHolder: "AGENCY"
@@ -207,20 +208,67 @@ const putAccountPBNotFound = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* ********** (7) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account exists ***********/
+/* ********** (B.4) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account already exists, same details ***********/
 
-/* ********** (8) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account exists, details different ***********/
-
-/* ********** (9) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account exists, not authorised ***********/
-
-/* ********* (10) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account not found ***********/
-
-const putAccountInvalidUID = async () => {
-    const accountUid = 'xxx';
+const putAccountExistsSame = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
     const method = 'put';
-    const action = '/*** putAccount - ACCOUNT UID INVALID ***/';
+    const action = '/*** (B.4) putAccount - acc exists, same details ***/';
+    const data = {
+          description: "Account 1",
+          accountHolder: "AGENCY"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* ********** (B.5) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account exists, details different ***********/
+
+const putAccountExistsDifferent = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid2}`;
+    const method = 'put';
+    const action = '/*** (B.5) putAccount - acc exists, , details different ***/';
+    const data = {
+          description: "Some random stuff" + Math.random(),
+          accountHolder: "AGENCY"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* ********** (B.6) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB, account exist, not auth ***********/
+
+const putAccountNotAuth = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}`;
+    const method = 'put';
+    const action = '/*** (B.6) putAccount - PB, account exist, not auth ***/';
+    const data = {
+          description: "Some random stuff" + Math.random(),
+          accountHolder: "AGENCY"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* ********* (B.7) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: account UID not valid ***********/
+
+const putAccountInvalidUID = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}`;
+    const method = 'put';
+    const action = '/*** (B.7) putAccount - account UID not valid ***/';
     const data = {
           description: "MJ's test account (one of many)",
           accountHolder: "AGENCY"
@@ -232,14 +280,14 @@ const putAccountInvalidUID = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* *********** (11) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: request.accountHolder invalid ***********/
+/* *********** (B.8) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: request.accountHolder invalid ***********/
 
 const putAccountInvalidRequestData1 = async () => {
     const accountUid = v4();
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
     const method = 'put';
-    const action = '/*** putAccount - REQUEST DATA INVALID 1 ***/';
+    const action = '/*** (B.8) putAccount - request.accountHolder invalid ***/';
     const data = {
           description: "MJ's test account (one of many)",
           accountHolder: "FRED"
@@ -252,16 +300,16 @@ const putAccountInvalidRequestData1 = async () => {
 
 };
 
-/* ************* (12) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: request.description missing ***********/
+/* ************* (B.9) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: request.description missing ***********/
 
 const putAccountInvalidRequestData2= async () => {
     const accountUid = v4();
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}`;
     const method = 'put';
-    const action = '/*** putAccount - REQUEST DATA INVALID 2 ***/';
+    const action = '/*** (B.9) putAccount - request.description missing ***/';
     const data = {
-          accountHolder: "FRED"
+          accountHolder: "AGENCY"
     }
 
     // Get the Signature
@@ -273,6 +321,11 @@ const putAccountInvalidRequestData2= async () => {
     // Now you can do something with the response, like save it, if you want to
 
 };
+
+
+
+
+
 
 /* *************** (13) GET PB account details /api/v1/{paymentBusinessUid}/account/{accountUid}: Valid ***********/
 
@@ -327,31 +380,34 @@ const putAddress = () => {
 
 /************************************ Run the test methods *************************************/
 
-/************************************* Payment business tests *************************************/
+/************************************* Payment business tests  A *************************************/
 
-getPaymentBusinessValid()
+getPaymentBusinessValid()                               /***** TEST A.1 ******/
     .then(() => {
         // Checking I've saved the values I expected to save
         console.log("Returned paymentBusinessUid: " + returnedPaymentBusinessUid)
     })
-    .then(() => getPaymentBusinessNotAuthorised())
-    .then(() => getPaymentBusinessNotFound())
-    .then(() => getPaymentBusinessInvalid());
+    .then(() => getPaymentBusinessNotAuthorised())     /***** TEST A.2 ******/
+    .then(() => getPaymentBusinessNotFound())          /***** TEST A.3 ******/
+    .then(() => getPaymentBusinessInvalid());          /***** TEST A.4 ******/
 
-/************************************* Payment account PUT tests *************************************/
+/************************************* Payment account PUT tests B *************************************/
 
-putAccountValid()
+putAccountValid()                                     /***** TEST B.1 ******/
     .then(() => {
         // Checking I've saved the values I expected to save
         console.log("Returned accountUid: " + returnedAccountUid1)
     })
-    .then(() => putAccountPBNotAuthorised())
-    .then(() => putAccountPBNotFound())
-    .then(() => putAccountInvalidUID())
-    .then(() => putAccountInvalidRequestData1())
-    .then(() => putAccountInvalidRequestData1());
+    .then(() => putAccountPBNotAuthorised())          /***** TEST B.2 ******/
+    .then(() => putAccountPBNotFound())               /***** TEST B.3 ******/
+    .then(() => putAccountExistsSame())               /***** TEST B.4 ******/
+    .then(() => putAccountExistsDifferent())          /***** TEST B.5 ******/
+    .then(() => putAccountNotAuth())                  /***** TEST B.6 ******/
+    .then(() => putAccountInvalidUID())               /***** TEST B.7 ******/
+    .then(() => putAccountInvalidRequestData1())      /***** TEST B.8 ******/
+    .then(() => putAccountInvalidRequestData2());     /***** TEST B.9 ******/
 
-/************************************* Payment account GET tests *************************************/
+/************************************* Payment account GET tests B *************************************/
 
 
 
@@ -359,8 +415,6 @@ putAccountValid()
 getAccount()
     .then(() => getAccountError()
         .then(() => getAccountNotAuthorised()));
-
-
 */
-        getAccount()
-            .then(() => putAddress());
+        /* getAccount()
+            .then(() => putAddress()); */
