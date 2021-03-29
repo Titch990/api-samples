@@ -102,8 +102,8 @@ const putAddressValid = async () => {
     const action = '/*** (C.1) putAddress - PB, acc valid ***/';
     const data = {
           accountName: "Millie Moodle (one of many)",
-          sortCode: sortCode,
-          accountNumber: "12345678"
+          sortCode: sortCode/*,
+          accountNumber: "        "  /* Must be blank for new addresses */
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -128,10 +128,16 @@ const putAddressNotAuthorised = async () => {
               sortCode: sortCode,
               accountNumber: "12345679"
         }
-    }
+
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+
+
+    // return makeRequest({ action, url, method, authorization, date, digest, data });
+
+
 };
 
 /* *** (C.3) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: PB valid, acc not found ****/
@@ -139,7 +145,7 @@ const putAddressNotAuthorised = async () => {
 const putAddressAccNotFound = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${AccountUidNotFound}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${newAddressUid}`;
     const method = 'put';
     const action = '/*** (C.3) putAddress - PB valid, acc not found ***/';
     const data = {
@@ -159,7 +165,7 @@ const putAddressAccNotFound = async () => {
 const putAddressAccInvalid = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${AccountUidInvalid}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${newAddressUid}`;
     const method = 'put';
     const action = '/*** (C.4) putAddress - PB valid, acc invalid ***/';
     const data = {
@@ -238,7 +244,7 @@ const putAddressNotAuth = async () => {
 
 /* *** (C.8) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: add UID not valid ****/
 
-const putAdressInvalidUID = async () => {
+const putAddressInvalidUid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/{addressUidInvalid}`;
     const method = 'put';
@@ -411,7 +417,25 @@ const putAddressInvalidRequestData6 = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
+/* *** (C.15) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountNumber non-blank ****/
 
+const putAddressInvalidRequestData7 = async () => {
+    const newAddressUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
+    const method = 'put';
+    const action = '/*** (C.15) putAddress - request.accountNumber non-blank ***/';
+    const data = {
+          accountName: "Millie Moodle (one of many)",
+          sortCode: sortCode,
+          AccountNumber: "12345678"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
 
 
 
@@ -451,13 +475,14 @@ putAddressValid()                                     /***** TEST C.1 ******/   
     .then(() => putAddressExistsSame())               /***** TEST C.5 ******/
     .then(() => putAddressExistsDifferent())          /***** TEST C.6 ******/
     .then(() => putAddressNotAuth())                  /***** TEST C.7 ******/
-    .then(() => putAddressInvalidUID())               /***** TEST C.8 ******/
+    .then(() => putAddressInvalidUid())               /***** TEST C.8 ******/
     .then(() => putAddressInvalidRequestData1())      /***** TEST C.9 ******/
     .then(() => putAddressInvalidRequestData2())      /***** TEST C.10 ******/
     .then(() => putAddressInvalidRequestData3())      /***** TEST C.11 *****/
     .then(() => putAddressInvalidRequestData4())      /***** TEST C.12 *****/
     .then(() => putAddressInvalidRequestData5())      /***** TEST C.13 *****/
-    .then(() => putAddressInvalidRequestData6());     /***** TEST C.14 *****/
+    .then(() => putAddressInvalidRequestData6())      /***** TEST C.14 *****/ // This may turn out to be valid for the sort code I'm using . . .
+    .then(() => putAddressInvalidRequestData7());     /***** TEST C.15 *****/
 
 
                                                               /**** GET tests ****/

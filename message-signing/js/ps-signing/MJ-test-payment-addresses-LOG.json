@@ -1,0 +1,142 @@
+
+/*** (C.1) putAddress - PB, acc valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/4a37c07e-7d95-4c7e-a944-f9efb7986490
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  addressUid: '4a37c07e-7d95-4c7e-a944-f9efb7986490',
+  accountNumber: '24803955',
+  sortCode: '040059',
+  success: true,
+  errors: []
+}
+Returned addressUid: 4a37c07e-7d95-4c7e-a944-f9efb7986490
+
+/*** (C.2) putAddress - PB and acc exist, not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/546dd4cb-db6c-4e76-ae89-c94469f38c24
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (C.3) putAddress - PB valid, acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/d42733c6-8ccd-4640-8215-2bd3f636751a
+ERROR
+HTTP status: 400
+Response data:
+ {
+  addressUid: 'd42733c6-8ccd-4640-8215-2bd3f636751a',
+  success: false,
+  errors: [ { message: 'ACCOUNT_NUMBERS_ASSIGNED_BY_STARLING_FOR_SORT_CODE' } ]
+}
+
+/*** (C.4) putAddress - PB valid, acc invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/a6636046-b33f-4dbd-bace-8ef6277fd675
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (C.5) putAddress - add exists, same details ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc',
+  accountNumber: '48663475',
+  sortCode: '040059',
+  success: true,
+  errors: []
+}
+
+/*** (C.6) putAddress - add exists, details different ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/f44ec61b-51b7-49eb-9149-4a2b1e3b34ea/address/{addressUid}
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (C.7) putAddress - PB, account exist, not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/{addressUid}
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (C.8) putAddress - add UID not valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/{addressUidInvalid}
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (C.9) putAddress - request.accountName invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/{newAaddressUid}
+ERROR
+HTTP status: 413
+Response data:
+ 
+
+/*** (C.10) putAddress - request.sortCode invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/{newAddressUid}
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (C.11) putAddress - request.accountNumber invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/{newAddressUid}
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (C.12) putAddress - request.accountName missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/96d07412-b328-4481-95fc-5e1fd47fecaf
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    { message: '[PROPERTY]\r[accountName]\r[must not be blank]\r[]\r' }
+  ],
+  success: false
+}
+
+/*** (C.13) putAddress - request.sortCode missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/447c01af-9a40-4138-83a0-e5807865d3f5
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [ { message: '[PROPERTY]\r[sortCode]\r[must not be blank]\r[]\r' } ],
+  success: false
+}
+
+/*** (C.14) putAddress - request.accountNumber missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/de4bb9c1-6bad-4d88-ba12-2db676f60a1d
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  addressUid: 'de4bb9c1-6bad-4d88-ba12-2db676f60a1d',
+  accountNumber: '29957664',
+  sortCode: '040059',
+  success: true,
+  errors: []
+}
+
+/*** (C.15) putAddress - request.accountNumber non-blank ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/6d3950a5-edaf-42ca-87bf-b6f5deb04fe8
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  addressUid: '6d3950a5-edaf-42ca-87bf-b6f5deb04fe8',
+  accountNumber: '35111378',
+  sortCode: '040059',
+  success: true,
+  errors: []
+}
