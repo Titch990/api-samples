@@ -462,6 +462,62 @@ const putAddressInvalidRequestData7 = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
+/* *** (D.1) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Valid ****/
+
+const getAddressValid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
+    const method = 'get';
+    const action = '/*** (D.1) getAddress - PB, address valid ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* *** (D.2) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Not authorised ****/
+
+const getAddressNotAuthorised = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUidNotAuthorised}`;
+    const method = 'get';
+    const action = '/*** (D.2) getAddress - PB, address not authorised ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* *** (D.3) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: not found ****/
+
+const getAddressAccNotFound = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}`;
+    const method = 'get';
+    const action = '/*** (D.3) getAddress - PB, address not found ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* *** (D.4) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: invalid ****/
+
+const getAddressAccInvalid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}`;
+    const method = 'get';
+    const action = '/*** (D.4) getAddress - PB, address invalid ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
 /*************************************** Run the test methods ****************************************/
 
 /************************************* Payment business address tests  C *************************************/
@@ -485,12 +541,12 @@ putAddressValid()                                     /***** TEST C.1 ******/   
     .then(() => putAddressInvalidRequestData3())      /***** TEST C.11 *****/
     .then(() => putAddressInvalidRequestData4())      /***** TEST C.12 *****/
     .then(() => putAddressInvalidRequestData5())      /***** TEST C.13 *****/
-    .then(() => putAddressInvalidRequestData6())      /***** TEST C.14 *****/ // This may turn out to be valid for the sort code I'm using . . .
-    .then(() => putAddressInvalidRequestData7());     /***** TEST C.15 *****/
-
-
-                                                              /**** GET tests ****/
-
+    .then(() => putAddressInvalidRequestData6())      /***** TEST C.14 *****/
+    .then(() => putAddressInvalidRequestData7())      /***** TEST C.15 *****/
+    .then(() => getAddressValid())                    /***** TEST D.1 *****/       /**** GET tests ****/
+    .then(() => getAddressNotAuthorised())            /***** TEST D.2 ******/
+    .then(() => getAddressAccNotFound())              /***** TEST D.3 ******/
+    .then(() => getAddressAccInvalid());              /***** TEST D.4 *****/
 
 
 

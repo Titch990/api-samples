@@ -1,34 +1,34 @@
 
 /*** (C.1) putAddress - PB, acc valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/1f88c58c-390b-47e6-8521-9e985d99bb3c
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/097b85dc-a1c1-4dfe-8ca0-65336c79cc69
 SUCCESS
 HTTP status: 200
 Response data:
  {
-  addressUid: '1f88c58c-390b-47e6-8521-9e985d99bb3c',
-  accountNumber: '05003544',
+  addressUid: '097b85dc-a1c1-4dfe-8ca0-65336c79cc69',
+  accountNumber: '95690813',
   sortCode: '040059',
   success: true,
   errors: []
 }
-Returned addressUid: 1f88c58c-390b-47e6-8521-9e985d99bb3c
+Returned addressUid: 097b85dc-a1c1-4dfe-8ca0-65336c79cc69
 
 /*** (C.2) putAddress - PB and acc exist, not auth ***/
-/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/a15eb9d9-1640-47e0-a5a8-190fd5020e48
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/59d1de82-f148-415e-b75b-104f664c2f1a
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (C.3) putAddress - PB valid, acc not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/55da439a-e68c-4c44-ac23-c8ac830c7506
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/6388a1c6-3228-4871-ae55-ddcf7267dea9
 ERROR
 HTTP status: 400
 Response data:
  [ 'ACCOUNT_DOES_NOT_EXIST' ]
 
 /*** (C.4) putAddress - PB valid, acc invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/569320e2-e48f-4566-8494-f0b2f4deda16
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/8c82e89b-caa9-422f-a347-cf265e9e8403
 ERROR
 HTTP status: 404
 Response data:
@@ -101,45 +101,45 @@ Response data:
  
 
 /*** (C.9) putAddress - request.accountName invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/b3647f43-f831-4333-b310-115a15e3394a
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/fa58c28c-af8f-4d1c-89de-b4dcf6eb3282
 ERROR
 HTTP status: 413
 Response data:
  
 
 /*** (C.10) putAddress - request.sortCode invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/4ea2d007-be39-45ff-b0c4-ea0712baba04
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/299843c4-3946-4381-b267-47bfb8f636f8
 ERROR
 HTTP status: 400
 Response data:
  {
-  addressUid: '4ea2d007-be39-45ff-b0c4-ea0712baba04',
+  addressUid: '299843c4-3946-4381-b267-47bfb8f636f8',
   success: false,
   errors: [ { message: 'SORT_CODE_NOT_ALLOCATED_TO_BUSINESS' } ]
 }
 
 /*** (C.11) putAddress - request.accountNumber invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/1b147bc6-bba4-437f-ab2e-e378ce3ab3dc
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/b185e58e-75b8-490f-9848-d684b8385122
 ERROR
 HTTP status: 400
 Response data:
  {
   errors: [
     {
-      message: '[PROPERTY]\r[accountNumber]\r[size must be between 8 and 8]\r[12345679123456789]\r'
+      message: '[PROPERTY]\r[accountNumber]\r[must match "\\d{8}"]\r[12345679123456789]\r'
     },
     {
       message: '[PROPERTY]\r[accountNumber]\r[length must be between 8 and 8]\r[12345679123456789]\r'
     },
     {
-      message: '[PROPERTY]\r[accountNumber]\r[must match "\\d{8}"]\r[12345679123456789]\r'
+      message: '[PROPERTY]\r[accountNumber]\r[size must be between 8 and 8]\r[12345679123456789]\r'
     }
   ],
   success: false
 }
 
 /*** (C.12) putAddress - request.accountName missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/428e3d3e-754c-4b46-9aaf-d6be98374798
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/719b452b-87ab-4a83-a9f7-de7d91e632be
 ERROR
 HTTP status: 400
 Response data:
@@ -151,7 +151,7 @@ Response data:
 }
 
 /*** (C.13) putAddress - request.sortCode missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e54b6426-e940-40d6-bdc7-ac23acca13f8
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ea505dde-a6fa-49d9-93f8-33a83b55ecc4
 ERROR
 HTTP status: 400
 Response data:
@@ -161,25 +161,67 @@ Response data:
 }
 
 /*** (C.14) putAddress - request.accountNumber missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/5a9f0cad-96b7-4189-ac32-b83c31be7049
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e
 SUCCESS
 HTTP status: 200
 Response data:
  {
-  addressUid: '5a9f0cad-96b7-4189-ac32-b83c31be7049',
-  accountNumber: '10157254',
+  addressUid: '0690d922-dd75-4b87-934f-1ece8968275e',
+  accountNumber: '00844525',
   sortCode: '040059',
   success: true,
   errors: []
 }
 
 /*** (C.15) putAddress - request.accountNumber non-blank ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/5a3f22d6-03e8-401a-a4a9-7ed030a6ff43
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/c85cad0d-b342-4199-b0d0-0d8a4adaf11c
 ERROR
 HTTP status: 400
 Response data:
  {
-  addressUid: '5a3f22d6-03e8-401a-a4a9-7ed030a6ff43',
+  addressUid: 'c85cad0d-b342-4199-b0d0-0d8a4adaf11c',
   success: false,
   errors: [ { message: 'ACCOUNT_NUMBERS_ASSIGNED_BY_STARLING_FOR_SORT_CODE' } ]
 }
+
+/*** (D.1) getAddress - PB, address valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+  accountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc',
+  sortCode: '040059',
+  accountNumber: '48663475',
+  createdAt: '2021-03-24T17:58:34.921Z',
+  accountName: 'New Account Name',
+  status: 'ACTIVE',
+  fasterPaymentsStatus: { inboundStatus: 'ENABLED', outboundStatus: 'ENABLED' },
+  bacsStatus: {
+    directCreditPaymentsStatus: 'ENABLED',
+    directDebitPaymentsStatus: 'DISABLED'
+  }
+}
+
+/*** (D.2) getAddress - PB, address not authorised ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/3f957fd9-ed3d-486d-9572-6be69bfd6263
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (D.3) getAddress - PB, address not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (D.4) getAddress - PB, address invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/abcdefghijk
+ERROR
+HTTP status: 404
+Response data:
+ 
