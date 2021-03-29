@@ -1,15 +1,4 @@
 
-/*** (B.1) putAccount - PB valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/76201196-630f-4e61-b28a-68c4afe6ed1a
-SUCCESS
-HTTP status: 200
-Response data:
- {
-  paymentAccountUid: '76201196-630f-4e61-b28a-68c4afe6ed1a',
-  success: true
-}
-Returned accountUid: 76201196-630f-4e61-b28a-68c4afe6ed1a
-
 /*** (A.1) getPB - PB valid ***/
 /api/v1/53f74c7d-c666-422e-a871-b2a03623addd
 SUCCESS
@@ -22,13 +11,6 @@ Response data:
 }
 Returned paymentBusinessUid: 53f74c7d-c666-422e-a871-b2a03623addd
 
-/*** (B.2) putAccount - PB exists, not auth ***/
-/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/034709ae-1ed6-4f15-ad96-e9da80ac144a
-ERROR
-HTTP status: 403
-Response data:
- 
-
 /*** (A.2) getPB - PB not auth ***/
 /api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9
 ERROR
@@ -36,15 +18,40 @@ HTTP status: 403
 Response data:
  
 
-/*** (B.3) putAccount - PB not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/780a7b26-fec8-4008-8e8b-5a9b2f89e3d5
+/*** (A.3) getPB - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc
 ERROR
 HTTP status: 403
 Response data:
  
 
-/*** (A.3) getPB - PB not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623accc
+/*** (A.4) getPB - PB invalid ***/
+/api/v1/abcdefghijk
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (B.1) putAccount - PB valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/f9355ad9-ce0b-48cc-9da6-4acd9fdf3ff2
+SUCCESS
+HTTP status: 200
+Response data:
+ {
+  paymentAccountUid: 'f9355ad9-ce0b-48cc-9da6-4acd9fdf3ff2',
+  success: true
+}
+Returned accountUid: f9355ad9-ce0b-48cc-9da6-4acd9fdf3ff2
+
+/*** (B.2) putAccount - PB exists, not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/5964cb94-3a35-480f-b346-4e24ffbb6e3c
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (B.3) putAccount - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/6c84d9b6-5d6c-4119-a7e8-bb359069b0c8
 ERROR
 HTTP status: 403
 Response data:
@@ -59,13 +66,6 @@ Response data:
   paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
   success: true
 }
-
-/*** (A.4) getPB - PB invalid ***/
-/api/v1/abcdefghijk
-ERROR
-HTTP status: 403
-Response data:
- 
 
 /*** (B.5) putAccount - acc exists, , details different ***/
 /api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/f44ec61b-51b7-49eb-9149-4a2b1e3b34ea
@@ -93,7 +93,7 @@ Response data:
  
 
 /*** (B.8) putAccount - request.accountHolder invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/917ff6a8-73aa-491e-a177-9e53e436b366
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/1ddb516b-d8a1-492d-8f0c-8318cd6d7bcb
 ERROR
 HTTP status: 400
 Response data:
@@ -107,7 +107,7 @@ Response data:
 }
 
 /*** (B.9) putAccount - request.description missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/f8eff808-bc86-4d32-b66c-fa9192744951
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/675b5d97-a54f-441f-a40f-8d31105b7e77
 ERROR
 HTTP status: 400
 Response data:
@@ -153,5 +153,226 @@ Response data:
 /api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk
 ERROR
 HTTP status: 404
+Response data:
+ 
+
+/*** (B.14) getAccounts - valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account
+SUCCESS
+HTTP status: 200
+Response data:
+ [
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '77dfa1e7-5d09-44f4-8ed0-b6cca71648db',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:34:55.002Z',
+    description: 'Account 1',
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '38e2463c-45a4-46ef-94a3-f3d684e5b32e',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:35:12.778Z',
+    description: 'Account 1',
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'df044a38-0256-4f4e-9fb9-923b6d9509b4',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:34:33.255Z',
+    description: 'Account 1',
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '77ec34ec-0397-44a9-86d7-8f2476ee8cac',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:35:31.371Z',
+    description: 'Account 1',
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'c9a0b081-790e-42ef-900e-f705e5862c05',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:24:43.186Z',
+    description: 'Account 1',
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    accountHolder: 'AGENCY',
+    createdAt: '2020-11-26T11:21:56.187Z',
+    description: 'Account 1',
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'f4f6c21e-dea4-4ef3-8e59-1dd5181527ac',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T17:08:23.830Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '6486e98f-e71c-40d4-86a0-d07946a73841',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T17:05:14.602Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '93d0f9bc-1610-4576-8d1a-03757d68bc65',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T17:04:23.542Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '3b211734-c7b1-4a93-90a3-bce61cd75a34',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:35:31.088Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'f9355ad9-ce0b-48cc-9da6-4acd9fdf3ff2',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-29T11:01:31.820Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '96709737-c74a-41e2-82c4-0854b5235030',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:34:54.738Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '5848c613-e026-4d08-9011-0fb0b1c2337a',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:34:32.961Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'ac4f0b23-5695-4785-9cd4-a8e66d7cc6e8',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:24:40.783Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'c47892e2-75b6-4b66-8177-bd5940bd0700',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:22:03.864Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'f44ec61b-51b7-49eb-9149-4a2b1e3b34ea',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T15:42:36.512Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'a77a7cd6-69bc-4217-a242-7db14c2753d4',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T12:27:13.281Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '43016185-336a-4be5-b55f-aee8acf1d765',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-25T18:05:43.422Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '73a93a9e-25c1-40e0-89a0-0d4d9005a82c',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T16:35:12.511Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: 'ce908712-17a0-44cb-978d-dfc94c6ffb12',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-29T11:00:12.447Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '0aabc588-63e3-4475-a6bd-0871847aff97',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-29T10:51:19.761Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '3e288954-28e5-4a28-8a4d-6a72cfe57896',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-29T10:46:20.623Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '30cbcf92-fd07-4f51-bdbd-321581c8403c',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T18:15:12.178Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    accountUid: '76201196-630f-4e61-b28a-68c4afe6ed1a',
+    accountHolder: 'AGENCY',
+    createdAt: '2021-03-26T18:02:20.745Z',
+    description: "MJ's test account (one of many)",
+    balance: { currencyAndAmount: [Object], balanceState: 'IN_CREDIT' }
+  }
+]
+
+/*** (B.15) getAccounts - paymentBusinessUid not authorised ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (B.16) getAccounts - paymentBusinessUid not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (B.17) getAccounts - paymentBusinessUid invalid ***/
+/api/v1/abcdefghijk/account
+ERROR
+HTTP status: 403
 Response data:
  
