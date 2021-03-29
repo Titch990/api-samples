@@ -18,7 +18,7 @@ const accountUidInvalid = 'abcdefghijk';                                        
 const addressUid = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc';                      // Created by running some code like this
 const addressUidNotFound = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd';              // Made up
 const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263';         // Exists but not mine
-const accressUidInvalid = 'abcdefghijk';                                        // Not a valid UID
+const addressUidInvalid = 'abcdefghijk';                                        // Not a valid UID
 const sortCode = '040059';
 
 // Some of the things we'll get back at run time
@@ -102,8 +102,7 @@ const putAddressValid = async () => {
     const action = '/*** (C.1) putAddress - PB, acc valid ***/';
     const data = {
           accountName: "Millie Moodle (one of many)",
-          sortCode: sortCode/*,
-          accountNumber: "        "  /* Must be blank for new addresses */
+          sortCode: sortCode
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -133,11 +132,6 @@ const putAddressNotAuthorised = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-
-
-    // return makeRequest({ action, url, method, authorization, date, digest, data });
-
-
 };
 
 /* *** (C.3) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: PB valid, acc not found ****/
@@ -150,8 +144,7 @@ const putAddressAccNotFound = async () => {
     const action = '/*** (C.3) putAddress - PB valid, acc not found ***/';
     const data = {
         accountName: "Millie Moodle (one of many)",
-        sortCode: sortCode,
-        accountNumber: "12345679"
+        sortCode: sortCode
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -171,7 +164,7 @@ const putAddressAccInvalid = async () => {
     const data = {
         accountName: "Millie Moodle (one of many)",
         sortCode: sortCode,
-        accountNumber: "12345679"
+        accountNumber: "12345678"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -199,13 +192,13 @@ const putAddressExistsSame = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* *** (C.6) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: acc exists, details different ****/
+/* *** (C.6.1) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: acc exists, accountNumber different ****/
 
-const putAddressExistsDifferent = async () => {
+const putAddressExistsDifferent1 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid2}/address/{addressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
     const method = 'put';
-    const action = '/*** (C.6) putAddress - add exists, details different ***/';
+    const action = '/*** (C.6.1) putAddress - add exists, accountNumber different ***/';
     const data = {
           accountName: "My Account Name",
           sortCode: sortCode,
@@ -218,16 +211,48 @@ const putAddressExistsDifferent = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
+/* *** (C.6.2) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: acc exists, accountNumber not supplied ****/
 
-/* REACHED HERE WITH CODE THAT I THINK SHOULD RUN (but not tried it yet)
-   Updated the descriptions of the remaining methods, but that's all */
+const putAddressExistsDifferent2 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
+    const method = 'put';
+    const action = '/*** (C.6.2) putAddress - add exists, accountNumber not supplied ***/';
+    const data = {
+          accountName: "My Account Name",
+          sortCode: sortCode
+    }
 
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* *** (C.6.3) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: acc exists, accountName different ****/
+
+const putAddressExistsDifferent3 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
+    const method = 'put';
+    const action = '/*** (C.6.3) putAddress - add exists, accountName different ***/';
+    const data = {
+          accountName: "New Account Name",
+          sortCode: sortCode,
+          accountNumber: "48663475"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
 
 /* *** (C.7) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: PB, account, add exist, not auth ****/
 
 const putAddressNotAuth = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/{addressUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUid}`;
     const method = 'put';
     const action = '/*** (C.7) putAddress - PB, account exist, not auth ***/';
     const data = {
@@ -246,7 +271,7 @@ const putAddressNotAuth = async () => {
 
 const putAddressInvalidUid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/{addressUidInvalid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}`;
     const method = 'put';
     const action = '/*** (C.8) putAddress - add UID not valid ***/';
     const data = {
@@ -266,7 +291,7 @@ const putAddressInvalidUid = async () => {
 const putAddressInvalidRequestData1 = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/{newAaddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
     const method = 'put';
     const action = '/*** (C.9) putAddress - request.accountName invalid ***/';
     const data = {
@@ -316,7 +341,7 @@ const putAddressInvalidRequestData1 = async () => {
 const putAddressInvalidRequestData2 = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/{newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
     const method = 'put';
     const action = '/*** (C.10) putAddress - request.sortCode invalid ***/';
     const data = {
@@ -340,7 +365,7 @@ const putAddressInvalidRequestData2 = async () => {
 const putAddressInvalidRequestData3 = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/{newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
     const method = 'put';
     const action = '/*** (C.11) putAddress - request.accountNumber invalid ***/';
     const data = {
@@ -417,7 +442,7 @@ const putAddressInvalidRequestData6 = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* *** (C.15) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountNumber non-blank ****/
+/* *** (C.15) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountNumber supplied ****/
 
 const putAddressInvalidRequestData7 = async () => {
     const newAddressUid = v4();
@@ -428,36 +453,13 @@ const putAddressInvalidRequestData7 = async () => {
     const data = {
           accountName: "Millie Moodle (one of many)",
           sortCode: sortCode,
-          AccountNumber: "12345678"
+          accountNumber: "12345678"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-};
-
-
-
-
-
-/* PUT PB address - Valid */
-const putAddress = () => {
-    const addressUid = v4(); // I think this makes a new addressUid??
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
-    const method = 'put';
-    const data = {
-        accountName: 'My Account Name',
-        sortCode
-    };
-    const action = '/*** putAddress - VALID ***/';
-
-    // Get the signature
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
-
-    // Make the call - use this format if you don't need to do anything with the response here
-    return makeRequest({ action, url, method, data, authorization, date, digest });
 };
 
 /*************************************** Run the test methods ****************************************/
@@ -473,7 +475,9 @@ putAddressValid()                                     /***** TEST C.1 ******/   
     .then(() => putAddressAccNotFound())              /***** TEST C.3 ******/
     .then(() => putAddressAccInvalid())               /***** TEST C.4 ******/
     .then(() => putAddressExistsSame())               /***** TEST C.5 ******/
-    .then(() => putAddressExistsDifferent())          /***** TEST C.6 ******/
+    .then(() => putAddressExistsDifferent1())         /***** TEST C.6.1 ******/
+    .then(() => putAddressExistsDifferent2())         /***** TEST C.6.2 ******/
+    .then(() => putAddressExistsDifferent3())         /***** TEST C.6.3 ******/
     .then(() => putAddressNotAuth())                  /***** TEST C.7 ******/
     .then(() => putAddressInvalidUid())               /***** TEST C.8 ******/
     .then(() => putAddressInvalidRequestData1())      /***** TEST C.9 ******/
