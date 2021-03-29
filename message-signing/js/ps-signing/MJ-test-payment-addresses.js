@@ -462,13 +462,13 @@ const putAddressInvalidRequestData7 = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* *** (D.1) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Valid ****/
+/* *** (C.16) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Valid ****/
 
 const getAddressValid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
     const method = 'get';
-    const action = '/*** (D.1) getAddress - PB, address valid ***/';
+    const action = '/*** (C.16) getAddress - PB, address valid ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -476,13 +476,13 @@ const getAddressValid = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 };
 
-/* *** (D.2) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Not authorised ****/
+/* *** (C.17) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Not authorised ****/
 
 const getAddressNotAuthorised = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUidNotAuthorised}`;
     const method = 'get';
-    const action = '/*** (D.2) getAddress - PB, address not authorised ***/';
+    const action = '/*** (C.17) getAddress - PB, address not authorised ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -490,13 +490,13 @@ const getAddressNotAuthorised = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 };
 
-/* *** (D.3) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: not found ****/
+/* *** (C.18) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: not found ****/
 
 const getAddressAccNotFound = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}`;
     const method = 'get';
-    const action = '/*** (D.3) getAddress - PB, address not found ***/';
+    const action = '/*** (C.18) getAddress - PB, address not found ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -504,13 +504,69 @@ const getAddressAccNotFound = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 };
 
-/* *** (D.4) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: invalid ****/
+/* *** (C.19) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: invalid ****/
 
 const getAddressAccInvalid = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}`;
     const method = 'get';
-    const action = '/*** (D.4) getAddress - PB, address invalid ***/';
+    const action = '/*** (C.19) getAddress - PB, address invalid ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* *** (C.20) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: Valid ****/
+
+const getAddressesValid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address`;
+    const method = 'get';
+    const action = '/*** (C.20) getAddresses - PB, account valid ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* *** (C.21) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: Not authorised ****/
+
+const getAddressesNotAuthorised = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address`;
+    const method = 'get';
+    const action = '/*** (C.21) getAddresses - PB, account not authorised ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* *** (C.22) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: not found ****/
+
+const getAddressesAccNotFound = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address`;
+    const method = 'get';
+    const action = '/*** (C.22) getAddresses - PB valid, account not found ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
+/* *** (C.23) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: invalid ****/
+
+const getAddressesAccInvalid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address`;
+    const method = 'get';
+    const action = '/*** (C.23) getAddresses - PB valid, account invalid ***/';
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
@@ -520,7 +576,7 @@ const getAddressAccInvalid = async () => {
 
 /*************************************** Run the test methods ****************************************/
 
-/************************************* Payment business address tests  C *************************************/
+/************************************* Payment business address tests C *************************************/
 
 putAddressValid()                                     /***** TEST C.1 ******/      /**** PUT tests ****/
     .then(() => {
@@ -543,20 +599,11 @@ putAddressValid()                                     /***** TEST C.1 ******/   
     .then(() => putAddressInvalidRequestData5())      /***** TEST C.13 *****/
     .then(() => putAddressInvalidRequestData6())      /***** TEST C.14 *****/
     .then(() => putAddressInvalidRequestData7())      /***** TEST C.15 *****/
-    .then(() => getAddressValid())                    /***** TEST D.1 *****/       /**** GET tests ****/
-    .then(() => getAddressNotAuthorised())            /***** TEST D.2 ******/
-    .then(() => getAddressAccNotFound())              /***** TEST D.3 ******/
-    .then(() => getAddressAccInvalid());              /***** TEST D.4 *****/
-
-
-
-
-
-
-/*
-getAccount()
-    .then(() => getAccountError()
-        .then(() => getAccountNotAuthorised()));
-*/
-        /* getAccount()
-            .then(() => putAddress()); */
+    .then(() => getAddressValid())                    /***** TEST C.16 *****/       /**** GET tests ****/
+    .then(() => getAddressNotAuthorised())            /***** TEST C.17 ******/
+    .then(() => getAddressAccNotFound())              /***** TEST C.18 ******/
+    .then(() => getAddressAccInvalid())               /***** TEST C.19 ******/
+    .then(() => getAddressesValid())                  /***** TEST C.20 *****/       /**** GET addresses tests ****/
+    .then(() => getAddressesNotAuthorised())          /***** TEST C.21 ******/
+    .then(() => getAddressesAccNotFound())            /***** TEST C.22 ******/
+    .then(() => getAddressesAccInvalid());            /***** TEST C.21 ******/
