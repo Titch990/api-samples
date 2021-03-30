@@ -482,7 +482,6 @@ const putStatusNotAuthorised = async () => {
 /* *** (D.17) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: PB, acc valid, addr not found ****/
 
 const putStatusAddrNotFound = async () => {
-    const newAddressUid = v4();
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/status`;
     const method = 'put';
@@ -502,7 +501,7 @@ const putStatusAddrNotFound = async () => {
 const putStatusMissing = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${newAddressUid}/status`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}/status`;
     const method = 'put';
     const action = '/*** (D.18) PUT status - status missing ***/';
     const data = {
@@ -514,7 +513,6 @@ const putStatusMissing = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
-
 
 /* *** (D.19) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: status invalid ****/
 
