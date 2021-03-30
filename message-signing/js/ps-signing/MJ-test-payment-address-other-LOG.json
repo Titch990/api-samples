@@ -43,7 +43,7 @@ Response data:
 }
 
 /*** (D.4) PUT FPS status - inboundStatus missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/b6855ca7-c76b-4837-bd6a-e071d8418a2b/faster-payments-status
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/9b3c02fd-b6da-4942-8c71-ab4056d5c7ae/faster-payments-status
 ERROR
 HTTP status: 400
 Response data:
@@ -113,11 +113,15 @@ Response data:
  { addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323', success: true }
 
 /*** (D.8.3) PUT Bacs status - address closed ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc/bacs-status
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc/bacs-payments-status
 ERROR
-HTTP status: 404
+HTTP status: 400
 Response data:
- 
+ {
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc',
+  success: false,
+  errors: [ { message: 'ACCOUNT_CLOSED_CANNOT_MODIFY' } ]
+}
 
 /*** (D.9) PUT Bacs status - PB, acc, addr exist, not auth ***/
 /api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/3f957fd9-ed3d-486d-9572-6be69bfd6263/bacs-payments-status
@@ -138,7 +142,7 @@ Response data:
 }
 
 /*** (D.11) PUT Bacs status - directCreditPaymentsStatus missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/5c5bf431-191f-46ff-b870-640cd142b754/bacs-payments-status
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/7a897270-8c7f-4b06-a580-033d25e7aec9/bacs-payments-status
 ERROR
 HTTP status: 400
 Response data:
@@ -230,7 +234,7 @@ Response data:
 }
 
 /*** (D.18) PUT status - status missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/6bd2bae5-dbf9-472c-bf54-90d34c0df0e4/status
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/1de7141b-c5c8-448a-9e63-b7ab05fa1678/status
 ERROR
 HTTP status: 404
 Response data:

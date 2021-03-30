@@ -301,12 +301,12 @@ const putBacsValid2 = async () => {
 
 const putBacsAddressClosed = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidClosed}/bacs-status`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidClosed}/bacs-payments-status`;
     const method = 'put';
     const action = '/*** (D.8.3) PUT Bacs status - address closed ***/';
     const data = {
-          inboundStatus: "ENABLED",
-          outboundStatus: "DISABLED"
+          directCreditPaymentsStatus: "ENABLED",
+          directDebitPaymentsStatus: "DISABLED"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
