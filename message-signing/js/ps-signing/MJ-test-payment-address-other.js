@@ -98,7 +98,7 @@ const putFPSValid1 = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/faster-payments-status`;
     const method = 'put';
-    const action = '/*** (D.1) PUT FPS status - PB, acc, addr valid ***/';
+    const action = '/*** (D.1.1) PUT FPS status - PB, acc, addr valid ***/';
     const data = {
           inboundStatus: "ENABLED",
           outboundStatus: "ENABLED"
@@ -117,7 +117,7 @@ const putFPSValid2 = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/faster-payments-status`;
     const method = 'put';
-    const action = '/*** (D.1) PUT FPS status - PB, acc, addr valid ***/';
+    const action = '/*** (D.1.2) PUT FPS status - PB, acc, addr valid ***/';
     const data = {
           inboundStatus: "ENABLED",
           outboundStatus: "DISABLED"
@@ -238,161 +238,219 @@ const putFPSOutboundInvalid = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
+/************************************************* PB account Bacs status ********************************************/
 
+/* *** (D.8.1) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-payments-status: PB, acc, address valid ****/
 
-
-
-
-
-
-
-/* *** (D.8) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: add UID not valid ****/
-
-const putAddressInvalidUid = async () => {
+const putBacsValid1 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/bacs-payments-status`;
     const method = 'put';
-    const action = '/*** (D.8) putAddress - add UID not valid ***/';
+    const action = '/*** (D.8.1) PUT Bacs status - PB, acc, addr valid ***/';
     const data = {
-          accountName: "My Account Name",
-          sortCode: sortCode,
-          accountNumber: "12345678"
+          directCreditPaymentsStatus: "ENABLED",
+          directDebitPaymentsStatus: "ENABLED"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
 };
 
-/* *** (D.9) PUT PB addresss /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountName invalid ****/
+/* *** (D.8.2) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-payments-status: PB, acc, address valid ****/
 
-const putAddressInvalidRequestData1 = async () => {
+const putBacsValid2 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/bacs-payments-status`;
+    const method = 'put';
+    const action = '/*** (D.8.2) PUT Bacs status - PB, acc, addr valid ***/';
+    const data = {
+          directCreditPaymentsStatus: "ENABLED",
+          directDebitPaymentsStatus: "DISABLED"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (D.9) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/bacs-payments-status: PB, acc, addr exist, not authorised ****/
+
+const putBacsNotAuthorised = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUidNotAuthorised}/bacs-payments-status`;
+    const method = 'put';
+    const action = '/*** (D.9) PUT Bacs status - PB, acc, addr exist, not auth ***/';
+    const data = {
+          directCreditPaymentsStatus: "ENABLED",
+          directDebitPaymentsStatus: "DISABLED"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (D.10) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-payments-status: PB, acc valid, addr not found ****/
+
+const putBacsAddrNotFound = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/bacs-payments-status`;
     const method = 'put';
-    const action = '/*** (D.9) putAddress - request.accountName invalid ***/';
+    const action = '/*** (D.10) PUT Bacs status - PB, acc valid, addr not found ***/';
     const data = {
-        accountName: "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid" +
-            "this is an incredibly long account name so I hope it's going to be invalid",
-        sortCode: sortCode,
-        accountNumber: "12345679"
+          directCreditPaymentsStatus: "ENABLED",
+          directDebitPaymentsStatus: "DISABLED"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-
 };
 
-/* *** (D.10) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.sortCode invalid ****/
+/* *** (D.11) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-payments-status: directCreditPaymentsStatus missing ***/
 
-const putAddressInvalidRequestData2 = async () => {
+const putBacsInboundMissing = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${newAddressUid}/bacs-payments-status`;
     const method = 'put';
-    const action = '/*** (D.10) putAddress - request.sortCode invalid ***/';
+    const action = '/*** (D.11) PUT Bacs status - directCreditPaymentsStatus missing ***/';
     const data = {
-        accountName: "Millie Moodle (one of many)",
-        sortCode: "999999",
-        accountNumber: "12345679"
+          directDebitPaymentsStatus: "DISABLED"
     }
 
-    // Get the Signature
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
-    // Make the call, and grab the response (note the "async" needed in the declaration above, because of the "await" here)
+    // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
 
-    // Now you can do something with the response, like save it, if you want to
+/* *** (D.12) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-payments-status: directDebitPaymentsStatus missing ***/
+
+const putBacsOutboundMissing = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/bacs-payments-status`;
+    const method = 'put';
+    const action = '/*** (D.12) PUT Bacs status - directDebitPaymentsStatus missing ***/';
+    const data = {
+          directCreditPaymentsStatus: "ENABLED",
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* *** (D.13) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-payments-status: directCreditPaymentsStatus invalid ****/
+
+const putBacsInboundInvalid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/bacs-payments-status`;
+    const method = 'put';
+    const action = '/*** (D.13) PUT Bacs status - directCreditPaymentsStatus invalid ***/';
+    const data = {
+          directCreditPaymentsStatus: "ENABLEDXXXX",
+          directDebitPaymentsStatus: "DISABLED"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* *** (D.14) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-payments-status: outbpundStatus invalid ****/
+
+const putBacsOutboundInvalid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUid}/bacs-payments-status`;
+    const method = 'put';
+    const action = '/*** (D.14) PUT Bacs status - directDebitPaymentsStatus invalid ***/';
+    const data = {
+          directCreditPaymentsStatus: "ENABLED",
+          directDebitPaymentsStatus: "DISABLEDXXXX"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/************************************************* PB account status ********************************************/
+
+/* *** (D.15) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: PB, acc, address valid ****/
+
+const putStatusValid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/status`;
+    const method = 'put';
+    const action = '/*** (D.15) PUT status - PB, acc, addr valid ***/';
+    const data = {
+          status: "CLOSED"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
 };
 
-/* *** (D.11) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountNumber invalid ****/
+/* *** (D.16) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/status: PB, acc, addr exist, not authorised ****/
 
-const putAddressInvalidRequestData3 = async () => {
+const putStatusNotAuthorised = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUidNotAuthorised}/status`;
+    const method = 'put';
+    const action = '/*** (D.16) PUT status - PB, acc, addr exist, not auth ***/';
+    const data = {
+          status: "CLOSED"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (D.17) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: PB, acc valid, addr not found ****/
+
+const putStatusAddrNotFound = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/status`;
     const method = 'put';
-    const action = '/*** (D.11) putAddress - request.accountNumber invalid ***/';
+    const action = '/*** (D.17) PUT status - PB, acc valid, addr not found ***/';
     const data = {
-        accountName: "Millie Moodle (one of many)",
-        sortCode: sortCode,
-        accountNumber: "12345679123456789"
+          status: "CLOSED"
     }
 
-    // Get the Signature
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
-    // Make the call, and grab the response (note the "async" needed in the declaration above, because of the "await" here)
+    // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-
-    // Now you can do something with the response, like save it, if you want to
-
 };
 
-/* *** (D.12) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountName missing ****/
+/* *** (D.18) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: status missing ***/
 
-const putAddressInvalidRequestData4 = async () => {
+const putStatusMissing = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${newAddressUid}/status`;
     const method = 'put';
-    const action = '/*** (D.12) putAddress - request.accountName missing ***/';
+    const action = '/*** (D.18) PUT status - status missing ***/';
     const data = {
-          sortCode: sortCode,
-          accountNumber: "12345678"
-    }
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-};
-
-/* *** (D.13) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.sortCode missing ****/
-
-const putAddressInvalidRequestData5 = async () => {
-    const newAddressUid = v4();
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
-    const method = 'put';
-    const action = '/*** (D.13) putAddress - request.sortCode missing ***/';
-    const data = {
-          accountName: "Millie Moodle (one of many)",
-          accountNumber: "12345678"
+        statusxxx: "CLOSED"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -402,162 +460,28 @@ const putAddressInvalidRequestData5 = async () => {
 };
 
 
-/* *** (D.14) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountNumber missing ****/
+/* *** (D.19) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: status invalid ****/
 
-const putAddressInvalidRequestData6 = async () => {
-    const newAddressUid = v4();
+const putStatusInvalid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/status`;
     const method = 'put';
-    const action = '/*** (D.14) putAddress - request.accountNumber missing ***/';
+    const action = '/*** (D.19) PUT status - status invalid ***/';
     const data = {
-          accountName: "Millie Moodle (one of many)",
-          sortCode: sortCode
+          status: "DISABLED"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-};
-
-/* *** (D.15) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: request.accountNumber supplied ****/
-
-const putAddressInvalidRequestData7 = async () => {
-    const newAddressUid = v4();
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}`;
-    const method = 'put';
-    const action = '/*** (D.15) putAddress - request.accountNumber non-blank ***/';
-    const data = {
-          accountName: "Millie Moodle (one of many)",
-          sortCode: sortCode,
-          accountNumber: "12345678"
-    }
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-};
-
-/* *** (D.16) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Valid ****/
-
-const getAddressValid = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}`;
-    const method = 'get';
-    const action = '/*** (D.16) getAddress - PB, address valid ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* *** (D.17) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Not authorised ****/
-
-const getAddressNotAuthorised = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUidNotAuthorised}`;
-    const method = 'get';
-    const action = '/*** (D.17) getAddress - PB, address not authorised ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* *** (D.18) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: not found ****/
-
-const getAddressAccNotFound = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}`;
-    const method = 'get';
-    const action = '/*** (D.18) getAddress - PB, address not found ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* *** (D.19) GET PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: invalid ****/
-
-const getAddressAccInvalid = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}`;
-    const method = 'get';
-    const action = '/*** (D.19) getAddress - PB, address invalid ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* *** (D.20) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: Valid ****/
-
-const getAddressesValid = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address`;
-    const method = 'get';
-    const action = '/*** (D.20) getAddresses - PB, account valid ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* *** (D.21) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: Not authorised ****/
-
-const getAddressesNotAuthorised = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address`;
-    const method = 'get';
-    const action = '/*** (D.21) getAddresses - PB, account not authorised ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* *** (D.22) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: not found ****/
-
-const getAddressesAccNotFound = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address`;
-    const method = 'get';
-    const action = '/*** (D.22) getAddresses - PB valid, account not found ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
-};
-
-/* *** (D.23) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: invalid ****/
-
-const getAddressesAccInvalid = async () => {
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address`;
-    const method = 'get';
-    const action = '/*** (D.23) getAddresses - PB valid, account invalid ***/';
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest });
 };
 
 /*************************************** Run the test methods ****************************************/
 
 /************************************* Payment business address tests C *************************************/
 
-putFPSValid2()                                     /***** TEST D.1.1 ******/      /**** PUT FPS tests ****/
+putFPSValid1()                                     /***** TEST D.1.1 ******/      /**** PUT FPS status tests ****/
     .then(() => putFPSValid2())                    /***** TEST D.1.2 ******/
     .then(() => putFPSNotAuthorised())             /***** TEST D.2 ******/
     .then(() => putFPSAddrNotFound())              /***** TEST D.3 ******/
@@ -565,3 +489,16 @@ putFPSValid2()                                     /***** TEST D.1.1 ******/    
     .then(() => putFPSOutboundMissing())           /***** TEST D.5 ******/
     .then(() => putFPSInboundInvalid())            /***** TEST D.6 ******/
     .then(() => putFPSOutboundInvalid())           /***** TEST D.7 ******/
+    .then(() => putBacsValid1())                   /***** TEST D.8.1 ******/      /**** PUT Bacs status tests ****/
+    .then(() => putBacsValid2())                   /***** TEST D.8.2 ******/
+    .then(() => putBacsNotAuthorised())            /***** TEST D.9 ******/
+    .then(() => putBacsAddrNotFound())             /***** TEST D.10 ******/
+    .then(() => putBacsInboundMissing())           /***** TEST D.11 ******/
+    .then(() => putBacsOutboundMissing())          /***** TEST D.12 ******/
+    .then(() => putBacsInboundInvalid())           /***** TEST D.13 ******/
+    .then(() => putBacsOutboundInvalid())          /***** TEST D.14 ******/
+    .then(() => putStatusValid())                  /***** TEST D.15 ******/      /**** PUT status tests ****/
+    .then(() => putStatusNotAuthorised())          /***** TEST D.16 ******/
+    .then(() => putStatusAddrNotFound())           /***** TEST D.17 ******/
+    .then(() => putStatusMissing())                /***** TEST D.18 ******/
+    .then(() => putStatusInvalid())                /***** TEST D.19 ******/
