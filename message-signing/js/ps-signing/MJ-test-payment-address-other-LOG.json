@@ -43,11 +43,18 @@ Response data:
 }
 
 /*** (D.4) PUT FPS status - inboundStatus missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/3bd372a9-59a5-42c8-b0b4-ae5634aa1aec/faster-payments-status
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/91bc82ec-c6e4-4c65-9b46-7de672478868/faster-payments-status
 ERROR
-HTTP status: 404
+HTTP status: 400
 Response data:
- 
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[inboundStatus]\r[must not be null]\r[]\r'
+    }
+  ],
+  success: false
+}
 
 /*** (D.5) PUT FPS status - outboundStatus missing ***/
 /api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/faster-payments-status
@@ -124,11 +131,18 @@ Response data:
 }
 
 /*** (D.11) PUT Bacs status - directCreditPaymentsStatus missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/99374c9a-6016-4ebb-9ced-43c69f74ac54/bacs-payments-status
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/79c010ba-2929-4fa3-b1f1-292222347cc4/bacs-payments-status
 ERROR
-HTTP status: 404
+HTTP status: 400
 Response data:
- 
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[directCreditPaymentsStatus]\r[must not be null]\r[]\r'
+    }
+  ],
+  success: false
+}
 
 /*** (D.12) PUT Bacs status - directDebitPaymentsStatus missing ***/
 /api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/bacs-payments-status
@@ -202,7 +216,7 @@ Response data:
 }
 
 /*** (D.18) PUT status - status missing ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/90481fc0-b5a8-42d8-8957-c12151ab44e8/status
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/81bd8fd1-12a6-46a2-8f70-7e853b2b7c88/status
 ERROR
 HTTP status: 404
 Response data:

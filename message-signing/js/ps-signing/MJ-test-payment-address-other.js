@@ -191,7 +191,7 @@ const putFPSAddrNotFound = async () => {
 const putFPSInboundMissing = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${newAddressUid}/faster-payments-status`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}/faster-payments-status`;
     const method = 'put';
     const action = '/*** (D.4) PUT FPS status - inboundStatus missing ***/';
     const data = {
@@ -357,7 +357,7 @@ const putBacsAddrNotFound = async () => {
 const putBacsInboundMissing = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${newAddressUid}/bacs-payments-status`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${newAddressUid}/bacs-payments-status`;
     const method = 'put';
     const action = '/*** (D.11) PUT Bacs status - directCreditPaymentsStatus missing ***/';
     const data = {
