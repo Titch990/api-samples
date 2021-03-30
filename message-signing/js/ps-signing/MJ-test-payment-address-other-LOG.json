@@ -1,0 +1,223 @@
+
+/*** (D.1.1) PUT FPS status - PB, acc, addr valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/faster-payments-status
+SUCCESS
+HTTP status: 200
+Response data:
+ { addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323', success: true }
+
+/*** (D.1.2) PUT FPS status - PB, acc, addr valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/faster-payments-status
+SUCCESS
+HTTP status: 200
+Response data:
+ { addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323', success: true }
+
+/*** (D.1.3) PUT FPS status - address closed ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc/faster-payments-status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc',
+  success: false,
+  errors: [ { message: 'ACCOUNT_CLOSED_CANNOT_MODIFY' } ]
+}
+
+/*** (D.2) PUT FPS status - PB, acc, addr exist, not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/3f957fd9-ed3d-486d-9572-6be69bfd6263/faster-payments-status
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (D.3) PUT FPS status - PB, acc valid, addr not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/faster-payments-status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd',
+  success: false,
+  errors: [ { message: 'UNKNOWN_ADDRESS' } ]
+}
+
+/*** (D.4) PUT FPS status - inboundStatus missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/3bd372a9-59a5-42c8-b0b4-ae5634aa1aec/faster-payments-status
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (D.5) PUT FPS status - outboundStatus missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/faster-payments-status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[outboundStatus]\r[must not be null]\r[]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (D.6) PUT FPS status - inboundStatus invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/faster-payments-status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: 'Invalid request input at line 1, column 18, JSON path: inboundStatus. This could be caused by sending the wrong data type for a given key, e.g. a list where a string is expected.'
+    }
+  ],
+  success: false
+}
+
+/*** (D.7) PUT FPS status - outboundStatus invalid ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/faster-payments-status
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (D.8.1) PUT Bacs status - PB, acc, addr valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/bacs-payments-status
+SUCCESS
+HTTP status: 200
+Response data:
+ { addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323', success: true }
+
+/*** (D.8.2) PUT Bacs status - PB, acc, addr valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/bacs-payments-status
+SUCCESS
+HTTP status: 200
+Response data:
+ { addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323', success: true }
+
+/*** (D.8.3) PUT Bacs status - address closed ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc/bacs-status
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (D.9) PUT Bacs status - PB, acc, addr exist, not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/3f957fd9-ed3d-486d-9572-6be69bfd6263/bacs-payments-status
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (D.10) PUT Bacs status - PB, acc valid, addr not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/bacs-payments-status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd',
+  success: false,
+  errors: [ { message: 'UNKNOWN_ADDRESS' } ]
+}
+
+/*** (D.11) PUT Bacs status - directCreditPaymentsStatus missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/99374c9a-6016-4ebb-9ced-43c69f74ac54/bacs-payments-status
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (D.12) PUT Bacs status - directDebitPaymentsStatus missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/bacs-payments-status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[directDebitPaymentsStatus]\r[must not be null]\r[]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (D.13) PUT Bacs status - directCreditPaymentsStatus invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/bacs-payments-status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: 'Invalid request input at line 1, column 31, JSON path: directCreditPaymentsStatus. This could be caused by sending the wrong data type for a given key, e.g. a list where a string is expected.'
+    }
+  ],
+  success: false
+}
+
+/*** (D.14) PUT Bacs status - directDebitPaymentsStatus invalid ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/bacs-payments-status
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (D.15.1) PUT status - PB, acc, addr valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc/status
+SUCCESS
+HTTP status: 200
+Response data:
+ { addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc', success: true }
+
+/*** (D.15.2) PUT status - address closed ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc/status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc',
+  success: false,
+  errors: [ { message: 'ACCOUNT_CLOSED_CANNOT_REOPEN' } ]
+}
+
+/*** (D.16) PUT status - PB, acc, addr exist, not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/148d1a4d-cf8d-4923-9be0-c8fe29a5dea9/address/3f957fd9-ed3d-486d-9572-6be69bfd6263/status
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (D.17) PUT status - PB, acc valid, addr not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  addressUid: 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd',
+  success: false,
+  errors: [ { message: 'UNKNOWN_ADDRESS' } ]
+}
+
+/*** (D.18) PUT status - status missing ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/90481fc0-b5a8-42d8-8957-c12151ab44e8/status
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (D.19) PUT status - status invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/status
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: 'Invalid request input at line 1, column 11, JSON path: status. This could be caused by sending the wrong data type for a given key, e.g. a list where a string is expected.'
+    }
+  ],
+  success: false
+}

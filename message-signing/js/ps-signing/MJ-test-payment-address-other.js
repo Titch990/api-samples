@@ -15,7 +15,8 @@ const accountUid2 = 'f44ec61b-51b7-49eb-9149-4a2b1e3b34ea';                     
 const accountUidNotFound = '09dbbfac-50b1-47f3-ac7b-a37d828bdccc';              // Made up
 const accountUidNotAuthorised = '148d1a4d-cf8d-4923-9be0-c8fe29a5dea9';         // Exists but not mine
 const accountUidInvalid = 'abcdefghijk';                                        // Not a valid UID
-const addressUid = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc';                      // Created by running some code like this
+const addressUid = 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323';                      // Created by running some code like this
+const addressUidClosed = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc';                // Created by running some code like this (and then closing!)
 const addressUidNotFound = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd';              // Made up
 const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263';         // Exists but not mine
 const addressUidInvalid = 'abcdefghijk';                                        // Not a valid UID
@@ -130,6 +131,24 @@ const putFPSValid2 = async () => {
 
 };
 
+/* *** (D.1.3) PUT FPS status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/faster-payments-status: address closed ****/
+
+const putFPSAddressClosed = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidClosed}/faster-payments-status`;
+    const method = 'put';
+    const action = '/*** (D.1.3) PUT FPS status - address closed ***/';
+    const data = {
+          inboundStatus: "ENABLED",
+          outboundStatus: "DISABLED"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
 /* *** (D.2) PUT FPS status /api/v1/{paymentBusinessUid}/account/{accountUid}/faster-payments-status: PB, acc, addr exist, not authorised ****/
 
 const putFPSNotAuthorised = async () => {
@@ -220,7 +239,7 @@ const putFPSInboundInvalid = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* *** (D.7) PUT FPS status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/faster-payments-status: outbpundStatus invalid ****/
+/* *** (D.7) PUT FPS status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/faster-payments-status: outboundStatus invalid ****/
 
 const putFPSOutboundInvalid = async () => {
     const date = (new Date()).toISOString();
@@ -276,6 +295,24 @@ const putBacsValid2 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
+};
+
+/* *** (D.8.3) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/bacs-status: address closed ****/
+
+const putBacsAddressClosed = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidClosed}/bacs-status`;
+    const method = 'put';
+    const action = '/*** (D.8.3) PUT Bacs status - address closed ***/';
+    const data = {
+          inboundStatus: "ENABLED",
+          outboundStatus: "DISABLED"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
 /* *** (D.9) PUT Bacs status /api/v1/{paymentBusinessUid}/account/{accountUid}/bacs-payments-status: PB, acc, addr exist, not authorised ****/
@@ -388,13 +425,15 @@ const putBacsOutboundInvalid = async () => {
 
 /************************************************* PB account status ********************************************/
 
-/* *** (D.15) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: PB, acc, address valid ****/
+/* *** (D.15.1) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: PB, acc, address valid ****/
 
 const putStatusValid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/status`;
+    // Note use the UID of an address that is already closed, otherwise none of the other tests
+    // will be able to do anything to this address later!
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidClosed}/status`;
     const method = 'put';
-    const action = '/*** (D.15) PUT status - PB, acc, addr valid ***/';
+    const action = '/*** (D.15.1) PUT status - PB, acc, addr valid ***/';
     const data = {
           status: "CLOSED"
     }
@@ -404,6 +443,23 @@ const putStatusValid = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
+};
+
+/* *** (D.15.2) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/status: address closed ****/
+
+const putStatusAddressClosed = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidClosed}/status`;
+    const method = 'put';
+    const action = '/*** (D.15.2) PUT status - address closed ***/';
+    const data = {
+          status: "ACTIVE"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
 /* *** (D.16) PUT status /api/v1/{paymentBusinessUid}/account/{accountUid}/status: PB, acc, addr exist, not authorised ****/
@@ -483,6 +539,7 @@ const putStatusInvalid = async () => {
 
 putFPSValid1()                                     /***** TEST D.1.1 ******/      /**** PUT FPS status tests ****/
     .then(() => putFPSValid2())                    /***** TEST D.1.2 ******/
+    .then(() => putFPSAddressClosed())             /***** TEST D.1.3 ******/
     .then(() => putFPSNotAuthorised())             /***** TEST D.2 ******/
     .then(() => putFPSAddrNotFound())              /***** TEST D.3 ******/
     .then(() => putFPSInboundMissing())            /***** TEST D.4 ******/
@@ -491,13 +548,15 @@ putFPSValid1()                                     /***** TEST D.1.1 ******/    
     .then(() => putFPSOutboundInvalid())           /***** TEST D.7 ******/
     .then(() => putBacsValid1())                   /***** TEST D.8.1 ******/      /**** PUT Bacs status tests ****/
     .then(() => putBacsValid2())                   /***** TEST D.8.2 ******/
+    .then(() => putBacsAddressClosed())            /***** TEST D.8.3 ******/
     .then(() => putBacsNotAuthorised())            /***** TEST D.9 ******/
     .then(() => putBacsAddrNotFound())             /***** TEST D.10 ******/
     .then(() => putBacsInboundMissing())           /***** TEST D.11 ******/
     .then(() => putBacsOutboundMissing())          /***** TEST D.12 ******/
     .then(() => putBacsInboundInvalid())           /***** TEST D.13 ******/
     .then(() => putBacsOutboundInvalid())          /***** TEST D.14 ******/
-    .then(() => putStatusValid())                  /***** TEST D.15 ******/      /**** PUT status tests ****/
+    .then(() => putStatusValid())                  /***** TEST D.15.1 ******/     /**** PUT status tests ****/
+    .then(() => putStatusAddressClosed())          /***** TEST D.15.2 ******/
     .then(() => putStatusNotAuthorised())          /***** TEST D.16 ******/
     .then(() => putStatusAddrNotFound())           /***** TEST D.17 ******/
     .then(() => putStatusMissing())                /***** TEST D.18 ******/
