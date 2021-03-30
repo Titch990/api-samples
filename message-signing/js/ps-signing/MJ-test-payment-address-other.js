@@ -243,7 +243,7 @@ const putFPSInboundInvalid = async () => {
 
 const putFPSOutboundInvalid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUid}/faster-payments-status`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/faster-payments-status`;
     const method = 'put';
     const action = '/*** (D.7) PUT FPS status - outboundStatus invalid ***/';
     const data = {
@@ -409,7 +409,7 @@ const putBacsInboundInvalid = async () => {
 
 const putBacsOutboundInvalid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUidNotAuthorised}/address/${addressUid}/bacs-payments-status`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/bacs-payments-status`;
     const method = 'put';
     const action = '/*** (D.14) PUT Bacs status - directDebitPaymentsStatus invalid ***/';
     const data = {
