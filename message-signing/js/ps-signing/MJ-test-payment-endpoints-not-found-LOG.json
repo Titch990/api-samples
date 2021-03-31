@@ -1,0 +1,84 @@
+
+/*** (E.1) getPB - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.2) getAccount - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.3) getAccount - Acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (E.4) getAddress - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.5) getAddress - Acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (E.6) getAddress - Addr not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (E.7) getPB - PB invalid ***/
+/api/v1/abcdefghijk
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.8) getAccount - PB invalid ***/
+/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.9) getAccount - PB exists, acc invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (E.10) getAddress - PB invalid ***/
+/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.11) getAddress - Acc invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffc
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (E.12) getAddress - Addr invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/abcdefghijk
+ERROR
+HTTP status: 404
+Response data:
+ 
