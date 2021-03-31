@@ -269,7 +269,7 @@ const putAccountPBNotFound = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUidNotFound}/account/${newAccountUid}`;
     const method = 'put';
-    const action = '/*** (B.3) putAccount - PB not found ***/';
+    const action = '/*** (E.13) putAccount - PB not found ***/';
     const data = {
           description: "MJ's test account (one of many)",
           accountHolder: "AGENCY"
@@ -287,9 +287,9 @@ const putAccountPBNotFound = async () => {
 const putAddressPBNotFound = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUidNotFound}/address/${newAddressUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${newAddressUid}`;
     const method = 'put';
-    const action = '/*** (C.3) putAddress - PB not found ***/';
+    const action = '/*** (E.14) putAddress - PB not found ***/';
     const data = {
         accountName: "Millie Moodle (one of many)",
         sortCode: sortCode
@@ -301,14 +301,14 @@ const putAddressPBNotFound = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 };
 
-/* *** (E.15) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: PB valid, acc not found ****/
+/* *** (E.15) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Acc not found ****/
 
 const putAddressAccNotFound = async () => {
     const newAddressUid = v4();
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${newAddressUid}`;
     const method = 'put';
-    const action = '/*** (C.3) putAddress - PB valid, acc not found ***/';
+    const action = '/*** (E.15) putAddress - Acc not found ***/';
     const data = {
         accountName: "Millie Moodle (one of many)",
         sortCode: sortCode
@@ -321,10 +321,98 @@ const putAddressAccNotFound = async () => {
 };
 
 
+/* ********** (E.16) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: PB invalid ***********/
 
+const putAccountPBInvalid = async () => {
+    const newAccountUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidInvalid}/account/${newAccountUid}`;
+    const method = 'put';
+    const action = '/*** (E.16) putAccount - PB invalid ***/';
+    const data = {
+          description: "MJ's test account (one of many)",
+          accountHolder: "AGENCY"
+    }
 
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
 
+/* ********** (E.17) PUT PB account /api/v1/{paymentBusinessUid}/account/{accountUid}: Account invalid ***********/
+
+const putAccountInvalid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUidInvalid}`;
+    const method = 'put';
+    const action = '/*** (E.17) putAccount - Account invalid ***/';
+    const data = {
+          description: "MJ's test account (one of many)",
+          accountHolder: "AGENCY"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* *** (E.18) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: PB invalid ****/
+
+const putAddressPBInvalid = async () => {
+    const newAddressUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidInvalid}/account/${accountUid}/address/${newAddressUid}`;
+    const method = 'put';
+    const action = '/*** (E.18) putAddress - PB invalid ***/';
+    const data = {
+        accountName: "Millie Moodle (one of many)",
+        sortCode: sortCode
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* *** (E.19) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Acc invalid ****/
+
+const putAddressAccInvalid = async () => {
+    const newAddressUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${newAddressUid}`;
+    const method = 'put';
+    const action = '/*** (E.19) putAddress - Acc invalid ***/';
+    const data = {
+        accountName: "Millie Moodle (one of many)",
+        sortCode: sortCode
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
+
+/* *** (E.20) PUT PB address /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}: Addr invalid ****/
+
+const putAddressInvalid = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}`;
+    const method = 'put';
+    const action = '/*** (E.20) putAddress - Addr invalid ***/';
+    const data = {
+        accountName: "Millie Moodle (one of many)",
+        sortCode: sortCode
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+};
 
 
 /*************************************** Run the test methods ****************************************/
@@ -343,3 +431,11 @@ getPaymentBusinessNotFound()                          /***** TEST E.1 ******/
     .then(() => getAddressPBInvalid())                /***** TEST E.10 ******/
     .then(() => getAddressAccInvalid())               /***** TEST E.11 *****/
     .then(() => getAddressInvalid())                  /***** TEST E.12 *****/
+    .then(() => putAccountPBNotFound())               /***** TEST E.13 ******/
+    .then(() => putAddressPBNotFound())               /***** TEST E.14 ******/
+    .then(() => putAddressAccNotFound())              /***** TEST E.15 ******/
+    .then(() => putAccountPBInvalid())                /***** TEST E.16 ******/
+    .then(() => putAccountInvalid())                  /***** TEST E.17 ******/
+    .then(() => putAddressPBInvalid())                /***** TEST E.18 ******/
+    .then(() => putAddressAccInvalid())               /***** TEST E.19 ******/
+    .then(() => putAddressInvalid())                  /***** TEST E.20 ******/

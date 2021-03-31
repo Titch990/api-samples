@@ -82,3 +82,59 @@ ERROR
 HTTP status: 404
 Response data:
  
+
+/*** (E.13) putAccount - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/3dd008bf-8058-4184-974e-bfe2da61820f
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.14) putAddress - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/a8304331-49f9-4db6-95c2-b264b69bc70d
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.15) putAddress - Acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/2929da66-ed81-4068-8405-3b5580e79fdf
+ERROR
+HTTP status: 400
+Response data:
+ [ 'ACCOUNT_DOES_NOT_EXIST' ]
+
+/*** (E.16) putAccount - PB invalid ***/
+/api/v1/abcdefghijk/account/f1eff54b-db17-47ed-ad9f-fa782244c0bd
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.17) putAccount - Account invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/abcdefghijk
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.18) putAddress - PB invalid ***/
+/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/425f121f-cb95-4742-a238-dae339ab883d
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (E.19) putAddress - Acc invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/1ea63643-fc95-4ff9-9404-8c4cec86060c
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (E.20) putAddress - Addr invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/abcdefghijk
+ERROR
+HTTP status: 404
+Response data:
+ 
