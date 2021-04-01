@@ -344,7 +344,7 @@ const putAccountPBInvalid = async () => {
 
 const putAccountInvalid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUidInvalid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}`;
     const method = 'put';
     const action = '/*** (E.17) putAccount - Account invalid ***/';
     const data = {
