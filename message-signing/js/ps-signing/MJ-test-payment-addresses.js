@@ -532,6 +532,20 @@ const getAddressesValid = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 };
 
+/* *** (C.20.2) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: Valid ****/
+
+const getAddressesValid2 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address?page=2`;
+    const method = 'get';
+    const action = '/*** (C.20.2) getAddresses - PB, account valid, page 2 ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+};
+
 /* *** (C.21) GET PB addresses /api/v1/{paymentBusinessUid}/account/{accountUid}/address: Not authorised ****/
 
 const getAddressesNotAuthorised = async () => {
@@ -604,6 +618,7 @@ putAddressValid()                                     /***** TEST C.1 ******/   
     .then(() => getAddressAccNotFound())              /***** TEST C.18 ******/
     .then(() => getAddressAccInvalid())               /***** TEST C.19 ******/
     .then(() => getAddressesValid())                  /***** TEST C.20 *****/       /**** GET addresses tests ****/
+    .then(() => getAddressesValid2())                 /***** TEST C.20.2 *****/
     .then(() => getAddressesNotAuthorised())          /***** TEST C.21 ******/
     .then(() => getAddressesAccNotFound())            /***** TEST C.22 ******/
     .then(() => getAddressesAccInvalid());            /***** TEST C.21 ******/
