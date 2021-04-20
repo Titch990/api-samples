@@ -14,62 +14,68 @@ Response data:
  { addressUid: '0690d922-dd75-4b87-934f-1ece8968275e', success: true }
 
 /*** (F.1) putMandate - PB, acc, addr, mandate valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e41ddd9e-a653-428d-ac15-73676d0bc2f4
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/dfdfdfac-0aa7-479f-b39b-fd71c1affb65
+ERROR
+HTTP status: 500
+Response data:
+ 
+
+/*** (F.2.1) putMandate - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/2fd64ed5-b55c-4c07-ac8c-c2aad359ec0c
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (F.2.1) putMandate - PB not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/d34b884b-1c4b-4836-9cf1-e8f6b1522f0d
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (F.2.3) putMandate - Acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/28f1eecd-4fb3-4ec4-a75b-14fab72bef46
 ERROR
 HTTP status: 400
 Response data:
- [ 'MANDATE_REFERENCE_TOO_SHORT' ]
+ {
+  errors: [ { message: 'ACCOUNT_UNKNOWN_OR_NOT_AT_BUSINESS' } ],
+  success: false
+}
 
-/*** (F.2.1) putMandate - PB not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/24231f6e-b96d-45a8-883c-ff4bb7811194
+/*** (F.2.4) putMandate - Addr not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/b495fef4-9ef8-4a23-b0ad-b49c96b360cf
 ERROR
-HTTP status: 403
+HTTP status: 400
 Response data:
- 
-
-/*** (F.2.1) putMandate - PB invalid ***/
-/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/9b2390bb-e24c-4ed7-8478-2a40dc11b8db
-ERROR
-HTTP status: 403
-Response data:
- 
-
-/*** (F.2.3) putMandate - Acc invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/f3c857d1-e35d-4076-a172-7b275ba24dfc
-ERROR
-HTTP status: 404
-Response data:
- 
-
-/*** (F.2.4) putMandate - Addr invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/abcdefghijk/mandate/c2a9cc50-e281-41a0-ae78-a734855ccd30
-ERROR
-HTTP status: 404
-Response data:
- 
+ {
+  errors: [ { message: 'ADDRESS_UNKNOWN_OR_BUSINESS_AND_ACCOUNT_INCORRECT' } ],
+  success: false
+}
 
 /*** (F.3.1) putMandate - Invalid request.originatorServiceUserNumber1 ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/06330eb7-9f66-49c2-b349-e88a9f9e2dc7
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/dbbfad34-3658-49d8-a85b-fc278be0b3d4
 ERROR
 HTTP status: 400
 Response data:
  {
   errors: [
     {
-      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[1234567]\r'
-    },
-    {
       message: '[PROPERTY]\r[originatorServiceUserNumber]\r[length must be between 6 and 6]\r[1234567]\r'
     },
     {
       message: '[PROPERTY]\r[originatorServiceUserNumber]\r[size must be between 6 and 6]\r[1234567]\r'
+    },
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[1234567]\r'
     }
   ],
   success: false
 }
 
 /*** (F.3.2) putMandate - Invalid request.originatorServiceUserNumber2 ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/c827605b-d90f-49cd-9d38-1c0513294887
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/8035b3a4-0f9b-4b9c-adf4-be391e3d62a6
 ERROR
 HTTP status: 400
 Response data:
@@ -89,17 +95,17 @@ Response data:
 }
 
 /*** (F.3.3) putMandate - Invalid request.originatorReference ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/c4361884-b290-4a3e-b9de-1d22dbe18728
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/66f17b28-d19e-406b-bb37-db39caf582b1
 ERROR
 HTTP status: 400
 Response data:
  {
   errors: [
     {
-      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's very, very, very, very long test ref]\r`
+      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
     },
     {
-      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
+      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's very, very, very, very long test ref]\r`
     },
     {
       message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
@@ -109,7 +115,7 @@ Response data:
 }
 
 /*** (F.3.4) putMandate - Missing request.originatorServiceUserNumber ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/07ff67ee-e338-418b-ac19-a3b35a5bdcad
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/2348609c-52b4-461a-8625-e76e768d572c
 ERROR
 HTTP status: 400
 Response data:
@@ -123,7 +129,7 @@ Response data:
 }
 
 /*** (F.3.3) putMandate - Missing request.originatorReference ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/6a5da0c9-0daf-445e-9a1d-5bc1e1e65e27
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b7a072dd-4bbc-4a36-9a32-e03a8facb1d9
 ERROR
 HTTP status: 400
 Response data:
@@ -137,7 +143,7 @@ Response data:
 }
 
 /*** (F.3.5) putMandate - Missing request.originatorName ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/d94e185a-8840-45b9-b7fa-72fd78752629
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1b8ef41-c48a-4657-867e-84b762f61a10
 ERROR
 HTTP status: 400
 Response data:
@@ -151,7 +157,7 @@ Response data:
 }
 
 /*** (F.4.1) putMandate - Address not enabled for mandates ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/6bb496a2-c52b-469d-9c30-7423cae25697
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/f70ab67a-4ee7-43ae-8efc-dff5b07bd007
 ERROR
 HTTP status: 400
 Response data:
@@ -159,3 +165,50 @@ Response data:
   errors: [ { message: 'DIRECT_DEBITS_NOT_ALLOWED_ON_ADDRESS' } ],
   success: false
 }
+
+/*** (G.1) getMandate - PB, acc, addr, mandate valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/6b1026b9-785b-4be2-8620-f1105bae58e9
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (G.2.1) getMandate - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/6b1026b9-785b-4be2-8620-f1105bae58e9
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (G.2.1) getMandate - PB not found ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/6b1026b9-785b-4be2-8620-f1105bae58e9
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (G.2.3) getMandate - Acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/6b1026b9-785b-4be2-8620-f1105bae58e9
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [ { message: 'ACCOUNT_UNKNOWN_OR_NOT_AT_BUSINESS' } ],
+  success: false
+}
+
+/*** (G.2.4) getMandate - Addr not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/6b1026b9-785b-4be2-8620-f1105bae58e9
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [ { message: 'ADDRESS_UNKNOWN_OR_BUSINESS_AND_ACCOUNT_INCORRECT' } ],
+  success: false
+}
+(node:10212) UnhandledPromiseRejectionWarning: ReferenceError: addressUid is not defined
+    at getMandateInvalid5 (/Users/marjorie.jones/MJ-stuff/git-stuff/titch990-api-samples/message-signing/js/ps-signing/MJ-test-payment-bacs.js:524:80)
+    at /Users/marjorie.jones/MJ-stuff/git-stuff/titch990-api-samples/message-signing/js/ps-signing/MJ-test-payment-bacs.js:572:17
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+(node:10212) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 19)
+(node:10212) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.

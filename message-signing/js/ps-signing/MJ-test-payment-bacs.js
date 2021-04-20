@@ -201,9 +201,9 @@ const putMandateInvalid1 = async () => {
 const putMandateInvalid2 = async () => {
     const newMandateUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidInvalid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.2.1) putMandate - PB invalid ***/';
+    const action = '/*** (F.2.1) putMandate - PB not auth ***/';
     const data = {
           originatorServiceUserNumber: "123456",
           originatorReference: "MJ's test ref",
@@ -219,14 +219,14 @@ const putMandateInvalid2 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.2.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Acc invalid ****/
+/* *** (F.2.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Acc not found ****/
 
 const putMandateInvalid3 = async () => {
     const newMandateUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.2.3) putMandate - Acc invalid ***/';
+    const action = '/*** (F.2.3) putMandate - Acc not found ***/';
     const data = {
           originatorServiceUserNumber: "123456",
           originatorReference: "MJ's test ref",
@@ -242,14 +242,14 @@ const putMandateInvalid3 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.2.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Addr invalid ****/
+/* *** (F.2.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Addr not found ****/
 
 const putMandateInvalid4 = async () => {
     const newMandateUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidInvalid}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.2.4) putMandate - Addr invalid ***/';
+    const action = '/*** (F.2.4) putMandate - Addr not found ***/';
     const data = {
           originatorServiceUserNumber: "123456",
           originatorReference: "MJ's test ref",
@@ -430,123 +430,109 @@ const putMandateInvalidNoDDs = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
+/************************************************* Test G - GET mandate ********************************************/
 
+/* *** (G.1) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Valid ****/
 
-/* *** (F.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Valid ****/
-
-const putMandateValid = async () => {
-    const newMandateUid = v4();
+const getMandateValid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
-    const method = 'put';
-    const action = '/*** (F.1) putMandate - PB, acc, addr, mandate valid ***/';
-    const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
-    }
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const method = 'get';
+    const action = '/*** (G.1) getMandate - PB, acc, addr, mandate valid ***/';
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
     // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
 
     // . . . and save the bit I want
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.2.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: PB not found ****/
+/* *** (G.2.1) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: PB not found ****/
 
-const putMandateInvalid1 = async () => {
-    const newMandateUid = v4();
+const getMandateInvalid1 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
-    const method = 'put';
-    const action = '/*** (F.2.1) putMandate - PB not found ***/';
-    const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
-    }
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const method = 'get';
+    const action = '/*** (G.2.1) getMandate - PB not found ***/';
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
     // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
 
     // . . . and save the bit I want
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.2.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: PB not auth ****/
+/* *** (G.2.2) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: PB not auth ****/
 
-const putMandateInvalid2 = async () => {
-    const newMandateUid = v4();
+const getMandateInvalid2 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidInvalid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
-    const method = 'put';
-    const action = '/*** (F.2.1) putMandate - PB invalid ***/';
-    const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
-    }
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const method = 'get';
+    const action = '/*** (G.2.1) getMandate - PB not found ***/';
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
     // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
 
     // . . . and save the bit I want
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.2.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Acc invalid ****/
+/* *** (G.2.3) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Acc not found ****/
 
-const putMandateInvalid3 = async () => {
-    const newMandateUid = v4();
+const getMandateInvalid3 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
-    const method = 'put';
-    const action = '/*** (F.2.3) putMandate - Acc invalid ***/';
-    const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
-    }
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const method = 'get';
+    const action = '/*** (G.2.3) getMandate - Acc not found ***/';
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
     // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
 
     // . . . and save the bit I want
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.2.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Addr invalid ****/
+/* *** (G.2.4) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Addr not found ****/
 
-const putMandateInvalid4 = async () => {
-    const newMandateUid = v4();
+const getMandateInvalid4 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidInvalid}/mandate/${newMandateUid}`;
-    const method = 'put';
-    const action = '/*** (F.2.4) putMandate - Addr invalid ***/';
-    const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
-    }
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${mandateUid}`;
+    const method = 'get';
+    const action = '/*** (G.2.4) getMandate - Addr not found ***/';
 
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
 
     // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
 
     // . . . and save the bit I want
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
+/* *** (G.2.5) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Mandate not found ****/
+
+const getMandateInvalid5 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUid}/mandate/${mandateUidNotFound}`;
+    const method = 'get';
+    const action = '/*** (G.2.4) getMandate - Mandate not found ***/';
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest });
+
+    // . . . and save the bit I want
+    // returnedMandateUid1 = response.data.mandateUid;;
+};
 
 
 
@@ -562,7 +548,7 @@ const putMandateInvalid4 = async () => {
 
 /*************************************** Run the test methods ****************************************/
 
-/************************************* Payment business address tests C *************************************/
+/************************************* Payment business address tests F - XXX *************************************/
 
 enableMandates()                                     // Preparing data
     .then(() => disableMandates())                   // Preparing data
@@ -577,30 +563,12 @@ enableMandates()                                     // Preparing data
     .then(() => putMandateInvalidParam4())
     .then(() => putMandateInvalidParam5())
     .then(() => putMandateInvalidParam6())
-    .then(() => putMandateInvalidNoDDs()) ;          /***** TEST F.3.1 ******/
-//    .then(() => putAddressAccNotFound())              /***** TEST C.3 ******/
-//    .then(() => putAddressNotAuthorised())            /***** TEST C.2 ******/
-//    .then(() => putAddressAccNotFound())              /***** TEST C.3 ******/
-//     .then(() => putAddressAccInvalid())               /***** TEST C.4 ******/
-    // .then(() => putAddressExistsSame())               /***** TEST C.5 ******/
-//     .then(() => putAddressExistsDifferent1())         /***** TEST C.6.1 ******/
-//     .then(() => putAddressExistsDifferent2())         /***** TEST C.6.2 ******/
-//     .then(() => putAddressExistsDifferent3())         /***** TEST C.6.3 ******/
-//     .then(() => putAddressNotAuth())                  /***** TEST C.7 ******/
-//     .then(() => putAddressInvalidUid())               /***** TEST C.8 ******/
-//     .then(() => putAddressInvalidRequestData1())      /***** TEST C.9 ******/
-//     .then(() => putAddressInvalidRequestData2())      /***** TEST C.10 ******/
-//     .then(() => putAddressInvalidRequestData3())      /***** TEST C.11 *****/
-//     .then(() => putAddressInvalidRequestData4())      /***** TEST C.12 *****/
-//     .then(() => putAddressInvalidRequestData5())      /***** TEST C.13 *****/
-//     .then(() => putAddressInvalidRequestData6())      /***** TEST C.14 *****/
-//     .then(() => putAddressInvalidRequestData7())      /***** TEST C.15 *****/
-//     .then(() => getAddressValid())                    /***** TEST C.16 *****/       /**** GET tests ****/
-//     .then(() => getAddressNotAuthorised())            /***** TEST C.17 ******/
-//     .then(() => getAddressAccNotFound())              /***** TEST C.18 ******/
-//     .then(() => getAddressAccInvalid())               /***** TEST C.19 ******/
-//     .then(() => getAddressesValid())                  /***** TEST C.20 *****/       /**** GET addresses tests ****/
-//     .then(() => getAddressesValid2())                 /***** TEST C.20.2 *****/
-//     .then(() => getAddressesNotAuthorised())          /***** TEST C.21 ******/
-//     .then(() => getAddressesAccNotFound())            /***** TEST C.22 ******/
-//     .then(() => getAddressesAccInvalid());            /***** TEST C.21 ******/
+    .then(() => putMandateInvalidNoDDs())
+    .then(() => getMandateValid())                   /***** TEST G.1 ******/      /**** GET tests ****/
+    .then(() => getMandateInvalid1())
+    .then(() => getMandateInvalid2())
+    .then(() => getMandateInvalid3())
+    .then(() => getMandateInvalid4())
+    .then(() => getMandateInvalid5())
+
+;
