@@ -1,0 +1,161 @@
+
+/*** Prep - enable mandates for an address ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/bacs-payments-status
+SUCCESS
+HTTP status: 200
+Response data:
+ { addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323', success: true }
+
+/*** Prep - disable mandates for an address ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/bacs-payments-status
+SUCCESS
+HTTP status: 200
+Response data:
+ { addressUid: '0690d922-dd75-4b87-934f-1ece8968275e', success: true }
+
+/*** (F.1) putMandate - PB, acc, addr, mandate valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e41ddd9e-a653-428d-ac15-73676d0bc2f4
+ERROR
+HTTP status: 400
+Response data:
+ [ 'MANDATE_REFERENCE_TOO_SHORT' ]
+
+/*** (F.2.1) putMandate - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/24231f6e-b96d-45a8-883c-ff4bb7811194
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (F.2.1) putMandate - PB invalid ***/
+/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/9b2390bb-e24c-4ed7-8478-2a40dc11b8db
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (F.2.3) putMandate - Acc invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/f3c857d1-e35d-4076-a172-7b275ba24dfc
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (F.2.4) putMandate - Addr invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/abcdefghijk/mandate/c2a9cc50-e281-41a0-ae78-a734855ccd30
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (F.3.1) putMandate - Invalid request.originatorServiceUserNumber1 ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/06330eb7-9f66-49c2-b349-e88a9f9e2dc7
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[1234567]\r'
+    },
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[length must be between 6 and 6]\r[1234567]\r'
+    },
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[size must be between 6 and 6]\r[1234567]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (F.3.2) putMandate - Invalid request.originatorServiceUserNumber2 ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/c827605b-d90f-49cd-9d38-1c0513294887
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[12345]\r'
+    },
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[length must be between 6 and 6]\r[12345]\r'
+    },
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[size must be between 6 and 6]\r[12345]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (F.3.3) putMandate - Invalid request.originatorReference ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/c4361884-b290-4a3e-b9de-1d22dbe18728
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's very, very, very, very long test ref]\r`
+    },
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
+    },
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
+    }
+  ],
+  success: false
+}
+
+/*** (F.3.4) putMandate - Missing request.originatorServiceUserNumber ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/07ff67ee-e338-418b-ac19-a3b35a5bdcad
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must not be null]\r[]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (F.3.3) putMandate - Missing request.originatorReference ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/6a5da0c9-0daf-445e-9a1d-5bc1e1e65e27
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[originatorReference]\r[must not be blank]\r[]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (F.3.5) putMandate - Missing request.originatorName ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/d94e185a-8840-45b9-b7fa-72fd78752629
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[originatorName]\r[must not be blank]\r[]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (F.4.1) putMandate - Address not enabled for mandates ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/6bb496a2-c52b-469d-9c30-7423cae25697
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [ { message: 'DIRECT_DEBITS_NOT_ALLOWED_ON_ADDRESS' } ],
+  success: false
+}
