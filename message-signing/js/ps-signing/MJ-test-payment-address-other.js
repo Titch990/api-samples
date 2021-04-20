@@ -34,6 +34,13 @@ let returnedAddress2Uid =  "xxxx";
 let returnedAddress3Uid =  "xxxx";
 let returnedAddress4Uid =  "xxxx";
 
+/*
+ *
+ * This batch of tests cover the D tests in my 'Payment Services API errors - PBS, accounts and addresses'
+ * document
+ *
+ */
+
 /************************************************ Do the signing *****************************************/
 
 const calculateAuthorisationAndDigest = (date, method, url, data = '') => {
