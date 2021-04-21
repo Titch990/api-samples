@@ -1263,9 +1263,9 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => createMandateToCancel2())
     .then(() => createMandateToCancel3())
     .then(() => putMandateValid())                   /***** TEST F.1 ******/      /**** PUT mandate tests ****/
-    //.then(() => putMandateValid2())
-    //.then(() => putMandateValid3())
-    //.then(() => putMandateValid4())
+    .then(() => putMandateValid2())
+    .then(() => putMandateValid3())
+    .then(() => putMandateValid4())
     .then(() => putMandateInvalid1())
     .then(() => putMandateInvalid2())
     .then(() => putMandateInvalid3())
