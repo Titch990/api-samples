@@ -1395,6 +1395,8 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => putMandateInvalid2())
     .then(() => putMandateInvalid3())
     .then(() => putMandateInvalid4())
+    .then(() => putMandateInvalid5())
+    .then(() => putMandateInvalid6())
     .then(() => putMandateInvalidParam1())
     .then(() => putMandateInvalidParam2())
     .then(() => putMandateInvalidParam3())
