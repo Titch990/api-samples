@@ -13,29 +13,89 @@ HTTP status: 200
 Response data:
  { addressUid: '0690d922-dd75-4b87-934f-1ece8968275e', success: true }
 
-/*** (F.1) putMandate - PB, acc, addr, mandate valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/7d94ba2b-bc21-47ce-9e20-0f06c61e8816
+/*** Prep - create a new mandate to cancel later ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/56683696-a5f3-49ca-b793-8f342b29c05c
 ERROR
-HTTP status: 500
+HTTP status: 400
 Response data:
- 
+ {
+  errors: [
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's test to cancel]\r"
+    },
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's test to cancel]\r"
+    },
+    {
+      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's test to cancel]\r`
+    }
+  ],
+  success: false
+}
+
+/*** Prep - create a new mandate to cancel later ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's test to cancel]\r`
+    },
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's test to cancel]\r"
+    },
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's test to cancel]\r"
+    }
+  ],
+  success: false
+}
+
+/*** Prep - create a new mandate to cancel later ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b9db51fa-e4c7-47b2-834b-51a091118648
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's test to cancel]\r`
+    },
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's test to cancel]\r"
+    },
+    {
+      message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's test to cancel]\r"
+    }
+  ],
+  success: false
+}
+
+/*** (F.1) putMandate - PB, acc, addr, mandate valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/35a1acc4-09d5-454c-94f9-a4e15ec88486
+ERROR
+HTTP status: 400
+Response data:
+ [ 'MANDATE_REFERENCE_TOO_SHORT' ]
 
 /*** (F.2.1) putMandate - PB not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b68313d3-adca-4084-a044-da204c0a78df
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/4a1a5e56-52b8-4f32-b233-090ec4f30ca9
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (F.2.2) putMandate - PB not auth ***/
-/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/70367f7c-3a81-4768-b02f-e1ceb1801253
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/c09e476f-5061-4fe0-80c9-1f4124b4aca5
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (F.2.3) putMandate - Acc not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/f03d759c-5da8-4531-89a0-1858b795c378
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e71ea380-ddf9-42a0-acea-07242f277847
 ERROR
 HTTP status: 400
 Response data:
@@ -45,7 +105,7 @@ Response data:
 }
 
 /*** (F.2.4) putMandate - Addr not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/d80afd2e-3132-4a74-ad79-03f346f4ed0a
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/c6d28728-ade1-47c5-9903-3472fb7e696d
 ERROR
 HTTP status: 400
 Response data:
@@ -55,7 +115,7 @@ Response data:
 }
 
 /*** (F.3.1) putMandate - Invalid request.originatorServiceUserNumber1 ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/af6acad1-534b-4619-8de6-ae96a8ffa25f
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/10bbc4bc-54b6-4d00-9794-f78c8846cb77
 ERROR
 HTTP status: 400
 Response data:
@@ -75,7 +135,7 @@ Response data:
 }
 
 /*** (F.3.2) putMandate - Invalid request.originatorServiceUserNumber2 ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/730d84fd-2479-4352-9d0d-cd18492217fe
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/efd2a638-b2af-4819-9108-afd47a996ddf
 ERROR
 HTTP status: 400
 Response data:
@@ -95,27 +155,27 @@ Response data:
 }
 
 /*** (F.3.3) putMandate - Invalid request.originatorReference ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b335dddf-7229-4f71-b3d2-41778b456833
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/85a60e5d-3f1b-4293-8c60-64bd0c21a84a
 ERROR
 HTTP status: 400
 Response data:
  {
   errors: [
     {
-      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's very, very, very, very long test ref]\r`
+      message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
     },
     {
       message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
     },
     {
-      message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
+      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's very, very, very, very long test ref]\r`
     }
   ],
   success: false
 }
 
 /*** (F.3.4) putMandate - Missing request.originatorServiceUserNumber ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/a80250cc-bea9-4102-95eb-945edfa74a67
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/17e26fcc-6d72-4de4-b8c5-9cc2b19593b3
 ERROR
 HTTP status: 400
 Response data:
@@ -129,7 +189,7 @@ Response data:
 }
 
 /*** (F.3.3) putMandate - Missing request.originatorReference ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/7a9bce47-be93-4f8f-a190-3b81c6042f5b
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/d28cc452-7cdd-4b8c-ab5e-2398ca75c471
 ERROR
 HTTP status: 400
 Response data:
@@ -143,7 +203,7 @@ Response data:
 }
 
 /*** (F.3.5) putMandate - Missing request.originatorName ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/704786ec-5c78-4483-99fd-8971222203ef
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e2a28a7e-7aa1-4ee5-98c9-209f56e31fe8
 ERROR
 HTTP status: 400
 Response data:
@@ -157,7 +217,7 @@ Response data:
 }
 
 /*** (F.4.1) putMandate - Address not enabled for mandates ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/930cdf8b-0b77-4a27-8216-c2dc30b57d64
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/6af69998-33da-4737-ba62-d7fcab7ec46f
 ERROR
 HTTP status: 400
 Response data:
@@ -358,9 +418,137 @@ ERROR
 HTTP status: 404
 Response data:
  
-(node:35762) UnhandledPromiseRejectionWarning: ReferenceError: newMandateUid is not defined
-    at putCancelMandateValid (/Users/marjorie.jones/MJ-stuff/git-stuff/titch990-api-samples/message-signing/js/ps-signing/MJ-test-payment-bacs.js:894:105)
-    at /Users/marjorie.jones/MJ-stuff/git-stuff/titch990-api-samples/message-signing/js/ps-signing/MJ-test-payment-bacs.js:1161:17
-    at processTicksAndRejections (internal/process/task_queues.js:97:5)
-(node:35762) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 36)
-(node:35762) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+/*** (K.1) putCancelMandate - PB, acc, addr, mandate valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/56683696-a5f3-49ca-b793-8f342b29c05c/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  mandateUid: '56683696-a5f3-49ca-b793-8f342b29c05c',
+  success: false,
+  errors: [ { message: 'MANDATE_NOT_FOUND' } ]
+}
+
+/*** (K.2.1) putCancelMandate - PB not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (K.2.2) putCancelMandate - PB not auth ***/
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (K.2.3) putCancelMandate - Acc not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [ { message: 'ACCOUNT_UNKNOWN_OR_NOT_AT_BUSINESS' } ],
+  success: false
+}
+
+/*** (K.2.4) putCancelMandate - Addr not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [ { message: 'ADDRESS_UNKNOWN_OR_BUSINESS_AND_ACCOUNT_INCORRECT' } ],
+  success: false
+}
+
+/*** (K.2.5) putCancelMandate - Mandate not found ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  mandateUid: '09dbbfac-50b1-47f3-ac7b-a37d828bdccc',
+  success: false,
+  errors: [ { message: 'MANDATE_NOT_FOUND' } ]
+}
+
+/*** (K.2.6) putCancelMandate - PB invalid ***/
+/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 403
+Response data:
+ 
+
+/*** (K.2.7) putCancelMandate - Acc invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (K.2.8) putCancelMandate - Addr invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/abcdefghijk/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (K.2.9) putCancelMandate - Mandate invalid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/abcdefgh/cancel
+ERROR
+HTTP status: 404
+Response data:
+ 
+
+/*** (K.3.1) putCancelMandate - Invalid request.mandateStatusCancellationReason ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: 'Invalid request input at line 1, column 36, JSON path: mandateStatusCancellationReason. This could be caused by sending the wrong data type for a given key, e.g. a list where a string is expected.'
+    }
+  ],
+  success: false
+}
+
+/*** (K.3.2) putCancelMandate - Missing request.mandateStatusCancellationReason ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/5c03ee3c-2830-4df2-a9aa-70cff43bb974/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [
+    {
+      message: '[PROPERTY]\r[mandateStatusCancellationReason]\r[must not be null]\r[]\r'
+    }
+  ],
+  success: false
+}
+
+/*** (K.4.1) putCancelMandate - Mandate already cancelled, same cancellation reason ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/56683696-a5f3-49ca-b793-8f342b29c05c/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  mandateUid: '56683696-a5f3-49ca-b793-8f342b29c05c',
+  success: false,
+  errors: [ { message: 'MANDATE_NOT_FOUND' } ]
+}
+
+/*** (K.4.2) putCancelMandate - Mandate already cancelled, diff cancellation reason ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/56683696-a5f3-49ca-b793-8f342b29c05c/cancel
+ERROR
+HTTP status: 400
+Response data:
+ {
+  mandateUid: '56683696-a5f3-49ca-b793-8f342b29c05c',
+  success: false,
+  errors: [ { message: 'MANDATE_NOT_FOUND' } ]
+}

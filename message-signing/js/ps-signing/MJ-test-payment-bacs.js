@@ -17,8 +17,8 @@ const accountUid2 = 'f44ec61b-51b7-49eb-9149-4a2b1e3b34ea';                     
 const accountUidNotFound = '09dbbfac-50b1-47f3-ac7b-a37d828bdccc';              // Made up
 const accountUidNotAuthorised = '148d1a4d-cf8d-4923-9be0-c8fe29a5dea9';         // Exists but not mine
 const accountUidInvalid = 'abcdefghijk';                                        // Not a valid UID
-const addressUidNoDDs = '0690d922-dd75-4b87-934f-1ece8968275e';                 // Created by running some code like this
-const addressUidDDs = 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323';                   // Created by running some code like this, then enabling DDs
+const addressUidNoDDs = '0690d922-dd75-4b87-934f-1ece8968275e';                 // Previously created, will have DDs disabled
+const addressUidDDs = 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323';                   // Previously created, will have DDs enabled
 const addressUidNotFound = 'e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd';              // Made up
 const addressUidNotAuthorised = '3f957fd9-ed3d-486d-9572-6be69bfd6263';         // Exists but not mine
 const addressUidInvalid = 'abcdefghijk';                                        // Not a valid UID
@@ -41,7 +41,9 @@ let returnedAddress1Uid =  "xxxx";
 let returnedAddress2Uid =  "xxxx";
 let returnedAddress3Uid =  "xxxx";
 let returnedAddress4Uid =  "xxxx";
-let returnedMandate1Uid =  "xxxx";
+let mandateUidToCancel1 =  "xxxx";
+let mandateUidToCancel2 =  "xxxx";
+let mandateUidToCancel3 =  "xxxx";
 
 /*
  *
@@ -113,7 +115,7 @@ const makeRequest = ({ action, url, method, authorization, date, digest, data = 
 
 // Mandates enabled for addressUidDDs
 
-const enableMandates = async () => {
+const enableMandatesForAddress = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/bacs-payments-status`;
     const method = 'put';
@@ -132,7 +134,7 @@ const enableMandates = async () => {
 
 // Mandates disabled for addressUidNoDDs
 
-const disableMandates = async () => {
+const disableMandatesForAddress = async () => {
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNoDDs}/bacs-payments-status`;
     const method = 'put';
@@ -151,12 +153,12 @@ const disableMandates = async () => {
 
 // Create mandate specifically so I can cancel it later
 
-const createMandate = async () => {
+const createMandateToCancel1 = async () => {
     const newMandateUid = v4();
     const date = (new Date()).toISOString();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** Prep - create a new mandate ***/';
+    const action = '/*** Prep - create a new mandate to cancel later ***/';
     const data = {
           originatorServiceUserNumber: "987654",
           originatorReference: "MJ's test to cancel",
@@ -169,7 +171,59 @@ const createMandate = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
     // . . . and save the bit I want
-    returnedMandate1Uid = response.data.mandateUid;;
+    // mandateUidToCancel1 = response.data.mandateUid;; // Why doesn't this return the mandate UID as confirmation?
+    mandateUidToCancel1 = newMandateUid;
+
+};
+
+// Create another mandate specifically so I can cancel it later
+
+const createMandateToCancel2 = async () => {
+    const newMandateUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** Prep - create a new mandate to cancel later ***/';
+    const data = {
+          originatorServiceUserNumber: "987654",
+          originatorReference: "MJ's test to cancel",
+          originatorName: "MJ"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // mandateUidToCancel2 = response.data.mandateUid;; // Why doesn't this return the mandate UID as confirmation?
+    mandateUidToCancel2 = newMandateUid;
+
+};
+
+// Create yet another mandate specifically so I can cancel it later
+
+const createMandateToCancel3 = async () => {
+    const newMandateUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** Prep - create a new mandate to cancel later ***/';
+    const data = {
+          originatorServiceUserNumber: "987654",
+          originatorReference: "MJ's test to cancel",
+          originatorName: "MJ"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // mandateUidToCancel3 = response.data.mandateUid;; // Why doesn't this return the mandate UID as confirmation?
+    mandateUidToCancel3 = newMandateUid;
+
 };
 
 /************************************************* Test F - PUT mandate ********************************************/
@@ -196,6 +250,82 @@ const putMandateValid = async () => {
     // . . . and save the bit I want
     // returnedMandateUid1 = response.data.mandateUid;;
 };
+
+/* *** (F.1.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Prev 400 ****/
+
+const putMandateValid2 = async () => {
+    const date = (new Date()).toISOString();
+    const newMandateUid = 'e41ddd9e-a653-428d-ac15-73676d0bc2f4';    /* Failed with 400 before */
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.2) putMandate - PB, acc, addr, mandate valid but 400 failure ***/';
+    const data = {
+          originatorServiceUserNumber: "123456",
+          originatorReference: "MJtestref",
+          originatorName: "MJ"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // returnedMandateUid1 = response.data.mandateUid;;
+};
+
+/* *** (F.1.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Prev 500 ****/
+
+const putMandateValid3 = async () => {
+    const date = (new Date()).toISOString();
+    const newMandateUid = 'dfdfdfac-0aa7-479f-b39b-fd71c1affb65';    /* Failed with 500 before */
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.3) putMandate - PB, acc, addr, mandate valid but 500 failure ***/';
+    const data = {
+          originatorServiceUserNumber: "123456",
+          originatorReference: "MJtestref",
+          originatorName: "MJ"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // returnedMandateUid1 = response.data.mandateUid;;
+};
+
+/* *** (F.1.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+
+const putMandateValid4 = async () => {
+    const date = (new Date()).toISOString();
+    const newMandateUid = v4();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.4) putMandate - PB, acc, addr, mandate valid, Saff\'s example ***/';
+    const data = {
+        "originatorServiceUserNumber": "123456",
+        "originatorReference": "NEW REFERENCE",
+        "originatorName": "ORIGINATOR"
+    };
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // returnedMandateUid1 = response.data.mandateUid;;
+};
+
+
+
+
+
+
+
 
 /* *** (F.2.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: PB not found ****/
 
@@ -745,8 +875,6 @@ const getMandatePaymentsValid = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.1) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: PB not found ****/
@@ -762,8 +890,6 @@ const getMandatePaymentsInvalid1 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.2) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: PB not auth ****/
@@ -779,8 +905,6 @@ const getMandatePaymentsInvalid2 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.3) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: Acc not found ****/
@@ -796,8 +920,6 @@ const getMandatePaymentsInvalid3 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.4) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: Addr not found ****/
@@ -813,8 +935,6 @@ const getMandatePaymentsInvalid4 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.5) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: Mandate not found ****/
@@ -830,8 +950,6 @@ const getMandatePaymentsInvalid5 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.6) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: Acc invalid ****/
@@ -847,8 +965,6 @@ const getMandatePaymentsInvalid6 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.7) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: Addr invalid ****/
@@ -864,8 +980,6 @@ const getMandatePaymentsInvalid7 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (J.2.8) GET mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/payment: Mandate invalid ****/
@@ -881,23 +995,19 @@ const getMandatePaymentsInvalid8 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /************************************************* Test K - PUT cancel mandate ********************************************/
 
-/* *** (K.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Valid ****/
+/* *** (K.1) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Valid ****/
 
 const putCancelMandateValid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidToCancel1}/cancel`;
     const method = 'put';
     const action = '/*** (K.1) putCancelMandate - PB, acc, addr, mandate valid ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+          mandateStatusCancellationReason: "SWITCHED",
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -905,22 +1015,17 @@ const putCancelMandateValid = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.2.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: PB not found ****/
+/* *** (K.2.1) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: PB not found ****/
 
 const putCancelMandateInvalid1 = async () => {
-    const newMandateUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidToCancel2}/cancel`;
     const method = 'put';
     const action = '/*** (K.2.1) putCancelMandate - PB not found ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+          mandateStatusCancellationReason: "SWITCHED",
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -928,22 +1033,17 @@ const putCancelMandateInvalid1 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.2.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: PB not auth ****/
+/* *** (K.2.2) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: PB not auth ****/
 
 const putCancelMandateInvalid2 = async () => {
-    const newMandateUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidToCancel2}/cancel`;
     const method = 'put';
     const action = '/*** (K.2.2) putCancelMandate - PB not auth ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+          mandateStatusCancellationReason: "SWITCHED",
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -951,22 +1051,17 @@ const putCancelMandateInvalid2 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.2.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Acc not found ****/
+/* *** (K.2.3) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Acc not found ****/
 
 const putCancelMandateInvalid3 = async () => {
-    const newMandateUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${mandateUidToCancel2}/cancel`;
     const method = 'put';
     const action = '/*** (K.2.3) putCancelMandate - Acc not found ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+          mandateStatusCancellationReason: "SWITCHED",
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -974,22 +1069,17 @@ const putCancelMandateInvalid3 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.2.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Addr not found ****/
+/* *** (K.2.4) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Addr not found ****/
 
 const putCancelMandateInvalid4 = async () => {
-    const newMandateUid = v4();
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${mandateUidToCancel2}/cancel`;
     const method = 'put';
     const action = '/*** (K.2.4) putCancelMandate - Addr not found ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+          mandateStatusCancellationReason: "SWITCHED",
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -997,16 +1087,104 @@ const putCancelMandateInvalid4 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.3.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
+/* *** (K.2.5) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Mandate not found ****/
+
+const putCancelMandateInvalid5 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidNotFound}/cancel`;
+    const method = 'put';
+    const action = '/*** (K.2.5) putCancelMandate - Mandate not found ***/';
+    const data = {
+          mandateStatusCancellationReason: "SWITCHED",
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (K.2.6) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: PB invalid ****/
+
+const putCancelMandateInvalid6 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUidInvalid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidToCancel2}/cancel`;
+    const method = 'put';
+    const action = '/*** (K.2.6) putCancelMandate - PB invalid ***/';
+    const data = {
+          mandateStatusCancellationReason: "SWITCHED",
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (K.2.7) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Acc invalid ****/
+
+const putCancelMandateInvalid7 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${mandateUidToCancel2}/cancel`;
+    const method = 'put';
+    const action = '/*** (K.2.7) putCancelMandate - Acc invalid ***/';
+    const data = {
+          mandateStatusCancellationReason: "SWITCHED",
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (K.2.8) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Addr invalid ****/
+
+const putCancelMandateInvalid8 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}/mandate/${mandateUidToCancel2}/cancel`;
+    const method = 'put';
+    const action = '/*** (K.2.8) putCancelMandate - Addr invalid ***/';
+    const data = {
+          mandateStatusCancellationReason: "SWITCHED",
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (K.2.9) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel: Mandate invalid ****/
+
+const putCancelMandateInvalid9 = async () => {
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidInvalid}/cancel`;
+    const method = 'put';
+    const action = '/*** (K.2.9) putCancelMandate - Mandate invalid ***/';
+    const data = {
+          mandateStatusCancellationReason: "SWITCHED",
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (K.3.1) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
     Invalid request.mandateStatusCancellationReason ****/
 
 const putCancelMandateInvalidParam1 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidToCancel2}/cancel`;
     const method = 'put';
     const action = '/*** (K.3.1) putCancelMandate - Invalid request.mandateStatusCancellationReason ***/';
     const data = {
@@ -1017,17 +1195,14 @@ const putCancelMandateInvalidParam1 = async () => {
 
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.3.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
-    Missing request.originatorServiceUserNumber ****/
+/* *** (K.3.2) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
+    Missing request.mandateStatusCancellationReason ****/
 
-const putCancelMandateInvalidParam4 = async () => {
+const putCancelMandateInvalidParam2 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUidToCancel2}/cancel`;
     const method = 'put';
     const action = '/*** (K.3.2) putCancelMandate - Missing request.mandateStatusCancellationReason ***/';
     const data = {
@@ -1038,21 +1213,18 @@ const putCancelMandateInvalidParam4 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.3.5) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
-    Missing request.originatorReference ****/
+/* *** (K.4.1) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
+    Mandate already cancelled, same cancellation reason ****/
 
-const putCancelMandateInvalidParam5 = async () => {
+const putCancelMandateInvalidLogic1 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNoDDs}/mandate/${mandateUidToCancel1}/cancel`;
     const method = 'put';
-    const action = '/*** (K.3.3) putCancelMandate - Missing request.originatorReference ***/';
+    const action = '/*** (K.4.1) putCancelMandate - Mandate already cancelled, same cancellation reason ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorName: "MJ"
+          mandateStatusCancellationReason: "SWITCHED",
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -1060,21 +1232,18 @@ const putCancelMandateInvalidParam5 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (K.3.6) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
-    Missing request.originatorName ****/
+/* *** (K.4.2) PUT cancel mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
+    Mandate already cancelled, diff cancellation reason ****/
 
-const putCancelMandateInvalidParam6 = async () => {
+const putCancelMandateInvalidLogic2 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNoDDs}/mandate/${mandateUidToCancel1}/cancel`;
     const method = 'put';
-    const action = '/*** (K.3.5) putCancelMandate - Missing request.originatorName ***/';
+    const action = '/*** (K.4.2) putCancelMandate - Mandate already cancelled, diff cancellation reason ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref"
+          mandateStatusCancellationReason: "INSTRUCTION_CANCELLED",
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -1082,46 +1251,21 @@ const putCancelMandateInvalidParam6 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
-
-/* *** (K.4.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}/cancel:
-    Address not enabled for mandates ****/
-
-const putCancelMandateInvalidNoDDs = async () => {
-    const newMandateUid = v4();
-    const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNoDDs}/mandate/${newMandateUid}`;
-    const method = 'put';
-    const action = '/*** (K.4.1) putCancelMandate - Address not enabled for mandates ***/';
-    const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
-    }
-
-    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
-
-    // Do the call, and grab the response . . .
-    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
-
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
-};
-
-
-
-
 
 /*************************************** Run the test methods ****************************************/
 
 /************************************* Payment business address tests F - XXX *************************************/
 
-enableMandates()                                     /* Preparing data */
-    .then(() => disableMandates())
-    ///.then(() => createMandate())
+enableMandatesForAddress()                                     /* Preparing data */
+    .then(() => disableMandatesForAddress())
+    .then(() => createMandateToCancel1())
+    .then(() => createMandateToCancel2())
+    .then(() => createMandateToCancel3())
     .then(() => putMandateValid())                   /***** TEST F.1 ******/      /**** PUT mandate tests ****/
+    //.then(() => putMandateValid2())
+    //.then(() => putMandateValid3())
+    //.then(() => putMandateValid4())
     .then(() => putMandateInvalid1())
     .then(() => putMandateInvalid2())
     .then(() => putMandateInvalid3())
@@ -1167,9 +1311,9 @@ enableMandates()                                     /* Preparing data */
     .then(() => putCancelMandateInvalid6())
     .then(() => putCancelMandateInvalid7())
     .then(() => putCancelMandateInvalid8())
+    .then(() => putCancelMandateInvalid9())
     .then(() => putCancelMandateInvalidParam1())
     .then(() => putCancelMandateInvalidParam2())
     .then(() => putCancelMandateInvalidLogic1())
     .then(() => putCancelMandateInvalidLogic2())
-
 ;
