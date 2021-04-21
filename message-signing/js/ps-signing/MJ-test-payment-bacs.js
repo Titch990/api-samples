@@ -185,7 +185,7 @@ const createMandateToCancel2 = async () => {
     const method = 'put';
     const action = '/*** Prep - create another new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "987654",
+          originatorServiceUserNumber: "987654",     // ORIGINATOR_DOES_NOT_EXIST (wrapped by us)
           originatorReference: "OLD REFERENCE",
           originatorName: "MJ TOO"
     }
@@ -251,17 +251,17 @@ const putMandateValid = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.1.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Prev 400 ****/
+/* *** (F.1.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Valid ****/
 
 const putMandateValid2 = async () => {
     const date = (new Date()).toISOString();
-    const newMandateUid = 'e41ddd9e-a653-428d-ac15-73676d0bc2f4';
+    const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.2) putMandate - PB, acc, addr, mandate valid but 400 failure ***/';
+    const action = '/*** (F.1.2) putMandate - PB, acc, addr, mandate valid ***/';
     const data = {
           originatorServiceUserNumber: "123456",
-          originatorReference: "222222", // expected to error
+          originatorReference: "222222", // OK
           originatorName: "MJ"
     }
 
@@ -274,11 +274,11 @@ const putMandateValid2 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.1.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Prev 500 ****/
+/* *** (F.1.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Valid ****/
 
 const putMandateValid3 = async () => {
     const date = (new Date()).toISOString();
-    const newMandateUid = 'dfdfdfac-0aa7-479f-b39b-fd71c1affb65';
+    const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
     const action = '/*** (F.1.3) putMandate - PB, acc, addr, mandate valid but 500 failure ***/';
@@ -307,7 +307,7 @@ const putMandateValid4 = async () => {
     const action = '/*** (F.1.4) putMandate - PB, acc, addr, mandate valid, Saff\'s example ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
-        "originatorReference": "NEW#REFERENCE", // Expected to error (OK without #)
+        "originatorReference": "NEW#REFERENCE", // OK
         "originatorName": "ORIGINATOR"
     };
 
@@ -334,7 +334,7 @@ const putMandateValid5 = async () => {
     const action = '/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, Saff\'s data, my structure ***/';
     const data = {
         originatorServiceUserNumber: "123456",
-        originatorReference: "It's 13 chars",
+        originatorReference: "It's 13 chars", //MANDATE_REFERENCE_TOO_SHORT (was actually 14 chars)
         originatorName: "ORIGINATOR"
     };
 
@@ -359,7 +359,7 @@ const putMandateValid6 = async () => {
     const action = '/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
-        "originatorReference": "Short",  // Same length as Saff's
+        "originatorReference": "Short",  // MANDATE_REFERENCE_TOO_SHORT
         "originatorName": "MJ"
     };
 
@@ -382,7 +382,7 @@ const putMandateValid7 = async () => {
     const action = '/*** (F.1.7) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data with spaces and apostrophes ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
-        "originatorReference": "Longer Longer45678",  // 18
+        "originatorReference": "Longer Longer45678",  // 18 - is OK
         "originatorName": "ORIGINATOR"
     };
 
