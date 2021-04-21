@@ -359,7 +359,7 @@ const putMandateValid6 = async () => {
     const action = '/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
-        "originatorReference": "MJtestref",
+        "originatorReference": "MJtestref0123",  // Same length as Saff's
         "originatorName": "MJ"
     };
 
@@ -382,7 +382,7 @@ const putMandateValid7 = async () => {
     const action = '/*** (F.1.7) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data with spaces and apostrophes ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
-        "originatorReference": "MJ's test ref",
+        "originatorReference": "MJ's test ref",  // Same length as Saff's, with apostrophe
         "originatorName": "ORIGINATOR"
     };
 
