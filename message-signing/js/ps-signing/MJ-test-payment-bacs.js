@@ -281,7 +281,7 @@ const putMandateValid3 = async () => {
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.3) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
+    const action = '/*** (F.1.3) putMandate - PB, acc, addr, mandate valid, should be valid (but MANDATE_REFERENCE_TOO_SHORT) ***/';
     const data = {
           originatorServiceUserNumber: "123456",
           originatorReference: "MJtestref",      // MANDATE_REFERENCE_TOO_SHORT
@@ -327,7 +327,7 @@ const putMandateValid5 = async () => {
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
+    const action = '/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, should be valid (but MANDATE_REFERENCE_TOO_SHORT) ***/';
     const data = {
         originatorServiceUserNumber: "123456",
         originatorReference: "It's 13 chars", //MANDATE_REFERENCE_TOO_SHORT
@@ -350,7 +350,7 @@ const putMandateValid6 = async () => {
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
+    const action = '/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, should be valid (but MANDATE_REFERENCE_TOO_SHORT) ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
         "originatorReference": "Short",  // MANDATE_REFERENCE_TOO_SHORT
@@ -394,7 +394,7 @@ const putMandateValid8 = async () => {
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.8) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
+    const action = '/*** (F.1.8) putMandate - PB, acc, addr, mandate valid, should be valid (but ORIGINATOR_DOES_NOT_EXIST) ***/';
     const data = {
         "originatorServiceUserNumber": "987654", // ORIGINATOR_DOES_NOT_EXIST (wrapped by us)
         "originatorReference": "Longer Longer45678",
