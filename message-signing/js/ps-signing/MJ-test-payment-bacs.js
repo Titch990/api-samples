@@ -185,7 +185,7 @@ const createMandateToCancel2 = async () => {
     const method = 'put';
     const action = '/*** Prep - create another new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "987654",     // ORIGINATOR_DOES_NOT_EXIST (wrapped by us)
+          originatorServiceUserNumber: "111111",
           originatorReference: "OLD REFERENCE",
           originatorName: "MJ TOO"
     }
@@ -251,7 +251,7 @@ const putMandateValid = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.1.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Valid ****/
+/* *** (F.1.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
 
 const putMandateValid2 = async () => {
     const date = (new Date()).toISOString();
@@ -261,7 +261,7 @@ const putMandateValid2 = async () => {
     const action = '/*** (F.1.2) putMandate - PB, acc, addr, mandate valid ***/';
     const data = {
           originatorServiceUserNumber: "123456",
-          originatorReference: "222222", // OK
+          originatorReference: "222222",
           originatorName: "MJ"
     }
 
@@ -274,14 +274,14 @@ const putMandateValid2 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.1.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Valid ****/
+/* *** (F.1.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
 
 const putMandateValid3 = async () => {
     const date = (new Date()).toISOString();
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.3) putMandate - PB, acc, addr, mandate valid but 500 failure ***/';
+    const action = '/*** (F.1.3) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
     const data = {
           originatorServiceUserNumber: "123456",
           originatorReference: "MJtestref",      // MANDATE_REFERENCE_TOO_SHORT
@@ -297,17 +297,17 @@ const putMandateValid3 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.1.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+/* *** (F.1.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
 
 const putMandateValid4 = async () => {
     const date = (new Date()).toISOString();
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.4) putMandate - PB, acc, addr, mandate valid, Saff\'s example ***/';
+    const action = '/*** (F.1.4) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
-        "originatorReference": "NEW#REFERENCE", // OK
+        "originatorReference": "NEW#REFERENCE",
         "originatorName": "ORIGINATOR"
     };
 
@@ -320,21 +320,17 @@ const putMandateValid4 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-
-////////// Trying some  variants
-// My structure, Saff's data
-
-/* *** (F.1.5) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+/* *** (F.1.5) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
 
 const putMandateValid5 = async () => {
     const date = (new Date()).toISOString();
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, Saff\'s data, my structure ***/';
+    const action = '/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
     const data = {
         originatorServiceUserNumber: "123456",
-        originatorReference: "It's 13 chars", //MANDATE_REFERENCE_TOO_SHORT (was actually 14 chars)
+        originatorReference: "It's 13 chars", //MANDATE_REFERENCE_TOO_SHORT
         originatorName: "ORIGINATOR"
     };
 
@@ -347,20 +343,18 @@ const putMandateValid5 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-// And Saff's structure, my data
-
-/* *** (F.1.6) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+/* *** (F.1.6) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
 
 const putMandateValid6 = async () => {
     const date = (new Date()).toISOString();
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data ***/';
+    const action = '/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
         "originatorReference": "Short",  // MANDATE_REFERENCE_TOO_SHORT
-        "originatorName": "MJ"
+        "originatorName": "MJ" // perhaps it's this?
     };
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -372,17 +366,17 @@ const putMandateValid6 = async () => {
     // returnedMandateUid1 = response.data.mandateUid;;
 };
 
-/* *** (F.1.7) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+/* *** (F.1.7) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
 
 const putMandateValid7 = async () => {
     const date = (new Date()).toISOString();
     const newMandateUid = v4();
     const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
     const method = 'put';
-    const action = '/*** (F.1.7) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data with spaces and apostrophes ***/';
+    const action = '/*** (F.1.7) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
     const data = {
         "originatorServiceUserNumber": "123456",
-        "originatorReference": "Longer Longer45678",  // 18 - is OK
+        "originatorReference": "Longer Longer45678",
         "originatorName": "ORIGINATOR"
     };
 
@@ -391,8 +385,27 @@ const putMandateValid7 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
+};
+
+/* *** (F.1.8) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
+
+const putMandateValid8 = async () => {
+    const date = (new Date()).toISOString();
+    const newMandateUid = v4();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.8) putMandate - PB, acc, addr, mandate valid, should be valid ***/';
+    const data = {
+        "originatorServiceUserNumber": "987654", // ORIGINATOR_DOES_NOT_EXIST (wrapped by us)
+        "originatorReference": "Longer Longer45678",
+        "originatorName": "ORIGINATOR"
+    };
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
 };
 
 /* *** (F.2.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: PB not found ****/
@@ -404,9 +417,9 @@ const putMandateInvalid1 = async () => {
     const method = 'put';
     const action = '/*** (F.2.1) putMandate - PB not found ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+        originatorServiceUserNumber: "123456",
+        originatorReference: "NEW REFERENCE",
+        originatorName: "M Jones"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -414,8 +427,6 @@ const putMandateInvalid1 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (F.2.2) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: PB not auth ****/
@@ -427,9 +438,9 @@ const putMandateInvalid2 = async () => {
     const method = 'put';
     const action = '/*** (F.2.2) putMandate - PB not auth ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+        originatorServiceUserNumber: "123456",
+        originatorReference: "NEW REFERENCE",
+        originatorName: "M Jones"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -437,8 +448,6 @@ const putMandateInvalid2 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (F.2.3) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Acc not found ****/
@@ -450,9 +459,9 @@ const putMandateInvalid3 = async () => {
     const method = 'put';
     const action = '/*** (F.2.3) putMandate - Acc not found ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+        originatorServiceUserNumber: "123456",
+        originatorReference: "NEW REFERENCE",
+        originatorName: "M Jones"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -460,8 +469,6 @@ const putMandateInvalid3 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
 
 /* *** (F.2.4) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Addr not found ****/
@@ -473,9 +480,9 @@ const putMandateInvalid4 = async () => {
     const method = 'put';
     const action = '/*** (F.2.4) putMandate - Addr not found ***/';
     const data = {
-          originatorServiceUserNumber: "123456",
-          originatorReference: "MJ's test ref",
-          originatorName: "MJ"
+        originatorServiceUserNumber: "123456",
+        originatorReference: "NEW REFERENCE",
+        originatorName: "M Jones"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -483,9 +490,55 @@ const putMandateInvalid4 = async () => {
     // Do the call, and grab the response . . .
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
-    // . . . and save the bit I want
-    // returnedMandateUid1 = response.data.mandateUid;;
 };
+
+/* *** (F.2.5) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Acc invalid ****/
+
+const putMandateInvalid5 = async () => {
+    const newMandateUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.2.5) putMandate - Acc invalid ***/';
+    const data = {
+        originatorServiceUserNumber: "123456",
+        originatorReference: "NEW REFERENCE",
+        originatorName: "M Jones"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (F.2.6) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Addr invalid ****/
+
+const putMandateInvalid6 = async () => {
+    const newMandateUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.2.6) putMandate - Addr invalid ***/';
+    const data = {
+        originatorServiceUserNumber: "123456",
+        originatorReference: "NEW REFERENCE",
+        originatorName: "M Jones"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+
+
+
+
+
 
 /* *** (F.3.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}:
     Invalid request.originatorServiceUserNumber1 ****/
@@ -1337,6 +1390,7 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => putMandateValid5())
     .then(() => putMandateValid6())
     .then(() => putMandateValid7())
+    .then(() => putMandateValid8())
     .then(() => putMandateInvalid1())
     .then(() => putMandateInvalid2())
     .then(() => putMandateInvalid3())

@@ -14,14 +14,77 @@ Response data:
  { addressUid: '0690d922-dd75-4b87-934f-1ece8968275e', success: true }
 
 /*** Prep - create a new mandate to cancel later ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/64fb9acb-4f1d-4b39-8473-5a57f3154da1
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/252d6e3c-08bf-424f-9e59-31d0023e5ecb
+ERROR
+HTTP status: 500
+Response data:
+ 
+
+/*** Prep - create another new mandate to cancel later ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff
 SUCCESS
 HTTP status: 200
 Response data:
  { success: true, errors: [] }
 
-/*** Prep - create another new mandate to cancel later ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296
+/*** Prep - create yet another new mandate to cancel later ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/746479db-b724-4fdb-b880-8de71b7e2469
+SUCCESS
+HTTP status: 200
+Response data:
+ { success: true, errors: [] }
+
+/*** (F.1) putMandate - PB, acc, addr, mandate valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/13dc339a-640b-445b-bf79-b9200747149e
+SUCCESS
+HTTP status: 200
+Response data:
+ { success: true, errors: [] }
+
+/*** (F.1.2) putMandate - PB, acc, addr, mandate valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/fca13398-5b03-497b-90d2-3b4448da27cf
+ERROR
+HTTP status: 500
+Response data:
+ 
+
+/*** (F.1.3) putMandate - PB, acc, addr, mandate valid, should be valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/24b3deef-bed6-4709-82e2-6934556437d2
+ERROR
+HTTP status: 500
+Response data:
+ 
+
+/*** (F.1.4) putMandate - PB, acc, addr, mandate valid, should be valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/7de05897-e418-47c5-83e9-2f2b3bbb1f66
+ERROR
+HTTP status: 500
+Response data:
+ 
+
+/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, should be valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/c1c3058c-1b28-47c1-8d22-7ee8216fee29
+ERROR
+HTTP status: 400
+Response data:
+ [ 'MANDATE_REFERENCE_TOO_SHORT' ]
+
+/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, should be valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/f2911bb4-7e23-465b-ba7b-e9f5bb22c90f
+ERROR
+HTTP status: 400
+Response data:
+ [ 'MANDATE_REFERENCE_TOO_SHORT' ]
+
+/*** (F.1.7) putMandate - PB, acc, addr, mandate valid, should be valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/875c9f40-439b-429f-a319-7aa83d929318
+SUCCESS
+HTTP status: 200
+Response data:
+ { success: true, errors: [] }
+
+/*** (F.1.8) putMandate - PB, acc, addr, mandate valid, should be valid ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/200d5cd8-6209-468e-a961-8beab700a1cc
 ERROR
 HTTP status: 400
 Response data:
@@ -30,78 +93,22 @@ Response data:
   success: false
 }
 
-/*** Prep - create yet another new mandate to cancel later ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/f123caf4-c825-4d82-a30f-b16a998a8c4d
-SUCCESS
-HTTP status: 200
-Response data:
- { success: true, errors: [] }
-
-/*** (F.1) putMandate - PB, acc, addr, mandate valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/a842830c-259b-4b68-8a6c-d6b3deb8594d
-SUCCESS
-HTTP status: 200
-Response data:
- { success: true, errors: [] }
-
-/*** (F.1.2) putMandate - PB, acc, addr, mandate valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/3870ff10-19e8-4c2c-9fd2-73b66c2b15a5
-SUCCESS
-HTTP status: 200
-Response data:
- { success: true, errors: [] }
-
-/*** (F.1.3) putMandate - PB, acc, addr, mandate valid but 500 failure ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/4a6c98d3-7666-4b8e-acd1-9abc78814198
-ERROR
-HTTP status: 400
-Response data:
- [ 'MANDATE_REFERENCE_TOO_SHORT' ]
-
-/*** (F.1.4) putMandate - PB, acc, addr, mandate valid, Saff's example ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/05f930e4-592c-409b-b6bc-53eef3b765de
-SUCCESS
-HTTP status: 200
-Response data:
- { success: true, errors: [] }
-
-/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, Saff's data, my structure ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/01c5c8c9-4005-4392-8827-3df0943ca27a
-ERROR
-HTTP status: 400
-Response data:
- [ 'MANDATE_REFERENCE_TOO_SHORT' ]
-
-/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, Saff's structure, my data ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/26d8c4f8-6438-4504-a7cf-e1dd9eeb7ca4
-ERROR
-HTTP status: 400
-Response data:
- [ 'MANDATE_REFERENCE_TOO_SHORT' ]
-
-/*** (F.1.7) putMandate - PB, acc, addr, mandate valid, Saff's structure, my data with spaces and apostrophes ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/a62b3f24-705b-4e73-9132-65db1781b19d
-SUCCESS
-HTTP status: 200
-Response data:
- { success: true, errors: [] }
-
 /*** (F.2.1) putMandate - PB not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/9761e177-c61d-483d-aa01-3fa8f27f9b83
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/22dc4fce-1450-4f75-bdcc-09d58741a01c
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (F.2.2) putMandate - PB not auth ***/
-/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/de883c5f-32e6-4b00-b183-2c43afaf9e64
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/8de7b6e6-bed0-4d88-b398-5cf8ec5a9049
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (F.2.3) putMandate - Acc not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/ebfddf8b-8951-44b3-beb5-d6a572c4747a
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/624773e7-d1e4-4f63-b7e0-e8424fa1b2e4
 ERROR
 HTTP status: 400
 Response data:
@@ -111,7 +118,7 @@ Response data:
 }
 
 /*** (F.2.4) putMandate - Addr not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/f9504274-db69-4a5a-b7ab-54bcecd8990c
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/fc40b8b7-7d8a-48c2-85ac-d83fa1e229a3
 ERROR
 HTTP status: 400
 Response data:
@@ -121,37 +128,37 @@ Response data:
 }
 
 /*** (F.3.1) putMandate - Invalid request.originatorServiceUserNumber1 ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/32a8dc01-7356-4ba5-8458-816e86ca4ffa
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/37e3a972-1e1e-4600-97be-9fedae65ef20
 ERROR
 HTTP status: 400
 Response data:
  {
   errors: [
     {
-      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[1234567]\r'
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[length must be between 6 and 6]\r[1234567]\r'
     },
     {
       message: '[PROPERTY]\r[originatorServiceUserNumber]\r[size must be between 6 and 6]\r[1234567]\r'
     },
     {
-      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[length must be between 6 and 6]\r[1234567]\r'
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[1234567]\r'
     }
   ],
   success: false
 }
 
 /*** (F.3.2) putMandate - Invalid request.originatorServiceUserNumber2 ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/056f7406-d86a-4a10-b3e2-36fe21ec294a
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/356f8720-12f8-45ce-a5c3-c7fd1f2c64a2
 ERROR
 HTTP status: 400
 Response data:
  {
   errors: [
     {
-      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[length must be between 6 and 6]\r[12345]\r'
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[12345]\r'
     },
     {
-      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[must match "\\d{6}"]\r[12345]\r'
+      message: '[PROPERTY]\r[originatorServiceUserNumber]\r[length must be between 6 and 6]\r[12345]\r'
     },
     {
       message: '[PROPERTY]\r[originatorServiceUserNumber]\r[size must be between 6 and 6]\r[12345]\r'
@@ -161,17 +168,17 @@ Response data:
 }
 
 /*** (F.3.3) putMandate - Invalid request.originatorReference ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/0acd9b96-9155-4bf4-a8ba-96aaf2bf2a93
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/9108e919-5012-43a2-b708-0c148d0f325b
 ERROR
 HTTP status: 400
 Response data:
  {
   errors: [
     {
-      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
+      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's very, very, very, very long test ref]\r`
     },
     {
-      message: `[PROPERTY]\r[originatorReference]\r[must match "[a-zA-Z0-9-/?:().,+#=!%&*<>;{@ "']{0,18}"]\r[MJ's very, very, very, very long test ref]\r`
+      message: "[PROPERTY]\r[originatorReference]\r[length must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
     },
     {
       message: "[PROPERTY]\r[originatorReference]\r[size must be between 0 and 18]\r[MJ's very, very, very, very long test ref]\r"
@@ -181,7 +188,7 @@ Response data:
 }
 
 /*** (F.3.4) putMandate - Missing request.originatorServiceUserNumber ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/49b5be29-67d9-4081-9f02-f613deaedee9
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/d1f9112d-c023-4eae-951d-9db40e136ca5
 ERROR
 HTTP status: 400
 Response data:
@@ -195,7 +202,7 @@ Response data:
 }
 
 /*** (F.3.3) putMandate - Missing request.originatorReference ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/81a42a63-fee4-4b65-92ce-e5ff352d6a2d
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/2c1e41a0-e70b-4763-be10-963fc9549e30
 ERROR
 HTTP status: 400
 Response data:
@@ -209,7 +216,7 @@ Response data:
 }
 
 /*** (F.3.5) putMandate - Missing request.originatorName ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/82fe00c7-d753-4dc2-9105-525ea0bcf67b
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/4bfed7ac-5cb6-4d41-894b-708d4344ec53
 ERROR
 HTTP status: 400
 Response data:
@@ -223,7 +230,7 @@ Response data:
 }
 
 /*** (F.4.1) putMandate - Address not enabled for mandates ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/0fb80a8d-4bca-49a0-8acb-9e054ecb5160
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/602f3400-5494-42dc-aeed-658e80e4d1d9
 ERROR
 HTTP status: 400
 Response data:
@@ -311,6 +318,227 @@ Response data:
     paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
     paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
     addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '875c9f40-439b-429f-a319-7aa83d929318',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'Longer Longer45678',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '13dc339a-640b-445b-bf79-b9200747149e',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '746479db-b724-4fdb-b880-8de71b7e2469',
+    bacsOriginator: {
+      originatorUid: '83e6e1a3-8cce-441a-bed4-8a08634ff056',
+      serviceUserNumber: '999999',
+      name: 'ANTIQUARIES'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'b337d2af-a117-4f6e-8644-d73ba7b484ff',
+    bacsOriginator: {
+      originatorUid: 'f76dded2-5f5a-404e-bacb-c0cdb3ed3e61',
+      serviceUserNumber: '111111',
+      name: 'ANTIQUARIES'
+    },
+    reference: 'OLD REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'bcb6f68f-6364-4aa4-9a47-d88c8542b20d',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'Longer Longer45678',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '788a743e-fa55-4e1c-81a9-4ced9963c479',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'NEW#REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'ff9ef12a-280f-44c7-994d-521d82f6cc3d',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: '222222',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'd975a83c-86df-474d-8a7a-3188e4b8ee8a',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'b5f36b02-4019-4faa-b29c-f211d3bec802',
+    bacsOriginator: {
+      originatorUid: '83e6e1a3-8cce-441a-bed4-8a08634ff056',
+      serviceUserNumber: '999999',
+      name: 'ANTIQUARIES'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '3c2bef28-3e58-4ed9-9996-1db404c915c7',
+    bacsOriginator: {
+      originatorUid: 'f76dded2-5f5a-404e-bacb-c0cdb3ed3e61',
+      serviceUserNumber: '111111',
+      name: 'ANTIQUARIES'
+    },
+    reference: 'OLD REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '1577aa52-4c2a-45ee-9afe-dd84c1a1d6ee',
+    bacsOriginator: {
+      originatorUid: 'f76dded2-5f5a-404e-bacb-c0cdb3ed3e61',
+      serviceUserNumber: '111111',
+      name: 'ANTIQUARIES'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'CANCELLED'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'a7b18f83-756a-428d-bbdf-ba8ffd54c9f8',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'Longer Longer45678',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '9072381e-4d4e-438a-80a5-af30fe68617b',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'NEW#REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '9981e40a-8ea0-4348-9029-2afc37489845',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: '222222',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: '8d147f05-ec13-44bc-92f6-57b956f3a7dc',
+    bacsOriginator: {
+      originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
+      serviceUserNumber: '123456',
+      name: 'TESTING'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'c0697738-687b-4153-b6ea-460ccf3e07d0',
+    bacsOriginator: {
+      originatorUid: '83e6e1a3-8cce-441a-bed4-8a08634ff056',
+      serviceUserNumber: '999999',
+      name: 'ANTIQUARIES'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'ACTIVE'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
+    mandateUid: 'ec2c82a0-045c-4caf-889b-cdb4386b4632',
+    bacsOriginator: {
+      originatorUid: 'f76dded2-5f5a-404e-bacb-c0cdb3ed3e61',
+      serviceUserNumber: '111111',
+      name: 'ANTIQUARIES'
+    },
+    reference: 'NEW REFERENCE',
+    status: 'CANCELLED'
+  },
+  {
+    paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
+    paymentAccountUid: '09dbbfac-50b1-47f3-ac7b-a37d828bd25b',
+    addressUid: 'ddb40c7e-e636-45e9-9fe0-dee13a3a4323',
     mandateUid: 'a62b3f24-705b-4e73-9132-65db1781b19d',
     bacsOriginator: {
       originatorUid: '2f63a324-2442-4d78-8508-75fe34d2bf12',
@@ -383,7 +611,7 @@ Response data:
       name: 'ANTIQUARIES'
     },
     reference: 'NEW REFERENCE',
-    status: 'ACTIVE'
+    status: 'CANCELLED'
   },
   {
     paymentBusinessUid: '53f74c7d-c666-422e-a871-b2a03623addd',
@@ -934,28 +1162,32 @@ Response data:
  
 
 /*** (K.1) putCancelMandate - PB, acc, addr, mandate valid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/64fb9acb-4f1d-4b39-8473-5a57f3154da1/cancel
-SUCCESS
-HTTP status: 200
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/252d6e3c-08bf-424f-9e59-31d0023e5ecb/cancel
+ERROR
+HTTP status: 400
 Response data:
- { mandateUid: '64fb9acb-4f1d-4b39-8473-5a57f3154da1', success: true }
+ {
+  mandateUid: '252d6e3c-08bf-424f-9e59-31d0023e5ecb',
+  success: false,
+  errors: [ { message: 'MANDATE_NOT_FOUND' } ]
+}
 
 /*** (K.2.1) putCancelMandate - PB not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623accc/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (K.2.2) putCancelMandate - PB not auth ***/
-/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/3e2be5bc-21b8-49fe-b272-9b2eade079e9/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (K.2.3) putCancelMandate - Acc not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bdccc/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 400
 Response data:
@@ -965,7 +1197,7 @@ Response data:
 }
 
 /*** (K.2.4) putCancelMandate - Addr not found ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/e2ea3b6f-b6a9-4c4b-8732-d3ca6d4e6ffd/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 400
 Response data:
@@ -986,21 +1218,21 @@ Response data:
 }
 
 /*** (K.2.6) putCancelMandate - PB invalid ***/
-/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/abcdefghijk/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 403
 Response data:
  
 
 /*** (K.2.7) putCancelMandate - Acc invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/abcdefghijk/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 404
 Response data:
  
 
 /*** (K.2.8) putCancelMandate - Addr invalid ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/abcdefghijk/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/abcdefghijk/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 404
 Response data:
@@ -1014,7 +1246,7 @@ Response data:
  
 
 /*** (K.3.1) putCancelMandate - Invalid request.mandateStatusCancellationReason ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 400
 Response data:
@@ -1028,7 +1260,7 @@ Response data:
 }
 
 /*** (K.3.2) putCancelMandate - Missing request.mandateStatusCancellationReason ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/e1bfbe09-181c-4bc1-b67a-5a9e84c56296/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/b337d2af-a117-4f6e-8644-d73ba7b484ff/cancel
 ERROR
 HTTP status: 400
 Response data:
@@ -1042,23 +1274,23 @@ Response data:
 }
 
 /*** (K.4.1) putCancelMandate - Mandate already cancelled, same cancellation reason ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/64fb9acb-4f1d-4b39-8473-5a57f3154da1/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/252d6e3c-08bf-424f-9e59-31d0023e5ecb/cancel
 ERROR
 HTTP status: 400
 Response data:
  {
-  mandateUid: '64fb9acb-4f1d-4b39-8473-5a57f3154da1',
+  mandateUid: '252d6e3c-08bf-424f-9e59-31d0023e5ecb',
   success: false,
   errors: [ { message: 'MANDATE_NOT_FOUND' } ]
 }
 
 /*** (K.4.2) putCancelMandate - Mandate already cancelled, diff cancellation reason ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/64fb9acb-4f1d-4b39-8473-5a57f3154da1/cancel
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/0690d922-dd75-4b87-934f-1ece8968275e/mandate/252d6e3c-08bf-424f-9e59-31d0023e5ecb/cancel
 ERROR
 HTTP status: 400
 Response data:
  {
-  mandateUid: '64fb9acb-4f1d-4b39-8473-5a57f3154da1',
+  mandateUid: '252d6e3c-08bf-424f-9e59-31d0023e5ecb',
   success: false,
   errors: [ { message: 'MANDATE_NOT_FOUND' } ]
 }
