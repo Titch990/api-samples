@@ -321,7 +321,79 @@ const putMandateValid4 = async () => {
 };
 
 
+////////// Trying some  variants
+// My structure, Saff's data
 
+/* *** (F.1.5) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+
+const putMandateValid5 = async () => {
+    const date = (new Date()).toISOString();
+    const newMandateUid = v4();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.5) putMandate - PB, acc, addr, mandate valid, Saff\'s data, my structure ***/';
+    const data = {
+        originatorServiceUserNumber: "123456",
+        originatorReference: "NEW REFERENCE",
+        originatorName: "ORIGINATOR"
+    };
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // returnedMandateUid1 = response.data.mandateUid;;
+};
+
+// And Saff's structure, my data
+
+/* *** (F.1.6) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+
+const putMandateValid6 = async () => {
+    const date = (new Date()).toISOString();
+    const newMandateUid = v4();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.6) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data ***/';
+    const data = {
+        "originatorServiceUserNumber": "123456",
+        "originatorReference": "MJtestref",
+        "originatorName": "MJ"
+    };
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // returnedMandateUid1 = response.data.mandateUid;;
+};
+
+/* *** (F.1.7) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Saff's code ****/
+
+const putMandateValid7 = async () => {
+    const date = (new Date()).toISOString();
+    const newMandateUid = v4();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.7) putMandate - PB, acc, addr, mandate valid, Saff\'s structure, my data with spaces and apostrophes ***/';
+    const data = {
+        "originatorServiceUserNumber": "123456",
+        "originatorReference": "MJ's test ref",
+        "originatorName": "ORIGINATOR"
+    };
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // returnedMandateUid1 = response.data.mandateUid;;
+};
 
 
 
@@ -1265,7 +1337,10 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => putMandateValid())                   /***** TEST F.1 ******/      /**** PUT mandate tests ****/
     .then(() => putMandateValid2())
     .then(() => putMandateValid3())
-    .then(() => putMandateValid4())
+    .then(() => putMandateValid4())                  // Trying to get mine to work like Saff's
+    .then(() => putMandateValid5())
+    .then(() => putMandateValid6())
+    .then(() => putMandateValid7())
     .then(() => putMandateInvalid1())
     .then(() => putMandateInvalid2())
     .then(() => putMandateInvalid3())
