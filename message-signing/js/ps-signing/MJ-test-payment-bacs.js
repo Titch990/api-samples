@@ -188,9 +188,9 @@ const createMandateToCancel1 = async () => {
     const method = 'put';
     const action = '/*** Prep - create a new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "111111",
-          originatorReference: "NEW REFERENCE",
-          originatorName: "MJ"
+          originatorServiceUserNumber: "111112",
+          originatorReference: "ANOTHER REFERENCE",
+          originatorName: "MJ too"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -213,7 +213,7 @@ const createMandateToCancel2 = async () => {
     const method = 'put';
     const action = '/*** Prep - create another new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "111111",
+          originatorServiceUserNumber: "111113",
           originatorReference: "OLD REFERENCE",
           originatorName: "MJ TOO"
     }
@@ -238,9 +238,9 @@ const createMandateToCancel3 = async () => {
     const method = 'put';
     const action = '/*** Prep - create yet another new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "999999",
-          originatorReference: "NEW REFERENCE",
-          originatorName: "MJ"
+          originatorServiceUserNumber: "999998",
+          originatorReference: "NEW REFERENCES",
+          originatorName: "MJ as well"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -428,6 +428,27 @@ const putMandateValid8 = async () => {
         "originatorReference": "Longer Longer45678",
         "originatorName": "ORIGINATOR"
     };
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+};
+
+/* *** (F.1.9) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}: Should be valid ****/
+
+const putMandateValid9 = async () => {
+    const newMandateUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** (F.1.8) putMandate - PB, acc, addr, mandate valid, should be valid (but ORIGINATOR_DOES_NOT_EXIST) ***/';
+    const data = {
+          originatorServiceUserNumber: "111112",
+          originatorReference: "NEW REFERENCE 2",
+          originatorName: "MJ"
+    }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
 
@@ -1414,6 +1435,7 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => putMandateValid6())
     .then(() => putMandateValid7())
     .then(() => putMandateValid8())
+    .then(() => putMandateValid9())
     .then(() => putMandateInvalid1())
     .then(() => putMandateInvalid2())
     .then(() => putMandateInvalid3())
