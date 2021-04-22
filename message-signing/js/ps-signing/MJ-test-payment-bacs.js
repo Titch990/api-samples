@@ -184,6 +184,8 @@ const createMandateToSave1 = async () => {
 // Create mandate specifically so I can cancel it later
 
 // results 200-500-500 - "111111", "NEW REFERENCE", "MJ"
+// results 400 - "111112", "NEW REFERENCE", "MJ" (just number different)- ORIGINATOR_DOES_NOT_EXIST
+// results 400 - "111112", "NEW REFERENCES", "MJ ALSO" (all different)  - ORIGINATOR_DOES_NOT_EXIST
 
 const createMandateToCancel1 = async () => {
     const newMandateUid = v4();
@@ -192,8 +194,8 @@ const createMandateToCancel1 = async () => {
     const method = 'put';
     const action = '/*** Prep - create a new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "111111",  //"111112"
-          originatorReference: "NEW REFERENCE",   // "ANOTHER REFERENCE"
+          originatorServiceUserNumber: "111112",  //"111112"
+          originatorReference: "NEW REFERENCES",   // "ANOTHER REFERENCE"
           originatorName: "MJ"                    // "MJ too"
     }
 
@@ -211,6 +213,8 @@ const createMandateToCancel1 = async () => {
 // Create another mandate specifically so I can cancel it later
 
 // results 500-200-200 - "111111", "OLD REFERENCE, "MJ TOO"
+// results 400 - "111113", "OLD REFERENCE, "MJ TOO" - ORIGINATOR_DOES_NOT_EXIST
+// results 500-500-200 - "111111", "OLD REFERENCES, "MJ TOO" (just reference different) success "de851cb0-14fe-42b3-9f49-ae461ee3bc3e"
 
 const createMandateToCancel2 = async () => {
     const newMandateUid = v4();
@@ -220,7 +224,7 @@ const createMandateToCancel2 = async () => {
     const action = '/*** Prep - create another new mandate to cancel later ***/';
     const data = {
           originatorServiceUserNumber: "111111",  //"111113"
-          originatorReference: "OLD REFERENCE",
+          originatorReference: "OLD REFERENCES",
           originatorName: "MJ TOO"
     }
 
@@ -238,6 +242,9 @@ const createMandateToCancel2 = async () => {
 // Create yet another mandate specifically so I can cancel it later
 
 // results 200-200-500 - "999999", "NEW REFERENCE", "MJ"
+// results 400 - "999998", "NEW REFERENCE", "MJ" - ORIGINATOR_DOES_NOT_EXIST
+// results 500-200-200 - "999999", "NEW REFERENCE", "MJ as well" (just name different) successful mandate "c520410d-1299-4202-bf17-c924cb7120a6"
+//                                                                  also "52e0faa2-6b97-4ccd-9e33-7b2829518b4c"
 
 const createMandateToCancel3 = async () => {
     const newMandateUid = v4();
@@ -248,7 +255,7 @@ const createMandateToCancel3 = async () => {
     const data = {
           originatorServiceUserNumber: "999999",   //"999998"
           originatorReference: "NEW REFERENCE",   // "NEW REFERENCES"
-          originatorName: "MJ"             // "MJ as well"
+          originatorName: "MJ as well"             // "MJ as well"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);

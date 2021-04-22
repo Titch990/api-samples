@@ -14,29 +14,32 @@ Response data:
  { addressUid: '0690d922-dd75-4b87-934f-1ece8968275e', success: true }
 
 /*** Prep - create a new mandate to save ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/def4996f-a41a-416b-82e4-06db550eeeb3
-SUCCESS
-HTTP status: 200
-Response data:
- { success: true, errors: [] }
-
-/*** Prep - create a new mandate to cancel later ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/20f26884-f731-453e-b451-c3467fa2cac8
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/a4ea6596-4017-4c94-a851-a4072b3ac074
 ERROR
 HTTP status: 500
 Response data:
  
 
+/*** Prep - create a new mandate to cancel later ***/
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/fd3c3f16-ce8b-4d9f-b6e2-adae6f345b75
+ERROR
+HTTP status: 400
+Response data:
+ {
+  errors: [ { message: 'ORIGINATOR_DOES_NOT_EXIST' } ],
+  success: false
+}
+
 /*** Prep - create another new mandate to cancel later ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/88f23fa6-39b6-45ec-9644-06b3ee359908
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/de851cb0-14fe-42b3-9f49-ae461ee3bc3e
 SUCCESS
 HTTP status: 200
 Response data:
  { success: true, errors: [] }
 
 /*** Prep - create yet another new mandate to cancel later ***/
-/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/f243c3a1-2e5a-470d-9733-fe0854653a12
-ERROR
-HTTP status: 500
+/api/v1/53f74c7d-c666-422e-a871-b2a03623addd/account/09dbbfac-50b1-47f3-ac7b-a37d828bd25b/address/ddb40c7e-e636-45e9-9fe0-dee13a3a4323/mandate/52e0faa2-6b97-4ccd-9e33-7b2829518b4c
+SUCCESS
+HTTP status: 200
 Response data:
- 
+ { success: true, errors: [] }
