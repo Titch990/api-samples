@@ -25,7 +25,6 @@ const addressUidInvalid = 'abcdefghijk';                                        
 const sortCode = '040059';
 
 // Mandates
-const mandateUid = '6b1026b9-785b-4be2-8620-f1105bae58e9';                       // Created in a previous run of this code
 const mandateUidNotFound = '09dbbfac-50b1-47f3-ac7b-a37d828bdccc';               // Made up
 const mandateUidInvalid = 'abcdefgh';                                            // Not a valid UID
 
@@ -41,6 +40,7 @@ let returnedAddress1Uid =  "xxxx";
 let returnedAddress2Uid =  "xxxx";
 let returnedAddress3Uid =  "xxxx";
 let returnedAddress4Uid =  "xxxx";
+let mandateUid1 =  "xxxx";
 let mandateUidToCancel1 =  "xxxx";
 let mandateUidToCancel2 =  "xxxx";
 let mandateUidToCancel3 =  "xxxx";
@@ -150,6 +150,34 @@ const disableMandatesForAddress = async () => {
     const response = await makeRequest({ action, url, method, authorization, date, digest, data });
 
 }
+
+
+// Create mandate to use in tests
+
+const createMandateToSave1 = async () => {
+    const newMandateUid = v4();
+    const date = (new Date()).toISOString();
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${newMandateUid}`;
+    const method = 'put';
+    const action = '/*** Prep - create a new mandate to save ***/';
+    const data = {
+          originatorServiceUserNumber: "111111",
+          originatorReference: "NEW REFERENCE",
+          originatorName: "MJ"
+    }
+
+    const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
+
+    // Do the call, and grab the response . . .
+    const response = await makeRequest({ action, url, method, authorization, date, digest, data });
+
+    // . . . and save the bit I want
+    // mandateUid1 = response.data.mandateUid;; // Why doesn't this return the mandate UID as confirmation?
+    mandateUid1 = newMandateUid;
+
+};
+
+// It would be good to give this mandate ^^^ some payments!!!!
 
 // Create mandate specifically so I can cancel it later
 
@@ -534,12 +562,6 @@ const putMandateInvalid6 = async () => {
 
 };
 
-
-
-
-
-
-
 /* *** (F.3.1) PUT mandate /api/v1/{paymentBusinessUid}/account/{accountUid}/address/{addressUid}/mandate/{mandateUid}:
     Invalid request.originatorServiceUserNumber1 ****/
 
@@ -711,7 +733,7 @@ const putMandateInvalidNoDDs = async () => {
 
 const getMandateValid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid1}`;
     const method = 'get';
     const action = '/*** (G.1) getMandate - PB, acc, addr, mandate valid ***/';
 
@@ -728,7 +750,7 @@ const getMandateValid = async () => {
 
 const getMandateInvalid1 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid1}`;
     const method = 'get';
     const action = '/*** (G.2.1) getMandate - PB not found ***/';
 
@@ -745,7 +767,7 @@ const getMandateInvalid1 = async () => {
 
 const getMandateInvalid2 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid1}`;
     const method = 'get';
     const action = '/*** (G.2.2) getMandate - PB not found ***/';
 
@@ -762,7 +784,7 @@ const getMandateInvalid2 = async () => {
 
 const getMandateInvalid3 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${mandateUid1}`;
     const method = 'get';
     const action = '/*** (G.2.3) getMandate - Acc not found ***/';
 
@@ -779,7 +801,7 @@ const getMandateInvalid3 = async () => {
 
 const getMandateInvalid4 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${mandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${mandateUid1}`;
     const method = 'get';
     const action = '/*** (G.2.4) getMandate - Addr not found ***/';
 
@@ -813,7 +835,7 @@ const getMandateInvalid5 = async () => {
 
 const getMandateInvalid6 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${mandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${mandateUid1}`;
     const method = 'get';
     const action = '/*** (G.2.6) getMandate - Acc invalid ***/';
 
@@ -830,7 +852,7 @@ const getMandateInvalid6 = async () => {
 
 const getMandateInvalid7 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}/mandate/${mandateUid}`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}/mandate/${mandateUid1}`;
     const method = 'get';
     const action = '/*** (G.2.7) getMandate - Addr invalid ***/';
 
@@ -987,7 +1009,7 @@ const getMandatesInvalid7 = async () => {
 
 const getMandatePaymentsValid = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}/payment`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid1}/payment`;
     const method = 'get';
     const action = '/*** (J.1) getMandatePayments - PB, acc, addr, mandate valid ***/';
 
@@ -1002,7 +1024,7 @@ const getMandatePaymentsValid = async () => {
 
 const getMandatePaymentsInvalid1 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}/payment`;
+    const url = `/api/v1/${paymentBusinessUidNotFound}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid1}/payment`;
     const method = 'get';
     const action = '/*** (J.2.1) getMandatePayments - PB not found ***/';
 
@@ -1017,7 +1039,7 @@ const getMandatePaymentsInvalid1 = async () => {
 
 const getMandatePaymentsInvalid2 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid}/payment`;
+    const url = `/api/v1/${paymentBusinessUidNotAuthorised}/account/${accountUid}/address/${addressUidDDs}/mandate/${mandateUid1}/payment`;
     const method = 'get';
     const action = '/*** (J.2.2) getMandatePayments - PB not found ***/';
 
@@ -1032,7 +1054,7 @@ const getMandatePaymentsInvalid2 = async () => {
 
 const getMandatePaymentsInvalid3 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${mandateUid}/payment`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidNotFound}/address/${addressUidDDs}/mandate/${mandateUid1}/payment`;
     const method = 'get';
     const action = '/*** (J.2.3) getMandatePayments - Acc not found ***/';
 
@@ -1047,7 +1069,7 @@ const getMandatePaymentsInvalid3 = async () => {
 
 const getMandatePaymentsInvalid4 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${mandateUid}/payment`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidNotFound}/mandate/${mandateUid1}/payment`;
     const method = 'get';
     const action = '/*** (J.2.4) getMandatePayments - Addr not found ***/';
 
@@ -1077,7 +1099,7 @@ const getMandatePaymentsInvalid5 = async () => {
 
 const getMandatePaymentsInvalid6 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${mandateUid}/payment`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUidInvalid}/address/${addressUidDDs}/mandate/${mandateUid1}/payment`;
     const method = 'get';
     const action = '/*** (J.2.6) getMandatePayments - Acc invalid ***/';
 
@@ -1092,7 +1114,7 @@ const getMandatePaymentsInvalid6 = async () => {
 
 const getMandatePaymentsInvalid7 = async () => {
     const date = (new Date()).toISOString();
-    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}/mandate/${mandateUid}/payment`;
+    const url = `/api/v1/${paymentBusinessUid}/account/${accountUid}/address/${addressUidInvalid}/mandate/${mandateUid1}/payment`;
     const method = 'get';
     const action = '/*** (J.2.7) getMandatePayments - Addr invalid ***/';
 
@@ -1380,6 +1402,7 @@ const putCancelMandateInvalidLogic2 = async () => {
 
 enableMandatesForAddress()                                     /* Preparing data */
     .then(() => disableMandatesForAddress())
+    .then(() => createMandateToSave1())
     .then(() => createMandateToCancel1())
     .then(() => createMandateToCancel2())
     .then(() => createMandateToCancel3())
