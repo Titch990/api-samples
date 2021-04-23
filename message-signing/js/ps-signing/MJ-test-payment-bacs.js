@@ -194,9 +194,9 @@ const createMandateToCancel1 = async () => {
     const method = 'put';
     const action = '/*** Prep - create a new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "111112",  //"111112"
-          originatorReference: "NEW REFERENCES",   // "ANOTHER REFERENCE"
-          originatorName: "MJ"                    // "MJ too"
+          originatorServiceUserNumber: "111111",
+          originatorReference: "NEW REFERENCE",
+          originatorName: "MJ"
     }
 
     const { digest, authorization } = calculateAuthorisationAndDigest(date, method, url, data);
@@ -223,8 +223,8 @@ const createMandateToCancel2 = async () => {
     const method = 'put';
     const action = '/*** Prep - create another new mandate to cancel later ***/';
     const data = {
-          originatorServiceUserNumber: "111111",  //"111113"
-          originatorReference: "OLD REFERENCES",
+          originatorServiceUserNumber: "111111",
+          originatorReference: "OLD REFERENCE",
           originatorName: "MJ TOO"
     }
 
@@ -1442,8 +1442,8 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => createMandateToCancel1())
     .then(() => createMandateToCancel2())
     .then(() => createMandateToCancel3())
-/*---    .then(() => putMandateValid())                   /***** TEST F.1 ******/      /**** PUT mandate tests ****/
-/*---    .then(() => putMandateValid2())
+    .then(() => putMandateValid())                   /***** TEST F.1 ******/      /**** PUT mandate tests ****/
+    .then(() => putMandateValid2())
     .then(() => putMandateValid3())
     .then(() => putMandateValid4())
     .then(() => putMandateValid5())
@@ -1465,7 +1465,7 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => putMandateInvalidParam6())
     .then(() => putMandateInvalidNoDDs())
     .then(() => getMandateValid())                   /***** TEST G.1 ******/      /**** GET mandate tests ****/
-/*---    .then(() => getMandateInvalid1())
+    .then(() => getMandateInvalid1())
     .then(() => getMandateInvalid2())
     .then(() => getMandateInvalid3())
     .then(() => getMandateInvalid4())
@@ -1474,14 +1474,14 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => getMandateInvalid7())
     .then(() => getMandateInvalid8())
     .then(() => getMandatesValid())                   /***** TEST H.1 ******/      /**** GET mandates tests ****/
-/*---    .then(() => getMandatesInvalid1())
+    .then(() => getMandatesInvalid1())
     .then(() => getMandatesInvalid2())
     .then(() => getMandatesInvalid3())
     .then(() => getMandatesInvalid4())
     .then(() => getMandatesInvalid6())
     .then(() => getMandatesInvalid7())
     .then(() => getMandatePaymentsValid())                   /***** TEST J.1 ******/      /**** GET mandate payments tests ****/
-/*---    .then(() => getMandatePaymentsInvalid1())
+    .then(() => getMandatePaymentsInvalid1())
     .then(() => getMandatePaymentsInvalid2())
     .then(() => getMandatePaymentsInvalid3())
     .then(() => getMandatePaymentsInvalid4())
@@ -1490,7 +1490,7 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => getMandatePaymentsInvalid7())
     .then(() => getMandatePaymentsInvalid8())
     .then(() => putCancelMandateValid())                   /***** TEST K.1 ******/      /**** PUT cancel mandate tests ****/
-/*---     .then(() => putCancelMandateInvalid2())
+     .then(() => putCancelMandateInvalid2())
     .then(() => putCancelMandateInvalid3())
     .then(() => putCancelMandateInvalid4())
     .then(() => putCancelMandateInvalid5())
@@ -1501,5 +1501,5 @@ enableMandatesForAddress()                                     /* Preparing data
     .then(() => putCancelMandateInvalidParam1())
     .then(() => putCancelMandateInvalidParam2())
     .then(() => putCancelMandateInvalidLogic1())
-    .then(() => putCancelMandateInvalidLogic2())    ---*/
+    .then(() => putCancelMandateInvalidLogic2())
 ;
